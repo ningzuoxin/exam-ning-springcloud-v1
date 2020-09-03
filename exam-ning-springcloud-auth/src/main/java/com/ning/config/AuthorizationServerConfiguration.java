@@ -64,9 +64,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         // 密码模式
         clients.inMemory()
                 .withClient("ning666888")
-                .scopes("ningning")
                 .secret("888666")
-                .authorizedGrantTypes("password", "refresh_token");
+                .scopes("ningning")
+                .authorizedGrantTypes("password", "client_credentials", "refresh_token");
     }
 
     @Override

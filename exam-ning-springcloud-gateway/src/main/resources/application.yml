@@ -14,6 +14,13 @@ spring:
           lowerCaseServiceId: true
           enabled: true
       routes:
+        # 认证服务
+        - id:
+          uri: lb://exam-ning-auth
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
         # 考试服务
         - id: exam-ning-system-exam
           uri: lb://exam-ning-system-exam
