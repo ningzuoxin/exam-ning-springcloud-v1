@@ -1,1 +1,5 @@
 C:\YiChengGongZuo\workspace-idea-02\exam-ning-springcloud-v1\exam-ning-springcloud-auth\src\main\java\com\ning\ExamNingAuthApplication.java
+C:\YiChengGongZuo\workspace-idea-02\exam-ning-springcloud-v1\exam-ning-springcloud-auth\src\main\java\com\ning\config\SecurityConfig.java
+C:\YiChengGongZuo\workspace-idea-02\exam-ning-springcloud-v1\exam-ning-springcloud-auth\src\main\java\com\ning\controller\IndexController.java
+C:\YiChengGongZuo\workspace-idea-02\exam-ning-springcloud-v1\exam-ning-springcloud-auth\src\main\java\com\ning\config\AuthorizationServerConfiguration.java
+C:\YiChengGongZuo\workspace-idea-02\exam-ning-springcloud-v1\exam-ning-springcloud-auth\src\main\java\com\ning\service\MyUserDetailsService.java

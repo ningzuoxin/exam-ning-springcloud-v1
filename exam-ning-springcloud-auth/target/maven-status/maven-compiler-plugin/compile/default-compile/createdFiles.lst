@@ -1,1 +1,5 @@
+com\ning\config\AuthorizationServerConfiguration.class
+com\ning\controller\IndexController.class
+com\ning\service\MyUserDetailsService.class
+com\ning\config\SecurityConfig.class
 com\ning\ExamNingAuthApplication.class
