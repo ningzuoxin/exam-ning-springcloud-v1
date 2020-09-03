@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: exam-ning-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848 # 服务注册中心
+    gateway:
+      discovery:
+        locator:
+          lowerCaseServiceId: true
+          enabled: true
+      routes:
+        # 考试服务
+        - id: exam-ning-system-exam
+          uri: lb://exam-ning-system-exam
+          predicates:
+            - Path=/exam/**
+          filters:
+            - StripPrefix=1
+        # 用户服务
+        - id: exam-ning-system-user
+          uri: lb://exam-ning-system-user
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix=1

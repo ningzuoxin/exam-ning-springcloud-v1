@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/exam-ning-springcloud-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exam-ning-springcloud-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exam-ning-springcloud-auth/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exam-ning-springcloud-auth/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exam-ning-springcloud-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exam-ning-springcloud-gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exam-ning-springcloud-system-exam/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exam-ning-springcloud-system-exam/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exam-ning-springcloud-system-user/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exam-ning-springcloud-system-user/src/main/resources" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>
