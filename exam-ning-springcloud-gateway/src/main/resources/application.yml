@@ -15,7 +15,7 @@ spring:
           enabled: true
       routes:
         # 认证服务
-        - id:
+        - id: exam-ning-auth
           uri: lb://exam-ning-auth
           predicates:
             - Path=/auth/**

@@ -13,6 +13,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/exam/**").authenticated(); // 配置exam访问控制，必须认证后才可以访问
+        http.authorizeRequests().antMatchers("/user/**").authenticated(); // 配置user访问控制，必须认证后才可以访问
     }
 }

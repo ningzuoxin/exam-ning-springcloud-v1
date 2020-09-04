@@ -18,3 +18,17 @@ security:
       client-id: ning666888
       client-secret: 888666
       scope: ningning
+
+# swagger配置
+swagger:
+  title: 用户模块接口文档
+  license: Powered By ning
+  licenseUrl: https://ruoyi.vip
+  authorization:
+    name: ning
+    auth-regex: ^.*$
+    authorization-scope-list:
+      - scope: server
+        description: 客户端授权范围
+    token-url-list:
+      - http://localhost:8080/auth/oauth/token

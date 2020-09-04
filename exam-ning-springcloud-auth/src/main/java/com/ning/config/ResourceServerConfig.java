@@ -16,6 +16,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/oauth/user").authenticated(); // 配置oauth访问控制，必须认证后才可以访问
+        http.authorizeRequests()
+                .antMatchers("/v2/api-docs").permitAll()
+                .antMatchers("/oauth/user").authenticated(); // 配置oauth访问控制，必须认证后才可以访问
     }
 }
