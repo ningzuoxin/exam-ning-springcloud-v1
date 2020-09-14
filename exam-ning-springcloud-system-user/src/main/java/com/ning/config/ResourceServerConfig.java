@@ -6,9 +6,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
-@Configuration
-@EnableResourceServer
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+// 使用redis授权服务配置时，打开下面的注释。
+//@Configuration
+//@EnableResourceServer
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
