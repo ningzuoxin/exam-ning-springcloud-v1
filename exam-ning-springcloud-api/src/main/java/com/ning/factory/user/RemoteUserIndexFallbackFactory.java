@@ -1,33 +1,32 @@
 package com.ning.factory.user;
 
-import com.ning.api.user.RemoteUserIndexService;
+import com.ning.api.user.RemoteUserService;
 import com.ning.model.Result;
+import com.ning.model.User;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 /**
  * 用户服务降级处理
  */
 @Slf4j
 @Component
-public class RemoteUserIndexFallbackFactory implements FallbackFactory<RemoteUserIndexService> {
+public class RemoteUserIndexFallbackFactory implements FallbackFactory<RemoteUserService> {
 
     @Override
-    public RemoteUserIndexService create(Throwable throwable) {
+    public RemoteUserService create(Throwable throwable) {
 
         log.info(" ====== RemoteUserIndexFallbackFactory # create ====== " + throwable.getMessage());
 
-        return new RemoteUserIndexService() {
+        return new RemoteUserService() {
             @Override
             public Result<String> index() {
                 return Result.fail("");
             }
 
             @Override
-            public Result<Map<String, Object>> map() {
+            public Result<User> selectUserByUsername(String username) {
                 return Result.fail("");
             }
         };

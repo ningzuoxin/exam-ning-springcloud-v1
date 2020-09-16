@@ -15,16 +15,10 @@ public class UserController {
     @Resource
     UserService userService;
 
-    @GetMapping(value = "/list")
-    public String list() {
-        return "user list";
-    }
-
-    @PostMapping(value = "/login")
-    @ApiOperation(value = "登录")
-    public Result login(@RequestParam(value = "username") @ApiParam(name = "username", example = "admin") String username,
-                        @RequestParam(value = "password") @ApiParam(name = "password", example = "123456") String password) {
-        return userService.login(username, password);
+    @PostMapping(value = "/selectUserByUsername")
+    @ApiOperation(value = "根据用户名查询用户信息")
+    public Result selectUserByUsername(@RequestParam(value = "username") @ApiParam(name = "username", example = "admin") String username) {
+        return userService.selectUserByUsername(username);
     }
 
 }

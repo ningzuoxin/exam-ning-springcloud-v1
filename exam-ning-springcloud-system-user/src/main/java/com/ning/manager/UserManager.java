@@ -14,20 +14,16 @@ public class UserManager {
     UserDao userDao;
 
     /**
-     * 根据账号密码查询单个用户
+     * 根据账号查询用户信息
      *
      * @param username
-     * @param password
      * @return
      */
-    public User findUser(String username, String password) {
+    public User selectUserByUsername(String username) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("username", username);
-        wrapper.eq("password", password);
         wrapper.eq("is_delete", 0);
-
-        User user = userDao.selectOne(wrapper);
-        return user;
+        return userDao.selectOne(wrapper);
     }
 
 }

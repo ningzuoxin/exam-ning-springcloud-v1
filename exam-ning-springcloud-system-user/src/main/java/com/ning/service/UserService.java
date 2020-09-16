@@ -1,6 +1,5 @@
 package com.ning.service;
 
-import cn.hutool.core.util.ObjectUtil;
 import com.ning.entity.User;
 import com.ning.manager.UserManager;
 import com.ning.model.Result;
@@ -15,18 +14,13 @@ public class UserService {
     UserManager userManager;
 
     /**
-     * 登录
+     * 根据账号查询用户信息
      *
      * @param username
-     * @param password
      * @return
      */
-    public Result login(String username, String password) {
-        User user = userManager.findUser(username, password);
-        if (ObjectUtil.isEmpty(user)) {
-            return Result.fail("用户名或密码错误");
-        }
-        return Result.ok(user);
+    public Result<User> selectUserByUsername(String username) {
+        return Result.ok(userManager.selectUserByUsername(username));
     }
 
 }
