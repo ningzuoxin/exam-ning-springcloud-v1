@@ -32,7 +32,7 @@ mybatis-plus:
 security:
   oauth2:
     resource:
-      user-info-uri: http://localhost:8080/auth/oauth/user
+      # user-info-uri: http://localhost:8080/auth/oauth/user
       # token-info-uri: http://localhost:8080/auth/oauth/check_token
     client:
       client-id: ning666888

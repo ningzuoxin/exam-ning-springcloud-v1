@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class RemoteUserIndexFallbackFactory implements FallbackFactory<RemoteUserService> {
+public class RemoteUserFallbackFactory implements FallbackFactory<RemoteUserService> {
 
     @Override
     public RemoteUserService create(Throwable throwable) {
 
-        log.info(" ====== RemoteUserIndexFallbackFactory # create ====== " + throwable.getMessage());
+        log.info(" ====== RemoteUserFallbackFactory # create ====== " + throwable.getMessage());
 
         return new RemoteUserService() {
             @Override
