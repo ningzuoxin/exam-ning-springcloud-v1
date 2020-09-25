@@ -94,15 +94,14 @@ public class AuthorizationServerJWTConfiguration extends AuthorizationServerConf
      *
      * @return JwtAccessTokenConverter
      */
-    @Bean
-    public JwtAccessTokenConverter jwtTokenEnhancer() {
+    private JwtAccessTokenConverter jwtTokenEnhancer() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         // 非对称加密，但jwt长度过长
         // KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("spring-jwt.jks"), "admin123456".toCharArray()).getKeyPair("spring-jwt");
         // converter.setKeyPair(keyPair);
 
         // 对称加密
-        // converter.setSigningKey("admin123");
+        converter.setSigningKey("ning123456");
         return converter;
     }
 

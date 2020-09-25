@@ -7,6 +7,8 @@ import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * 用户服务降级处理
  */
@@ -27,6 +29,11 @@ public class RemoteUserFallbackFactory implements FallbackFactory<RemoteUserServ
 
             @Override
             public Result<User> selectUserByUsername(String username) {
+                return Result.fail("");
+            }
+
+            @Override
+            public Result<List<User>> selectUsers() {
                 return Result.fail("");
             }
         };

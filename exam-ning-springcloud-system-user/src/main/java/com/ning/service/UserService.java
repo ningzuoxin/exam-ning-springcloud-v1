@@ -6,6 +6,7 @@ import com.ning.model.Result;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -21,6 +22,15 @@ public class UserService {
      */
     public Result<User> selectUserByUsername(String username) {
         return Result.ok(userManager.selectUserByUsername(username));
+    }
+
+    /**
+     * 查询用户列表
+     *
+     * @return
+     */
+    public Result<List<User>> selectUsers() {
+        return Result.ok(userManager.selectUsers());
     }
 
 }
