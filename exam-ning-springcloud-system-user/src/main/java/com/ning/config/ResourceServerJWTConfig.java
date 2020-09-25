@@ -21,7 +21,7 @@ public class ResourceServerJWTConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/user/selectUserByUsername", "/user/selectUsers").permitAll()
+        http.authorizeRequests().antMatchers("/user/selectUserByUsername").permitAll()
                 .antMatchers("/user/**").authenticated(); // 配置user访问控制，必须认证后才可以访问
     }
 

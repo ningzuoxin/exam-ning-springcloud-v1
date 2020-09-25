@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequestMapping(value = "/exam/")
@@ -24,8 +25,9 @@ public class ExamController {
     }
 
     @GetMapping(value = "/users")
-    public Result<List<User>> users() {
-        return remoteUserService.selectUsers();
+    public Result<List<User>> users(HttpServletRequest request) {
+        String accessToken = request.getParameter("access_token");
+        return remoteUserService.selectUsers(accessToken);
     }
 
 }

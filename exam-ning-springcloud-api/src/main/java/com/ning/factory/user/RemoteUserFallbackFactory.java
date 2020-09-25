@@ -33,7 +33,7 @@ public class RemoteUserFallbackFactory implements FallbackFactory<RemoteUserServ
             }
 
             @Override
-            public Result<List<User>> selectUsers() {
+            public Result<List<User>> selectUsers(String accessToken) {
                 return Result.fail("");
             }
         };
