@@ -13,6 +13,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotEmpty;
+
 /**
  * <p>
  * 用户表
@@ -34,18 +36,22 @@ public class User implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @NotEmpty(message = "账号不能为空")
     @ApiModelProperty(value = "账号")
     @TableField("username")
     private String username;
 
+    @NotEmpty(message = "密码不能为空")
     @ApiModelProperty(value = "密码")
     @TableField("password")
     private String password;
 
+    @NotEmpty(message = "邮箱不能为空")
     @ApiModelProperty(value = "邮箱")
     @TableField("email")
     private String email;
 
+    @NotEmpty(message = "手机不能为空")
     @ApiModelProperty(value = "手机")
     @TableField("mobile")
     private String mobile;
@@ -54,6 +60,7 @@ public class User implements Serializable {
     @TableField("salt")
     private String salt;
 
+    @NotEmpty(message = "昵称不能为空")
     @ApiModelProperty(value = "昵称")
     @TableField("nickname")
     private String nickname;

@@ -1,6 +1,9 @@
 package com.ning.manager;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ning.dao.UserDao;
 import com.ning.entity.User;
 import org.springframework.stereotype.Component;
@@ -34,6 +37,65 @@ public class UserManager {
      */
     public List<User> selectUsers() {
         return userDao.selectList(null);
+    }
+
+    /**
+     * 分页查询用户列表
+     *
+     * @param keyword
+     * @param pNum
+     * @param pSize
+     * @return
+     */
+    public IPage<User> selectUserPage(String keyword, Integer pNum, Integer pSize) {
+        // 分页对象
+        IPage<User> iPage = new Page<>(pNum, pSize);
+
+        // 查询对象
+        LambdaQueryWrapper<User> wrapper = new QueryWrapper<User>().lambda();
+        wrapper.eq(User::getIsDelete, 0).like(User::getNickname, keyword).or().like(User::getUsername, keyword).or().like(User::getEmail, keyword).or().like(User::getMobile, keyword);
+
+        return userDao.selectPage(iPage, wrapper);
+    }
+
+    /**
+     * 根据账号统计用户数
+     *
+     * @param username
+     * @return
+     */
+    public Integer count(String username) {
+        return userDao.selectCount(new QueryWrapper<User>().lambda().eq(User::getIsDelete, 0).eq(User::getUsername, username));
+    }
+
+    /**
+     * 添加用户
+     *
+     * @param user
+     * @return
+     */
+    public Integer add(User user) {
+        return userDao.insert(user);
+    }
+
+    /**
+     * 修改用户
+     *
+     * @param user
+     * @return
+     */
+    public Integer edit(User user) {
+        return userDao.updateById(user);
+    }
+
+    /**
+     * 根据id查询用户
+     *
+     * @param id
+     * @return
+     */
+    public User getUserById(Integer id) {
+        return userDao.selectById(id);
     }
 
 }

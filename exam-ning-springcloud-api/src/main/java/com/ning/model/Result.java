@@ -33,11 +33,11 @@ public class Result<T> implements Serializable {
     private T data;
 
     public static <T> Result<T> ok() {
-        return restResult(null, SUCCESS, null);
+        return restResult(null, SUCCESS, "success");
     }
 
     public static <T> Result<T> ok(T data) {
-        return restResult(data, SUCCESS, null);
+        return restResult(data, SUCCESS, "success");
     }
 
     public static <T> Result<T> ok(T data, String msg) {
@@ -45,7 +45,7 @@ public class Result<T> implements Serializable {
     }
 
     public static <T> Result<T> fail() {
-        return restResult(null, FAIL, null);
+        return restResult(null, FAIL, "failure");
     }
 
     public static <T> Result<T> fail(String msg) {
@@ -53,7 +53,7 @@ public class Result<T> implements Serializable {
     }
 
     public static <T> Result<T> fail(T data) {
-        return restResult(data, FAIL, null);
+        return restResult(data, FAIL, "failure");
     }
 
     public static <T> Result<T> fail(T data, String msg) {
