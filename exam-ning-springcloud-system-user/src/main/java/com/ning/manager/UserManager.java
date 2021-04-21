@@ -1,5 +1,6 @@
 package com.ning.manager;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -53,7 +54,11 @@ public class UserManager {
 
         // 查询对象
         LambdaQueryWrapper<User> wrapper = new QueryWrapper<User>().lambda();
-        wrapper.eq(User::getIsDelete, 0).like(User::getNickname, keyword).or().like(User::getUsername, keyword).or().like(User::getEmail, keyword).or().like(User::getMobile, keyword);
+        wrapper.eq(User::getIsDelete, 0);
+        if (StrUtil.isNotEmpty(keyword)) {
+            wrapper.like(User::getNickname, keyword).or().like(User::getUsername, keyword).or().like(User::getEmail, keyword).or().like(User::getMobile, keyword);
+        }
+        wrapper.orderByDesc(User::getCreateTime);
 
         return userDao.selectPage(iPage, wrapper);
     }

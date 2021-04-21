@@ -33,7 +33,7 @@ public class UserController {
 
     @GetMapping(value = "/page")
     @ApiOperation(value = "分页查询用户列表")
-    public Result selectPage(@RequestParam(value = "keyword") @ApiParam(name = "keyword", example = "") String keyword,
+    public Result selectPage(@RequestParam(value = "keyword", required = false) @ApiParam(name = "keyword", example = "") String keyword,
                              @RequestParam(value = "pNum", defaultValue = "1") @ApiParam(name = "pNum", example = "1") Integer pNum,
                              @RequestParam(value = "pSize", defaultValue = "10") @ApiParam(name = "pSize", example = "10") Integer pSize) {
         return userService.selectUserPage(keyword, pNum, pSize);
