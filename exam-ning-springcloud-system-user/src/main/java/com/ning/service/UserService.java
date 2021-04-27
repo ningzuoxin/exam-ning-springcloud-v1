@@ -118,4 +118,20 @@ public class UserService {
         }
     }
 
+    /**
+     * 获取单个用户
+     *
+     * @param id
+     * @return
+     */
+    public Result getUser(Integer id) {
+        User user = userManager.getUserById(id);
+        if (ObjectUtil.isEmpty(user)) {
+            return Result.fail("不存在的用户");
+        }
+        if (user.getIsDelete() == 1) {
+            return Result.fail("用户已被删除");
+        }
+        return Result.ok(user);
+    }
 }

@@ -51,7 +51,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/edit")
-    @ApiOperation(value = "添加用户")
+    @ApiOperation(value = "修改用户")
     public Result editUser(@RequestBody @Valid User user) {
         return userService.editUser(user);
     }
@@ -60,6 +60,12 @@ public class UserController {
     @ApiOperation(value = "删除用户")
     public Result deleteUser(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Integer id) {
         return userService.deleteUser(id);
+    }
+
+    @GetMapping(value = "/get")
+    @ApiOperation(value = "获取单个用户")
+    public Result getUser(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Integer id) {
+        return userService.getUser(id);
     }
 
 }
