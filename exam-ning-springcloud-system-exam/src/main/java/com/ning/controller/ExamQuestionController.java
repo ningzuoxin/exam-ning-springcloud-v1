@@ -1,16 +1,16 @@
 package com.ning.controller;
 
+import cn.hutool.core.date.DateUtil;
 import com.ning.common.enums.ExamQuestionTypeEnum;
+import com.ning.entity.ExamQuestion;
 import com.ning.model.Result;
 import com.ning.service.ExamQuestionService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +34,35 @@ public class ExamQuestionController {
                              @RequestParam(value = "pNum", defaultValue = "1") @ApiParam(name = "pNum", example = "1") Integer pNum,
                              @RequestParam(value = "pSize", defaultValue = "10") @ApiParam(name = "pSize", example = "10") Integer pSize) {
         return examQuestionService.selectExamQuestionPage(type, keyword, pNum, pSize);
+    }
+
+    @PostMapping(value = "/add")
+    @ApiOperation(value = "添加考题")
+    public Result add(@RequestBody @Valid ExamQuestion examQuestion) {
+        int now = (int) DateUtil.currentSeconds();
+        examQuestion.setIsDelete(0);
+        examQuestion.setCreateTime(now);
+        examQuestion.setUpdateTime(now);
+        return examQuestionService.add(examQuestion);
+    }
+
+    @PostMapping(value = "/updateIsShow")
+    @ApiOperation(value = "修改考题显示状态")
+    public Result updateIsShow(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Integer id,
+                               @RequestParam(value = "isShow") @ApiParam(name = "isShow", example = "1") Integer isShow) {
+        return examQuestionService.updateIsShow(id, isShow);
+    }
+
+    @GetMapping(value = "/delete")
+    @ApiOperation(value = "删除考题")
+    public Result delete(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Integer id) {
+        return examQuestionService.delete(id);
+    }
+
+    @GetMapping(value = "/detail")
+    @ApiOperation(value = "考题详情")
+    public Result detail(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Integer id) {
+        return examQuestionService.detail(id);
     }
 
 }

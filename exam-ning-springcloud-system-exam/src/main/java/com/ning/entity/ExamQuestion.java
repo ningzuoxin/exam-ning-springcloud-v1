@@ -13,6 +13,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotEmpty;
+
 /**
  * <p>
  * 考题表
@@ -34,10 +36,12 @@ public class ExamQuestion implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @NotEmpty(message = "题目类型不能为空")
     @ApiModelProperty(value = "题目类型")
     @TableField("type")
     private String type;
 
+    @NotEmpty(message = "题干不能为空")
     @ApiModelProperty(value = "题干")
     @TableField("stem")
     private String stem;
@@ -46,6 +50,7 @@ public class ExamQuestion implements Serializable {
     @TableField("score")
     private Float score;
 
+    @NotEmpty(message = "参考答案不能为空")
     @ApiModelProperty(value = "参考答案")
     @TableField("answer")
     private String answer;

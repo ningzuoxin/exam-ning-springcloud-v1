@@ -44,4 +44,34 @@ public class ExamQuestionManager {
         return examQuestionDao.selectPage(iPage, wrapper);
     }
 
+    /**
+     * 添加考题
+     *
+     * @param examQuestion
+     * @return
+     */
+    public Integer add(ExamQuestion examQuestion) {
+        return examQuestionDao.insert(examQuestion);
+    }
+
+    /**
+     * 修改考题
+     *
+     * @param examQuestion
+     * @return
+     */
+    public Integer update(ExamQuestion examQuestion) {
+        return examQuestionDao.updateById(examQuestion);
+    }
+
+    /**
+     * 获取考题
+     *
+     * @param id
+     * @return
+     */
+    public ExamQuestion get(Integer id) {
+        return examQuestionDao.selectById(id);
+    }
+
 }
