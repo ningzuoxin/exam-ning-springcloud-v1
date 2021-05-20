@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * User模块代码生成器
+ * Exam模块代码生成器
  */
 @SuppressWarnings("ALL")
 public class ExamCodeGeneration {
@@ -61,7 +61,7 @@ public class ExamCodeGeneration {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setTablePrefix(new String[]{"srv_"}); // 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        strategy.setInclude(new String[]{"exam_question"}); // 需要生成的表
+        strategy.setInclude(new String[]{"exam_test_paper", "exam_test_paper_item"}); // 需要生成的表
 
         strategy.setRestControllerStyle(true);
         strategy.setSuperServiceClass(null);
