@@ -39,7 +39,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--swagger-->
+        <!--swagger-ui-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>

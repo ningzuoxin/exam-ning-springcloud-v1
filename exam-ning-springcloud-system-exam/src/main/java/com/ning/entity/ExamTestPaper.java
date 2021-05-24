@@ -14,6 +14,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
@@ -53,10 +54,12 @@ public class ExamTestPaper implements Serializable {
     @TableField("limited_time")
     private Integer limitedTime;
 
+    @NotNull(message = "总分不能为空")
     @ApiModelProperty(value = "总分")
     @TableField("total_score")
     private Float totalScore;
 
+    @NotNull(message = "及格分不能为空")
     @ApiModelProperty(value = "及格分")
     @TableField("passed_score")
     private Float passedScore;
