@@ -1,7 +1,9 @@
 package com.ning.service;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ning.common.model.ExamTestPaperModel;
+import com.ning.entity.ExamTestPaper;
 import com.ning.entity.ExamTestPaperItem;
 import com.ning.manager.ExamTestPaperItemManager;
 import com.ning.manager.ExamTestPaperManager;
@@ -42,6 +44,19 @@ public class ExamTestPaperService {
         }
 
         return Result.ok(examTestPaperModel);
+    }
+
+    /**
+     * 分页查询试卷列表
+     *
+     * @param type
+     * @param keyword
+     * @param pNum
+     * @param pSize
+     * @return
+     */
+    public Result<IPage<ExamTestPaper>> selectExamTestPaperPage(String type, String keyword, Integer pNum, Integer pSize) {
+        return Result.ok(examTestPaperManager.selectExamTestPaperPage(type, keyword, pNum, pSize));
     }
 
 }

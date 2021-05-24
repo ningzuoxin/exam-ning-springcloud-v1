@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
  * </p>
  *
  * @author ningning
- * @since 2021-05-14
+ * @since 2021-05-24
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -37,13 +37,9 @@ public class ExamTestPaper implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "试卷类型（training、mock、formal）")
+    @ApiModelProperty(value = "试卷类型（training、mock）")
     @TableField("type")
     private String type;
-
-    @ApiModelProperty(value = "证书ID")
-    @TableField("certificate_id")
-    private Integer certificateId;
 
     @NotEmpty(message = "试卷名称不能为空")
     @ApiModelProperty(value = "试卷名")
@@ -64,6 +60,7 @@ public class ExamTestPaper implements Serializable {
     @TableField("passed_score")
     private Float passedScore;
 
+
     @ApiModelProperty(value = "题目数量")
     @TableField("item_count")
     private Integer itemCount;
@@ -72,9 +69,9 @@ public class ExamTestPaper implements Serializable {
     @TableField("copy_id")
     private Integer copyId;
 
-    @ApiModelProperty(value = "试卷分类ID")
-    @TableField("category_id")
-    private Integer categoryId;
+    @ApiModelProperty(value = "是否使用 0 未使用 1 使用")
+    @TableField("is_used")
+    private Integer isUsed;
 
     @ApiModelProperty(value = "是否删除 0 未删除 1 已删除")
     @TableField("is_delete")

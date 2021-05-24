@@ -4,26 +4,25 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ning.entity.ExamTestPaper">
-        <id column="id" property="id" />
-        <result column="type" property="type" />
-        <result column="certificate_id" property="certificateId" />
-        <result column="name" property="name" />
-        <result column="limited_time" property="limitedTime" />
-        <result column="total_score" property="totalScore" />
-        <result column="passed_score" property="passedScore" />
-        <result column="item_count" property="itemCount" />
-        <result column="copy_id" property="copyId" />
-        <result column="category_id" property="categoryId" />
-        <result column="is_delete" property="isDelete" />
-        <result column="create_user_id" property="createUserId" />
-        <result column="create_time" property="createTime" />
-        <result column="update_user_id" property="updateUserId" />
-        <result column="update_time" property="updateTime" />
+        <id column="id" property="id"/>
+        <result column="type" property="type"/>
+        <result column="name" property="name"/>
+        <result column="limited_time" property="limitedTime"/>
+        <result column="total_score" property="totalScore"/>
+        <result column="passed_score" property="passedScore"/>
+        <result column="item_count" property="itemCount"/>
+        <result column="copy_id" property="copyId"/>
+        <result column="is_used" property="isUsed"/>
+        <result column="is_delete" property="isDelete"/>
+        <result column="create_user_id" property="createUserId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user_id" property="updateUserId"/>
+        <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, type, certificate_id, name, limited_time, total_score, passed_score, item_count, copy_id, category_id, is_delete, create_user_id, create_time, update_user_id, update_time
+        id, type, name, limited_time, total_score, passed_score, item_count, copy_id, is_used, is_delete, create_user_id, create_time, update_user_id, update_time
     </sql>
 
 </mapper>
