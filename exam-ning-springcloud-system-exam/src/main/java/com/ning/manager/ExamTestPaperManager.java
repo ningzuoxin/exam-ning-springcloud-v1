@@ -39,4 +39,8 @@ public class ExamTestPaperManager {
         return examTestPaperDao.selectPage(iPage, wrapper);
     }
 
+    public ExamTestPaper selectById(Integer id) {
+        return examTestPaperDao.selectById(id);
+    }
+
 }

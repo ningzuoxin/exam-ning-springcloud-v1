@@ -10,6 +10,7 @@ import com.ning.entity.ExamQuestion;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Component
 public class ExamQuestionManager {
@@ -72,6 +73,16 @@ public class ExamQuestionManager {
      */
     public ExamQuestion get(Integer id) {
         return examQuestionDao.selectById(id);
+    }
+
+    /**
+     * 批量查询题目
+     *
+     * @param ids
+     * @return
+     */
+    public List<ExamQuestion> selectBatchIds(List<Integer> ids) {
+        return examQuestionDao.selectBatchIds(ids);
     }
 
 }

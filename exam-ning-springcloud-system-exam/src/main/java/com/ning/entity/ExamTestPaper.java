@@ -60,7 +60,6 @@ public class ExamTestPaper implements Serializable {
     @TableField("passed_score")
     private Float passedScore;
 
-
     @ApiModelProperty(value = "题目数量")
     @TableField("item_count")
     private Integer itemCount;

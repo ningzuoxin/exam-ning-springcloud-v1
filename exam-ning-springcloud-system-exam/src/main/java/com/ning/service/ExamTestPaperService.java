@@ -1,10 +1,13 @@
 package com.ning.service;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ning.common.model.ExamTestPaperModel;
+import com.ning.entity.ExamQuestion;
 import com.ning.entity.ExamTestPaper;
 import com.ning.entity.ExamTestPaperItem;
+import com.ning.manager.ExamQuestionManager;
 import com.ning.manager.ExamTestPaperItemManager;
 import com.ning.manager.ExamTestPaperManager;
 import com.ning.model.Result;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ExamTestPaperService {
@@ -20,6 +24,8 @@ public class ExamTestPaperService {
     ExamTestPaperManager examTestPaperManager;
     @Resource
     ExamTestPaperItemManager examTestPaperItemManager;
+    @Resource
+    ExamQuestionManager examQuestionManager;
 
     /**
      * 添加试卷
@@ -59,4 +65,22 @@ public class ExamTestPaperService {
         return Result.ok(examTestPaperManager.selectExamTestPaperPage(type, keyword, pNum, pSize));
     }
 
+    /**
+     * 预览试卷
+     *
+     * @param id
+     * @return
+     */
+    public Result<ExamTestPaperModel> preview(Integer id) {
+        ExamTestPaperModel examTestPaperModel = new ExamTestPaperModel();
+        ExamTestPaper examTestPaper = examTestPaperManager.selectById(id);
+        BeanUtil.copyProperties(examTestPaper, examTestPaperModel);
+
+        List<ExamTestPaperItem> examTestPaperItems = examTestPaperItemManager.listByTestPaperId(id);
+        examTestPaperModel.setExamTestPaperItems(examTestPaperItems);
+
+        List<ExamQuestion> examQuestions = examQuestionManager.selectBatchIds(examTestPaperItems.stream().map(m -> m.getQuestionId()).collect(Collectors.toList()));
+        examTestPaperModel.setExamQuestions(examQuestions);
+        return Result.ok(examTestPaperModel);
+    }
 }

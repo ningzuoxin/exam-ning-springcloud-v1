@@ -46,4 +46,10 @@ public class ExamTestPaperController {
         return examTestPaperService.selectExamTestPaperPage(type, keyword, pNum, pSize);
     }
 
+    @GetMapping(value = "/preview")
+    @ApiOperation(value = "预览试卷")
+    public Result<ExamTestPaperModel> preview(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Integer id) {
+        return examTestPaperService.preview(id);
+    }
+
 }
