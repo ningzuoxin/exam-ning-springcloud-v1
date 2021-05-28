@@ -83,4 +83,16 @@ public class ExamTestPaperService {
         examTestPaperModel.setExamQuestions(examQuestions);
         return Result.ok(examTestPaperModel);
     }
+
+    /**
+     * 查询考试列表
+     *
+     * @param type
+     * @param pNum
+     * @param pSize
+     * @return
+     */
+    public Result listExam(String type, Integer pNum, Integer pSize) {
+        return Result.ok(examTestPaperManager.listExam(type, pNum, pSize));
+    }
 }
