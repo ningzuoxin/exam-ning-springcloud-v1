@@ -3,6 +3,7 @@ package com.ning.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.ning.common.enums.ExamQuestionTypeEnum;
 import com.ning.common.model.ExamTestPaperModel;
 import com.ning.entity.ExamQuestion;
 import com.ning.entity.ExamTestPaper;
@@ -77,9 +78,21 @@ public class ExamTestPaperService {
         BeanUtil.copyProperties(examTestPaper, examTestPaperModel);
 
         List<ExamTestPaperItem> examTestPaperItems = examTestPaperItemManager.listByTestPaperId(id);
+        // 排序一下
+        examTestPaperItems.sort((t1, t2) -> {
+            int i1 = ExamQuestionTypeEnum.getIndex(t1.getQuestionType());
+            int i2 = ExamQuestionTypeEnum.getIndex(t2.getQuestionType());
+            return i1 - i2;
+        });
         examTestPaperModel.setExamTestPaperItems(examTestPaperItems);
 
         List<ExamQuestion> examQuestions = examQuestionManager.selectBatchIds(examTestPaperItems.stream().map(m -> m.getQuestionId()).collect(Collectors.toList()));
+        // 排序一下
+        examQuestions.sort((t1, t2) -> {
+            int i1 = ExamQuestionTypeEnum.getIndex(t1.getType());
+            int i2 = ExamQuestionTypeEnum.getIndex(t2.getType());
+            return i1 - i2;
+        });
         examTestPaperModel.setExamQuestions(examQuestions);
         return Result.ok(examTestPaperModel);
     }
