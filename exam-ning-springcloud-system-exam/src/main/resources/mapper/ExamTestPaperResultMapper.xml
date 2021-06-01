@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ning.dao.ExamTestPaperResultDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ning.entity.ExamTestPaperResult">
+        <id column="id" property="id" />
+        <result column="testpaper_id" property="testpaperId" />
+        <result column="testpaper_name" property="testpaperName" />
+        <result column="user_id" property="userId" />
+        <result column="score" property="score" />
+        <result column="objective_score" property="objectiveScore" />
+        <result column="subjective_score" property="subjectiveScore" />
+        <result column="teacher_say" property="teacherSay" />
+        <result column="right_item_count" property="rightItemCount" />
+        <result column="used_time" property="usedTime" />
+        <result column="status" property="status" />
+        <result column="check_user_id" property="checkUserId" />
+        <result column="checked_time" property="checkedTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, testpaper_id, testpaper_name, user_id, score, objective_score, subjective_score, teacher_say, right_item_count, used_time, status, check_user_id, checked_time, update_time
+    </sql>
+
+</mapper>

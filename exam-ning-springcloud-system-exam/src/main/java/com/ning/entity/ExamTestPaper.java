@@ -41,7 +41,6 @@ public class ExamTestPaper implements Serializable {
     @TableField("type")
     private String type;
 
-    @NotEmpty(message = "试卷名称不能为空")
     @ApiModelProperty(value = "试卷名")
     @TableField("name")
     private String name;
@@ -50,12 +49,10 @@ public class ExamTestPaper implements Serializable {
     @TableField("limited_time")
     private Integer limitedTime;
 
-    @NotNull(message = "总分不能为空")
     @ApiModelProperty(value = "总分")
     @TableField("total_score")
     private Float totalScore;
 
-    @NotNull(message = "及格分不能为空")
     @ApiModelProperty(value = "及格分")
     @TableField("passed_score")
     private Float passedScore;

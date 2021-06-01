@@ -60,4 +60,10 @@ public class ExamTestPaperController {
         return examTestPaperService.listExam(type, pNum, pSize);
     }
 
+    @PostMapping(value = "/submit")
+    @ApiOperation(value = "交卷")
+    public Result submit(@RequestBody @Valid ExamTestPaperModel examTestPaperModel) {
+        return examTestPaperService.submit(examTestPaperModel);
+    }
+
 }

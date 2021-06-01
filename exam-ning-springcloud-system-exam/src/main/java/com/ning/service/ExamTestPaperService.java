@@ -8,9 +8,8 @@ import com.ning.common.model.ExamTestPaperModel;
 import com.ning.entity.ExamQuestion;
 import com.ning.entity.ExamTestPaper;
 import com.ning.entity.ExamTestPaperItem;
-import com.ning.manager.ExamQuestionManager;
-import com.ning.manager.ExamTestPaperItemManager;
-import com.ning.manager.ExamTestPaperManager;
+import com.ning.entity.ExamTestPaperItemResult;
+import com.ning.manager.*;
 import com.ning.model.Result;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +26,10 @@ public class ExamTestPaperService {
     ExamTestPaperItemManager examTestPaperItemManager;
     @Resource
     ExamQuestionManager examQuestionManager;
+    @Resource
+    ExamTestPaperResultManager examTestPaperResultManager;
+    @Resource
+    ExamTestPaperItemResultManager examTestPaperItemResultManager;
 
     /**
      * 添加试卷
@@ -107,5 +110,20 @@ public class ExamTestPaperService {
      */
     public Result listExam(String type, Integer pNum, Integer pSize) {
         return Result.ok(examTestPaperManager.listExam(type, pNum, pSize));
+    }
+
+    /**
+     * 交卷
+     *
+     * @param examTestPaperModel
+     * @return
+     */
+    public Result submit(ExamTestPaperModel examTestPaperModel) {
+        Integer result = examTestPaperResultManager.insert(examTestPaperModel.getExamTestPaperResult());
+        List<ExamTestPaperItemResult> examTestPaperItemResults = examTestPaperModel.getExamTestPaperItemResults();
+        for (ExamTestPaperItemResult examTestPaperItemResult : examTestPaperItemResults) {
+            examTestPaperItemResultManager.insert(examTestPaperItemResult);
+        }
+        return Result.ok();
     }
 }
