@@ -16,4 +16,12 @@ public class ExamTestPaperResultManager {
         return examTestPaperResultDao.insert(examTestPaperResult);
     }
 
+    public ExamTestPaperResult selectById(Integer id) {
+        return examTestPaperResultDao.selectById(id);
+    }
+
+    public Integer updateById(ExamTestPaperResult examTestPaperResult) {
+        return examTestPaperResultDao.updateById(examTestPaperResult);
+    }
+
 }

@@ -1,16 +1,16 @@
 package com.ning.service;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ning.common.enums.ExamQuestionTypeEnum;
+import com.ning.common.event.MarkTestPaperStartEvent;
 import com.ning.common.model.ExamTestPaperModel;
-import com.ning.entity.ExamQuestion;
-import com.ning.entity.ExamTestPaper;
-import com.ning.entity.ExamTestPaperItem;
-import com.ning.entity.ExamTestPaperItemResult;
+import com.ning.entity.*;
 import com.ning.manager.*;
 import com.ning.model.Result;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,6 +30,8 @@ public class ExamTestPaperService {
     ExamTestPaperResultManager examTestPaperResultManager;
     @Resource
     ExamTestPaperItemResultManager examTestPaperItemResultManager;
+    @Resource
+    ApplicationContext applicationContext;
 
     /**
      * 添加试卷
@@ -119,11 +121,26 @@ public class ExamTestPaperService {
      * @return
      */
     public Result submit(ExamTestPaperModel examTestPaperModel) {
-        Integer result = examTestPaperResultManager.insert(examTestPaperModel.getExamTestPaperResult());
+        int now = (int) DateUtil.currentSeconds();
+        // 添加试卷结果
+        ExamTestPaperResult examTestPaperResult = examTestPaperModel.getExamTestPaperResult();
+        examTestPaperResult.setStatus("doing");
+        examTestPaperResult.setCheckedTime(now);
+        examTestPaperResult.setUpdateTime(now);
+        Integer result = examTestPaperResultManager.insert(examTestPaperResult);
+        if (result != 1) {
+            return Result.fail("提交试卷失败，请检查数据！");
+        }
+
+        // 添加试卷项目结果
         List<ExamTestPaperItemResult> examTestPaperItemResults = examTestPaperModel.getExamTestPaperItemResults();
         for (ExamTestPaperItemResult examTestPaperItemResult : examTestPaperItemResults) {
+            examTestPaperItemResult.setTestpaperResultId(examTestPaperResult.getId());
             examTestPaperItemResultManager.insert(examTestPaperItemResult);
         }
+
+        // 发布阅卷开始事件
+        applicationContext.publishEvent(new MarkTestPaperStartEvent(this, examTestPaperResult.getId()));
         return Result.ok();
     }
 }

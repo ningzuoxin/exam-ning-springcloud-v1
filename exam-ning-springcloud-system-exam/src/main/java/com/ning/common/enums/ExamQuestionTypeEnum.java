@@ -1,5 +1,7 @@
 package com.ning.common.enums;
 
+import lombok.Data;
+
 import java.util.*;
 
 public enum ExamQuestionTypeEnum {
@@ -40,4 +42,27 @@ public enum ExamQuestionTypeEnum {
         return -1;
     }
 
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }
