@@ -13,16 +13,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 /**
  * <p>
  * 试卷表
  * </p>
  *
  * @author ningning
- * @since 2021-05-24
+ * @since 2021-06-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -48,6 +45,10 @@ public class ExamTestPaper implements Serializable {
     @ApiModelProperty(value = "限时（秒）")
     @TableField("limited_time")
     private Integer limitedTime;
+
+    @ApiModelProperty(value = "允许考试次数 0 不限制次数")
+    @TableField("times")
+    private Integer times;
 
     @ApiModelProperty(value = "总分")
     @TableField("total_score")
@@ -88,6 +89,5 @@ public class ExamTestPaper implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @TableField("update_time")
     private Integer updateTime;
-
 
 }

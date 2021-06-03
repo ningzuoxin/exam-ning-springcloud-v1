@@ -66,4 +66,10 @@ public class ExamTestPaperController {
         return examTestPaperService.submit(examTestPaperModel);
     }
 
+    @GetMapping(value = "/publish")
+    @ApiOperation(value = "发布试卷")
+    public Result publish(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Integer id) {
+        return examTestPaperService.publish(id);
+    }
+
 }

@@ -77,4 +77,8 @@ public class ExamTestPaperManager {
         return examTestPaperDao.selectPage(iPage, wrapper);
     }
 
+    public Integer updateById(ExamTestPaper examTestPaper) {
+        return examTestPaperDao.updateById(examTestPaper);
+    }
+
 }

@@ -143,4 +143,27 @@ public class ExamTestPaperService {
         applicationContext.publishEvent(new MarkTestPaperStartEvent(this, examTestPaperResult.getId()));
         return Result.ok();
     }
+
+    /**
+     * 发布试卷
+     *
+     * @param id
+     * @return
+     */
+    public Result publish(Integer id) {
+        ExamTestPaper examTestPaper = examTestPaperManager.selectById(id);
+        if (ObjectUtil.isEmpty(examTestPaper)) {
+            return Result.fail("不存在的试卷，请核实参数！");
+        }
+
+        int now = (int) DateUtil.currentSeconds();
+        examTestPaper.setIsUsed(1);
+        examTestPaper.setUpdateTime(now);
+        Integer result = examTestPaperManager.updateById(examTestPaper);
+        if (result != 1) {
+            return Result.fail("试卷发布失败，请重新操作！");
+        }
+
+        return Result.ok();
+    }
 }

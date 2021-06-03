@@ -8,6 +8,7 @@
         <result column="type" property="type"/>
         <result column="name" property="name"/>
         <result column="limited_time" property="limitedTime"/>
+        <result column="times" property="times"/>
         <result column="total_score" property="totalScore"/>
         <result column="passed_score" property="passedScore"/>
         <result column="item_count" property="itemCount"/>
@@ -22,7 +23,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, type, name, limited_time, total_score, passed_score, item_count, copy_id, is_used, is_delete, create_user_id, create_time, update_user_id, update_time
+        id, type, name, limited_time, times, total_score, passed_score, item_count, copy_id, is_used, is_delete, create_user_id, create_time, update_user_id, update_time
     </sql>
 
 </mapper>
