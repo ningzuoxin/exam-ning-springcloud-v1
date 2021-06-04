@@ -55,6 +55,9 @@ public class ExamTestPaperService {
             examTestPaperItemManager.add(examTestPaperItem);
         }
 
+        Integer updatedCount = examQuestionManager.updateUsedNumBatchIds(examTestPaperItems.stream().map(t -> t.getQuestionId()).collect(Collectors.toList()));
+        System.out.println("ExamTestPaperService # add updatedCount=" + updatedCount);
+
         return Result.ok(examTestPaperModel);
     }
 
@@ -166,4 +169,5 @@ public class ExamTestPaperService {
 
         return Result.ok();
     }
+
 }

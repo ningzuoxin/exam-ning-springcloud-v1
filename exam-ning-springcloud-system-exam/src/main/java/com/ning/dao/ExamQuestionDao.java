@@ -2,6 +2,9 @@ package com.ning.dao;
 
 import com.ning.entity.ExamQuestion;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -9,8 +12,16 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author ningning
- * @since 2021-04-28
+ * @since 2021-06-04
  */
 public interface ExamQuestionDao extends BaseMapper<ExamQuestion> {
+
+    /**
+     * 批量修改题目使用数
+     *
+     * @param ids
+     * @return
+     */
+    Integer updateUsedNumBatchIds(@Param("ids") List<Integer> ids);
 
 }

@@ -85,4 +85,14 @@ public class ExamQuestionManager {
         return examQuestionDao.selectBatchIds(ids);
     }
 
+    /**
+     * 批量修改题目使用数
+     *
+     * @param ids
+     * @return
+     */
+    public Integer updateUsedNumBatchIds(List<Integer> ids) {
+        return examQuestionDao.updateUsedNumBatchIds(ids);
+    }
+
 }

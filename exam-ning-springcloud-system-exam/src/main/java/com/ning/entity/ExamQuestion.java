@@ -21,7 +21,7 @@ import javax.validation.constraints.NotEmpty;
  * </p>
  *
  * @author ningning
- * @since 2021-04-28
+ * @since 2021-06-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -66,6 +66,10 @@ public class ExamQuestion implements Serializable {
     @ApiModelProperty(value = "分类ID")
     @TableField("category_id")
     private Integer categoryId;
+
+    @ApiModelProperty(value = "被试卷使用数")
+    @TableField("used_num")
+    private Integer usedNum;
 
     @ApiModelProperty(value = "是否删除 0 未删除 1 已删除")
     @TableField("is_delete")
