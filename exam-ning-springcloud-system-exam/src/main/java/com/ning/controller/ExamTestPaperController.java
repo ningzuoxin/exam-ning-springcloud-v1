@@ -72,4 +72,10 @@ public class ExamTestPaperController {
         return examTestPaperService.publish(id);
     }
 
+    @GetMapping(value = "/delete")
+    @ApiOperation(value = "删除试卷")
+    public Result delete(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Integer id) {
+        return examTestPaperService.delete(id);
+    }
+
 }

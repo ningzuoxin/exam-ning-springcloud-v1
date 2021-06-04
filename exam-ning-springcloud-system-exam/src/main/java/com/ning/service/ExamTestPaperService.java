@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("ALL")
 @Service
 public class ExamTestPaperService {
 
@@ -170,4 +171,26 @@ public class ExamTestPaperService {
         return Result.ok();
     }
 
+    /**
+     * 删除试卷
+     *
+     * @param id
+     * @return
+     */
+    public Result delete(Integer id) {
+        ExamTestPaper examTestPaper = examTestPaperManager.selectById(id);
+        if (ObjectUtil.isEmpty(examTestPaper)) {
+            return Result.fail("不存在的试卷，请核实参数！");
+        }
+
+        int now = (int) DateUtil.currentSeconds();
+        examTestPaper.setIsDelete(1);
+        examTestPaper.setUpdateTime(now);
+        Integer result = examTestPaperManager.updateById(examTestPaper);
+        if (result != 1) {
+            return Result.fail("试卷删除失败，请重新操作！");
+        }
+
+        return Result.ok();
+    }
 }
