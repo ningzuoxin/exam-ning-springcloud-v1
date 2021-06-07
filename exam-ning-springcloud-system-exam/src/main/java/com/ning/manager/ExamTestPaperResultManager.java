@@ -5,6 +5,8 @@ import com.ning.entity.ExamTestPaperResult;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class ExamTestPaperResultManager {
@@ -22,6 +24,17 @@ public class ExamTestPaperResultManager {
 
     public Integer updateById(ExamTestPaperResult examTestPaperResult) {
         return examTestPaperResultDao.updateById(examTestPaperResult);
+    }
+
+    /**
+     * 查询用户的考试结果次数
+     *
+     * @param testPaperIds
+     * @param userId
+     * @return
+     */
+    public List<Map<String, Object>> selectExamResultTimes(List<Integer> testPaperIds, Integer userId) {
+        return examTestPaperResultDao.selectExamResultTimes(testPaperIds, userId);
     }
 
 }

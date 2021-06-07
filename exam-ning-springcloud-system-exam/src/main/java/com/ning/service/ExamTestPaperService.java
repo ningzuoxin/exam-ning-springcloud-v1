@@ -112,10 +112,11 @@ public class ExamTestPaperService {
      * @param type
      * @param pNum
      * @param pSize
+     * @param userId
      * @return
      */
-    public Result listExam(String type, Integer pNum, Integer pSize) {
-        return Result.ok(examTestPaperManager.listExam(type, pNum, pSize));
+    public Result listExam(String type, Integer pNum, Integer pSize, Integer userId) {
+        return Result.ok(examTestPaperManager.listExam(type, pNum, pSize, userId));
     }
 
     /**

@@ -56,8 +56,9 @@ public class ExamTestPaperController {
     @ApiOperation(value = "查询考试列表")
     public Result listExam(@RequestParam(value = "type", required = false) @ApiParam(name = "type", example = "") String type,
                            @RequestParam(value = "pNum", defaultValue = "1") @ApiParam(name = "pNum", example = "1") Integer pNum,
-                           @RequestParam(value = "pSize", defaultValue = "10") @ApiParam(name = "pSize", example = "10") Integer pSize) {
-        return examTestPaperService.listExam(type, pNum, pSize);
+                           @RequestParam(value = "pSize", defaultValue = "10") @ApiParam(name = "pSize", example = "10") Integer pSize,
+                           @RequestParam(value = "userId", defaultValue = "0") @ApiParam(name = "userId", example = "0") Integer userId) {
+        return examTestPaperService.listExam(type, pNum, pSize, userId);
     }
 
     @PostMapping(value = "/submit")

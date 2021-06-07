@@ -16,4 +16,7 @@ public class ExamTestPaperModel extends ExamTestPaper {
 
     private List<ExamTestPaperItemResult> examTestPaperItemResults;
 
+    // 考试结果次数
+    private Integer resultTimes;
+
 }
