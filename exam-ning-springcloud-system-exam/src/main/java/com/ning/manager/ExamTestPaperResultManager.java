@@ -1,5 +1,7 @@
 package com.ning.manager;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ning.dao.ExamTestPaperResultDao;
 import com.ning.entity.ExamTestPaperResult;
 import org.springframework.stereotype.Component;
@@ -35,6 +37,22 @@ public class ExamTestPaperResultManager {
      */
     public List<Map<String, Object>> selectExamResultTimes(List<Integer> testPaperIds, Integer userId) {
         return examTestPaperResultDao.selectExamResultTimes(testPaperIds, userId);
+    }
+
+    /**
+     * 查询考试结果列表
+     *
+     * @param id
+     * @param userId
+     * @return
+     */
+    public List<ExamTestPaperResult> list(Integer id, Integer userId) {
+        // 查询对象
+        LambdaQueryWrapper<ExamTestPaperResult> wrapper = new QueryWrapper<ExamTestPaperResult>().lambda();
+        wrapper.eq(ExamTestPaperResult::getTestpaperId, id);
+        wrapper.eq(ExamTestPaperResult::getUserId, userId);
+        wrapper.orderByDesc(ExamTestPaperResult::getUpdateTime);
+        return examTestPaperResultDao.selectList(wrapper);
     }
 
 }
