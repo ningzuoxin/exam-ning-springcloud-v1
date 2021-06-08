@@ -20,9 +20,15 @@ public class ExamResultController {
 
     @GetMapping(value = "/list")
     @ApiOperation(value = "查询考试结果列表")
-    public Result selectPage(@RequestParam(value = "id", defaultValue = "1") @ApiParam(name = "id", example = "1") Integer id,
-                             @RequestParam(value = "userId", defaultValue = "1") @ApiParam(name = "userId", example = "1") Integer userId) {
+    public Result list(@RequestParam(value = "id", defaultValue = "1") @ApiParam(name = "id", example = "1") Integer id,
+                       @RequestParam(value = "userId", defaultValue = "1") @ApiParam(name = "userId", example = "1") Integer userId) {
         return examResultService.list(id, userId);
+    }
+
+    @GetMapping(value = "/detail")
+    @ApiOperation(value = "查询考试结果详情")
+    public Result detail(@RequestParam(value = "id", defaultValue = "1") @ApiParam(name = "id", example = "1") Integer id) {
+        return examResultService.detail(id);
     }
 
 }
