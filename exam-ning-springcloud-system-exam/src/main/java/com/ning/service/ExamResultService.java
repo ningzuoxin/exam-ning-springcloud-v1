@@ -1,8 +1,10 @@
 package com.ning.service;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.ning.common.model.ExamTestPaperModel;
+import com.ning.common.model.MarkScoreModel;
 import com.ning.entity.*;
 import com.ning.manager.*;
 import com.ning.model.Result;
@@ -64,5 +66,57 @@ public class ExamResultService {
         examTestPaperModel.setExamTestPaperItemResults(examTestPaperItemResults);
 
         return Result.ok(examTestPaperModel);
+    }
+
+    /**
+     * 查询待批阅试卷列表
+     *
+     * @param pNum
+     * @param pSize
+     * @return
+     */
+    public Result selectPage(Integer pNum, Integer pSize) {
+        return Result.ok(examTestPaperResultManager.selectPage(pNum, pSize));
+    }
+
+    /**
+     * 打分
+     *
+     * @param markScoreModel
+     * @return
+     */
+    public Result doMark(MarkScoreModel markScoreModel) {
+        ExamTestPaperResult examTestPaperResult = examTestPaperResultManager.selectById(markScoreModel.getResultId());
+        if (ObjectUtil.isEmpty(examTestPaperResult)) {
+            return Result.fail("不存在的考试结果");
+        }
+
+        Float total = 0f;
+        Integer right = 0;
+        for (MarkScoreModel.MarkScoreItemModel item : markScoreModel.getMarkScoreItems()) {
+            ExamTestPaperItemResult examTestPaperItemResult = examTestPaperItemResultManager.selectById(item.getId());
+            ExamTestPaperItem examTestPaperItem = examTestPaperItemManager.selectById(examTestPaperItemResult.getTestpaperItemId());
+
+            if (item.getScore() >= examTestPaperItem.getScore()) {
+                examTestPaperItemResult.setStatus("right");
+                right++;
+            } else if (item.getScore() == 0) {
+                examTestPaperItemResult.setStatus("wrong");
+            } else {
+                examTestPaperItemResult.setStatus("partRight");
+            }
+            examTestPaperItemResult.setScore(item.getScore());
+            total += item.getScore();
+            examTestPaperItemResultManager.updateById(examTestPaperItemResult);
+        }
+
+        examTestPaperResult.setStatus("finished");
+        examTestPaperResult.setObjectiveScore(total);
+        examTestPaperResult.setScore(examTestPaperResult.getSubjectiveScore() + total);
+        examTestPaperResult.setRightItemCount(examTestPaperResult.getRightItemCount() + right);
+        examTestPaperResult.setUpdateTime((int) DateUtil.currentSeconds());
+        examTestPaperResultManager.updateById(examTestPaperResult);
+
+        return Result.ok();
     }
 }

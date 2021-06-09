@@ -30,4 +30,8 @@ public class ExamTestPaperItemResultManager {
         return examTestPaperItemResultDao.updateById(examTestPaperItemResult);
     }
 
+    public ExamTestPaperItemResult selectById(Integer id) {
+        return examTestPaperItemResultDao.selectById(id);
+    }
+
 }

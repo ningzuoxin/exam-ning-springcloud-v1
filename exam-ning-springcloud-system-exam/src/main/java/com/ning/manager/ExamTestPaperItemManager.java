@@ -33,4 +33,8 @@ public class ExamTestPaperItemManager {
         return examTestPaperItemDao.selectList(wrapper);
     }
 
+    public ExamTestPaperItem selectById(Integer id) {
+        return examTestPaperItemDao.selectById(id);
+    }
+
 }
