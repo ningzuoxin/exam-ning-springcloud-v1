@@ -3,6 +3,7 @@ package com.ning.service;
 import com.ning.api.user.RemoteUserService;
 import com.ning.model.LoginUser;
 import com.ning.model.Result;
+import com.ning.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,12 +24,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Result<com.ning.model.User> userResult = remoteUserService.selectUserByUsername(s);
+        Result<User> userResult = remoteUserService.selectUserByUsername(s);
         return getUserDetails(userResult);
     }
 
-    private UserDetails getUserDetails(Result<com.ning.model.User> result) {
-        com.ning.model.User user = result.getData();
+    private UserDetails getUserDetails(Result<User> result) {
+        User user = result.getData();
         Set<String> dbAuthsSet = new HashSet<>();
         // 获取角色
         dbAuthsSet.addAll(new HashSet<>());
