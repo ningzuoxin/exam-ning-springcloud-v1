@@ -1,12 +1,9 @@
-package com.ning.config;
+package com.ning.config.jwt;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -14,22 +11,20 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+
+import javax.annotation.Resource;
 
 /**
- * 授权服务配置
+ * 授权服务配置 --- 基于JWT
  */
-// 使用redis授权服务配置时，打开下面的注释。
-//@Configuration
-//@EnableAuthorizationServer
-public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
+@Configuration
+@EnableAuthorizationServer
+public class AuthorizationServerJwtConfig extends AuthorizationServerConfigurerAdapter {
 
-    @Autowired
+    @Resource
     private AuthenticationManager authenticationManager;
-    @Autowired
-    private RedisConnectionFactory redisConnectionFactory;
-    @Autowired
-    private UserDetailsService userDetailsService;
 
     /**
      * token储存策略
@@ -38,7 +33,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
      */
     @Bean
     public TokenStore tokenStore() {
-        return new RedisTokenStore(redisConnectionFactory);
+        return new JwtTokenStore(jwtTokenEnhancer());
     }
 
     /**
@@ -65,9 +60,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         // 密码模式
         clients.inMemory()
                 .withClient("ning666888")
-                .secret("888666")
                 .scopes("ningning")
-                .authorizedGrantTypes("password", "client_credentials", "refresh_token");
+                .secret("888666")
+                .authorizedGrantTypes("password", "refresh_token");
     }
 
     @Override
@@ -75,12 +70,11 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         endpoints
                 // 指定认证管理器
                 .authenticationManager(authenticationManager)
-                // 用户账号密码认证
-                .userDetailsService(userDetailsService)
                 // refresh_token
                 .reuseRefreshTokens(false)
                 // 指定token存储位置
                 .tokenStore(tokenStore())
+                .tokenEnhancer(jwtTokenEnhancer())
                 .tokenServices(defaultTokenServices());
     }
 
@@ -90,8 +84,27 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         DefaultTokenServices tokenServices = new DefaultTokenServices();
         tokenServices.setTokenStore(tokenStore());
         tokenServices.setSupportRefreshToken(true);
+        tokenServices.setTokenEnhancer(jwtTokenEnhancer());
         tokenServices.setAccessTokenValiditySeconds(60 * 10);
         return tokenServices;
     }
+
+    /**
+     * 定义jwt的生成方式
+     * 可以自主选择使用非对称密钥或对称密钥进行加密，此处不设置加密。
+     *
+     * @return JwtAccessTokenConverter
+     */
+    private JwtAccessTokenConverter jwtTokenEnhancer() {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        // 非对称加密，但jwt长度过长
+        // KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("spring-jwt.jks"), "admin123456".toCharArray()).getKeyPair("spring-jwt");
+        // converter.setKeyPair(keyPair);
+
+        // 对称加密
+        converter.setSigningKey("ning123456");
+        return converter;
+    }
+
 
 }

@@ -1,6 +1,5 @@
-package com.ning.config;
+package com.ning.config.jwt;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -10,14 +9,15 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableResourceServer
 @Order(3)
-public class ResourceServerJWTConfig extends ResourceServerConfigurerAdapter {
+public class ResourceServerJwtConfig extends ResourceServerConfigurerAdapter {
 
-    @Autowired
+    @Resource
     @Qualifier(value = "jwtTokenStore")
     TokenStore tokenStore;
 

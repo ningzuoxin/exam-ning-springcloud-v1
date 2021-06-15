@@ -1,4 +1,4 @@
-package com.ning.config;
+package com.ning.config.jwt;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

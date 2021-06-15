@@ -1,4 +1,4 @@
-package com.ning.config;
+package com.ning.config.redis;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -7,18 +7,15 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
 /**
- * 认证服务，提供了用户信息，所以也是资源服务器。
+ * 使用redis授权服务配置时，打开下面的注释。
  */
-// 使用redis授权服务配置时，打开下面的注释。
 //@Configuration
 //@EnableResourceServer
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+public class ResourceServerRedisConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/v2/api-docs").permitAll()
-                .antMatchers("/oauth/user").authenticated(); // 配置oauth访问控制，必须认证后才可以访问
+        http.authorizeRequests().antMatchers("/exam/**").authenticated(); // 配置exam访问控制，必须认证后才可以访问
     }
 }
