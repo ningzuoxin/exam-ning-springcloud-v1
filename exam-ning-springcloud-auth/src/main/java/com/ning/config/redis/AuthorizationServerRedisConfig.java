@@ -21,8 +21,8 @@ import javax.annotation.Resource;
  * 授权服务配置
  * 使用redis授权服务配置时，打开下面的注释。
  */
-//@Configuration
-//@EnableAuthorizationServer
+@Configuration
+@EnableAuthorizationServer
 public class AuthorizationServerRedisConfig extends AuthorizationServerConfigurerAdapter {
 
     @Resource
@@ -33,17 +33,19 @@ public class AuthorizationServerRedisConfig extends AuthorizationServerConfigure
     private UserDetailsService userDetailsService;
 
     /**
-     * token储存策略
+     * 基于Redis实现，令牌保存到缓存
      *
      * @return
      */
     @Bean
     public TokenStore tokenStore() {
-        return new RedisTokenStore(redisConnectionFactory);
+        RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
+        tokenStore.setPrefix("oauth:access:");
+        return tokenStore;
     }
 
     /**
-     * 定义令牌端点上的安全性约束
+     * 配置令牌端点(Token Endpoint)的安全约束
      *
      * @param security
      * @throws Exception
@@ -56,14 +58,13 @@ public class AuthorizationServerRedisConfig extends AuthorizationServerConfigure
     }
 
     /**
-     * 用于定义客户端详细信息服务的配置程序，可以初始化客户端详细信息。
+     * 配置客户端详细信息
      *
      * @param clients
      * @throws Exception
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        // 密码模式
         clients.inMemory()
                 .withClient("ning666888")
                 .secret("888666")

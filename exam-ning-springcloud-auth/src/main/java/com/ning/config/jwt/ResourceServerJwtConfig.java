@@ -12,9 +12,9 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
-@Configuration
-@EnableResourceServer
-@Order(3)
+//@Configuration
+//@EnableResourceServer
+//@Order(3)
 public class ResourceServerJwtConfig extends ResourceServerConfigurerAdapter {
 
     @Resource

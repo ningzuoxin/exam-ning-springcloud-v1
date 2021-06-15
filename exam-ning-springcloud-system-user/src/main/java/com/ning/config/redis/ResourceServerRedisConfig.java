@@ -9,13 +9,14 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 /**
  * 使用redis授权服务配置时，打开下面的注释。
  */
-//@Configuration
-//@EnableResourceServer
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@Configuration
+@EnableResourceServer
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerRedisConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/user/**").authenticated(); // 配置user访问控制，必须认证后才可以访问
+        http.authorizeRequests().antMatchers("/index", "/user/selectUserByUsername").permitAll()
+                .antMatchers("/user/**", "/getInfo").authenticated(); // 配置user访问控制，必须认证后才可以访问
     }
 }

@@ -1,9 +1,12 @@
 package com.ning.controller;
 
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONUtil;
 import com.ning.manager.UserManager;
 import com.ning.model.Result;
+import com.ning.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,8 +20,6 @@ public class IndexController {
 
     @Resource
     UserManager userManager;
-    @Resource
-    TokenStore tokenStore;
 
     @GetMapping(value = "/index")
     public Result<String> index() {
@@ -28,6 +29,12 @@ public class IndexController {
     @GetMapping(value = "/getInfo")
     public Result getInfo() {
 
+        Authentication authentication = SecurityUtils.getAuthentication();
+
+//        JSON parse = JSONUtil.parse(authentication.getPrincipal());
+//        Long userId = parse.getByPath("userId", Long.class);
+//        System.out.println(userId);
+
 //        // 角色集合
 //        Set<String> roles = new HashSet<>();
 //        // 权限集合
@@ -36,7 +43,7 @@ public class IndexController {
 //        map.put("user", userManager.getUserById(Convert.toInt(userId)));
 //        map.put("roles", roles);
 //        map.put("permissions", permissions);
-        return Result.ok("getInfo success");
+        return Result.ok(authentication);
     }
 
 }

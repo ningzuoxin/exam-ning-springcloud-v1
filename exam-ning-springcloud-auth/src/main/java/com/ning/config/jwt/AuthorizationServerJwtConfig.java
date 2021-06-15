@@ -19,8 +19,8 @@ import javax.annotation.Resource;
 /**
  * 授权服务配置 --- 基于JWT
  */
-@Configuration
-@EnableAuthorizationServer
+//@Configuration
+//@EnableAuthorizationServer
 public class AuthorizationServerJwtConfig extends AuthorizationServerConfigurerAdapter {
 
     @Resource

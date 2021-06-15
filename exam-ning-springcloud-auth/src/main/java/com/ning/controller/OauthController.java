@@ -2,7 +2,6 @@ package com.ning.controller;
 
 import com.ning.model.Result;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +20,7 @@ import java.util.Map;
 @RequestMapping("/oauth")
 public class OauthController {
 
-    @Autowired
+    @Resource
     private TokenEndpoint tokenEndpoint;
 
     @RequestMapping("/user")
