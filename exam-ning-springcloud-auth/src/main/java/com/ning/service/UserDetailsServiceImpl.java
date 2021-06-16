@@ -47,8 +47,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Set<String> dbAuthsSet = new HashSet<>();
         // 获取角色
         dbAuthsSet.addAll(new HashSet<>());
+
         // 获取权限
-        dbAuthsSet.addAll(new HashSet<>());
+        HashSet<String> permissions = new HashSet<>();
+        permissions.add("test1");
+        permissions.add("test2");
+        dbAuthsSet.addAll(permissions);
 
         Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(dbAuthsSet.toArray(new String[0]));
         return new LoginUser((long) user.getId(), user.getUsername(), user.getPassword(), true, true, true, true, authorities);

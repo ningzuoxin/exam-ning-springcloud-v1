@@ -1,14 +1,14 @@
 package com.ning.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.ning.model.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.security.Principal;
@@ -19,6 +19,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/oauth")
 public class OauthController {
+
+    @Resource
+    private TokenStore tokenStore;
 
     @Resource
     private TokenEndpoint tokenEndpoint;
@@ -48,6 +51,28 @@ public class OauthController {
         map.put("user_id", additionalInformation.get("user_id"));
         map.put("user_name", additionalInformation.get("user_name"));
         return Result.ok(map);
+    }
+
+    @GetMapping("/logout")
+    public Result<?> logout(@RequestHeader(value = "access_token", required = false) String token) {
+        if (StrUtil.isEmpty(token)) {
+            return Result.ok();
+        }
+
+        String tokenValue = token.trim();
+        OAuth2AccessToken accessToken = tokenStore.readAccessToken(tokenValue);
+        if (accessToken == null || StrUtil.isEmpty(accessToken.getValue())) {
+            return Result.ok();
+        }
+
+        // 清空 access token
+        tokenStore.removeAccessToken(accessToken);
+
+        // 清空 refresh token
+        OAuth2RefreshToken refreshToken = accessToken.getRefreshToken();
+        tokenStore.removeRefreshToken(refreshToken);
+
+        return Result.ok();
     }
 
 }
