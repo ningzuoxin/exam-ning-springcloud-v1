@@ -1,16 +1,18 @@
 package com.ning.controller;
 
-import cn.hutool.json.JSON;
-import cn.hutool.json.JSONUtil;
+import cn.hutool.core.convert.Convert;
 import com.ning.manager.UserManager;
 import com.ning.model.Result;
 import com.ning.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 @RestController
 public class IndexController {
@@ -28,22 +30,18 @@ public class IndexController {
 
     @GetMapping(value = "/getInfo")
     public Result getInfo() {
+        Long userId = SecurityUtils.getLoginUser().getUserId();
 
-        Authentication authentication = SecurityUtils.getAuthentication();
+        // 角色集合
+        Set<String> roles = new HashSet<>();
+        // 权限集合
+        Set<String> permissions = new HashSet<>();
+        Map<String, Object> map = new HashMap<>();
+        map.put("user", userManager.getUserById(Convert.toInt(userId)));
+        map.put("roles", roles);
+        map.put("permissions", permissions);
 
-//        JSON parse = JSONUtil.parse(authentication.getPrincipal());
-//        Long userId = parse.getByPath("userId", Long.class);
-//        System.out.println(userId);
-
-//        // 角色集合
-//        Set<String> roles = new HashSet<>();
-//        // 权限集合
-//        Set<String> permissions = new HashSet<>();
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("user", userManager.getUserById(Convert.toInt(userId)));
-//        map.put("roles", roles);
-//        map.put("permissions", permissions);
-        return Result.ok(authentication);
+        return Result.ok(map);
     }
 
 }

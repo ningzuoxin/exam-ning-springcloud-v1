@@ -40,9 +40,13 @@ public class OauthController {
     @RequestMapping(value = "/token", method = RequestMethod.POST)
     public Result postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
         OAuth2AccessToken oAuth2AccessToken = tokenEndpoint.postAccessToken(principal, parameters).getBody();
+        Map<String, Object> additionalInformation = oAuth2AccessToken.getAdditionalInformation();
+
         Map<String, Object> map = new HashMap<>();
         map.put("access_token", oAuth2AccessToken.getValue());
         map.put("expires_in", oAuth2AccessToken.getExpiresIn());
+        map.put("user_id", additionalInformation.get("user_id"));
+        map.put("user_name", additionalInformation.get("user_name"));
         return Result.ok(map);
     }
 

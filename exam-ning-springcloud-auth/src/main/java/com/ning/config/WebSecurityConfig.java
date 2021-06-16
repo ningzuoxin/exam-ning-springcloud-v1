@@ -14,11 +14,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.annotation.Resource;
 
 /**
- * 认证配置
+ * Security 安全认证相关配置
+ * Oauth2依赖于Security 默认情况下WebSecurityConfig执行比ResourceServerConfig优先
  */
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
     private UserDetailsService userDetailsService;

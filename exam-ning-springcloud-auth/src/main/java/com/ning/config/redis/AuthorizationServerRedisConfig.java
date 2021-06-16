@@ -1,25 +1,28 @@
 package com.ning.config.redis;
 
+import com.ning.model.LoginUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import javax.annotation.Resource;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
- * 授权服务配置
- * 使用redis授权服务配置时，打开下面的注释。
+ * OAuth2 认证服务配置
+ * 基于Redis存储
  */
 @Configuration
 @EnableAuthorizationServer
@@ -83,17 +86,26 @@ public class AuthorizationServerRedisConfig extends AuthorizationServerConfigure
                 .reuseRefreshTokens(false)
                 // 指定token存储位置
                 .tokenStore(tokenStore())
-                .tokenServices(defaultTokenServices());
+                // 自定义生成令牌
+                .tokenEnhancer(tokenEnhancer());
     }
 
-    @Primary
+    /**
+     * 自定义生成令牌
+     */
     @Bean
-    public DefaultTokenServices defaultTokenServices() {
-        DefaultTokenServices tokenServices = new DefaultTokenServices();
-        tokenServices.setTokenStore(tokenStore());
-        tokenServices.setSupportRefreshToken(true);
-        tokenServices.setAccessTokenValiditySeconds(60 * 10);
-        return tokenServices;
+    public TokenEnhancer tokenEnhancer() {
+        return (accessToken, authentication) -> {
+            if (accessToken instanceof DefaultOAuth2AccessToken) {
+                DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
+                LoginUser user = (LoginUser) authentication.getUserAuthentication().getPrincipal();
+                Map<String, Object> additionalInformation = new LinkedHashMap();
+                additionalInformation.put("user_name", authentication.getName());
+                additionalInformation.put("user_id", user.getUserId());
+                token.setAdditionalInformation(additionalInformation);
+            }
+            return accessToken;
+        };
     }
 
 }

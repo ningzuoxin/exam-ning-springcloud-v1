@@ -29,12 +29,12 @@ mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml
   type-aliases-package: com.ning.entity
 
-# 使用redis提供认证服务时，放开以下注释。
+# 使用基于Redis的统一认证服务时，放开以下注释
 security:
   oauth2:
     resource:
-#      user-info-uri: http://localhost:8080/auth/oauth/user
-      token-info-uri: http://localhost:8080/auth/oauth/check_token
+      # user-info-uri: http://localhost:8080/auth/oauth/user
+      token-info-uri: http://exam-ning-auth/oauth/check_token
     client:
       client-id: ning666888
       client-secret: 888666
