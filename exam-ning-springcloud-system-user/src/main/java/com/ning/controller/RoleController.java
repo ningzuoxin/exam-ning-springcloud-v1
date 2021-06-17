@@ -1,15 +1,14 @@
 package com.ning.controller;
 
+import com.ning.entity.Role;
 import com.ning.model.Result;
 import com.ning.service.RoleService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping(value = "/user/role")
@@ -20,10 +19,39 @@ public class RoleController {
 
     @GetMapping(value = "/page")
     @ApiOperation(value = "分页查询角色列表")
-    public Result selectPage(@RequestParam(value = "keyword", required = false) @ApiParam(name = "keyword", example = "") String keyword,
-                             @RequestParam(value = "pNum", defaultValue = "1") @ApiParam(name = "pNum", example = "1") Integer pNum,
-                             @RequestParam(value = "pSize", defaultValue = "10") @ApiParam(name = "pSize", example = "10") Integer pSize) {
+    public Result page(@RequestParam(value = "keyword", required = false) @ApiParam(name = "keyword", example = "") String keyword,
+                       @RequestParam(value = "pNum", defaultValue = "1") @ApiParam(name = "pNum", example = "1") Integer pNum,
+                       @RequestParam(value = "pSize", defaultValue = "10") @ApiParam(name = "pSize", example = "10") Integer pSize) {
         return roleService.selectPage(keyword, pNum, pSize);
     }
-    
+
+    @PostMapping(value = "/add")
+    @ApiOperation(value = "添加角色")
+    public Result add(@RequestBody Role role) {
+        role.setDataScope("1");
+        role.setStatus("0");
+        role.setDelFlag("0");
+        role.setCreateTime(LocalDateTime.now());
+        role.setUpdateTime(LocalDateTime.now());
+        return roleService.add(role);
+    }
+
+    @GetMapping(value = "/get")
+    @ApiOperation(value = "查询角色")
+    public Result get(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Long id) {
+        return roleService.get(id);
+    }
+
+    @GetMapping(value = "/del")
+    @ApiOperation(value = "删除角色")
+    public Result del(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Long id) {
+        return roleService.del(id);
+    }
+
+    @PostMapping(value = "/edit")
+    @ApiOperation(value = "修改角色")
+    public Result edit(@RequestBody Role role) {
+        return roleService.edit(role);
+    }
+
 }

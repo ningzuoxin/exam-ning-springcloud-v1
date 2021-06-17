@@ -55,7 +55,7 @@ public class OauthController {
     }
 
     @GetMapping("/logout")
-    public Result<?> logout(@RequestHeader(value = "bearer", required = false) String token) {
+    public Result<?> logout(@RequestHeader(value = "Authorization", required = false) String token) {
         if (StrUtil.isEmpty(token)) {
             return Result.ok();
         }

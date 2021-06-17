@@ -17,6 +17,14 @@ public class RoleManager {
     @Resource
     RoleDao roleDao;
 
+    /**
+     * 分页查询角色列表
+     *
+     * @param keyword
+     * @param pNum
+     * @param pSize
+     * @return
+     */
     public IPage<Role> selectPage(String keyword, Integer pNum, Integer pSize) {
         // 分页对象
         IPage<Role> iPage = new Page<>(pNum, pSize);
@@ -30,6 +38,50 @@ public class RoleManager {
         wrapper.orderByDesc(Role::getRoleSort, Role::getUpdateTime);
 
         return roleDao.selectPage(iPage, wrapper);
+    }
+
+    /**
+     * 根据角色代码统计
+     *
+     * @param roleKey
+     * @return
+     */
+    public Integer selectCount(String roleKey) {
+        LambdaQueryWrapper<Role> wrapper = new QueryWrapper<Role>().lambda();
+        wrapper.eq(Role::getDelFlag, 0);
+        wrapper.eq(Role::getRoleKey, roleKey);
+
+        return roleDao.selectCount(wrapper);
+    }
+
+    /**
+     * 添加角色
+     *
+     * @param role
+     * @return
+     */
+    public Integer insert(Role role) {
+        return roleDao.insert(role);
+    }
+
+    /**
+     * 查询角色
+     *
+     * @param id
+     * @return
+     */
+    public Role selectById(Long id) {
+        return roleDao.selectById(id);
+    }
+
+    /**
+     * 修改角色
+     *
+     * @param role
+     * @return
+     */
+    public Integer updateById(Role role) {
+        return roleDao.updateById(role);
     }
 
 }
