@@ -3,18 +3,23 @@ package com.ning.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.ning.entity.Role;
+import com.ning.entity.RoleMenu;
 import com.ning.manager.RoleManager;
+import com.ning.manager.RoleMenuManager;
 import com.ning.model.Result;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class RoleService {
 
     @Resource
     RoleManager roleManager;
+    @Resource
+    RoleMenuManager roleMenuManager;
 
     /**
      * 分页查询角色列表
@@ -34,7 +39,7 @@ public class RoleService {
      * @param role
      * @return
      */
-    public Result add(Role role) {
+    public Result add(Role role, List<Long> menuIds) {
         Integer count = roleManager.selectCount(role.getRoleKey());
         if (count > 0) {
             return Result.fail("角色代码已经存在");
@@ -42,6 +47,12 @@ public class RoleService {
 
         Integer result = roleManager.insert(role);
         if (result == 1) {
+            for (Long menuId : menuIds) {
+                RoleMenu roleMenu = new RoleMenu();
+                roleMenu.setRoleId(role.getRoleId());
+                roleMenu.setMenuId(menuId);
+                roleMenuManager.insert(roleMenu);
+            }
             return Result.ok(role);
         } else {
             return Result.fail("添加失败");

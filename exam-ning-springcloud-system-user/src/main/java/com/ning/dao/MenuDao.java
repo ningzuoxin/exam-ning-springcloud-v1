@@ -2,6 +2,9 @@ package com.ning.dao;
 
 import com.ning.entity.Menu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2021-06-16
  */
 public interface MenuDao extends BaseMapper<Menu> {
+
+    List<Menu> selectMenusByUserId(@Param("userId") Long userId);
 
 }

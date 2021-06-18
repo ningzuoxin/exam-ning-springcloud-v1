@@ -3,6 +3,7 @@ package com.ning.controller;
 import com.ning.entity.Menu;
 import com.ning.model.Result;
 import com.ning.service.MenuService;
+import com.ning.utils.SecurityUtils;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +38,19 @@ public class MenuController {
     @ApiOperation(value = "查询目录和菜单")
     public Result queryMC() {
         return menuService.queryMC();
+    }
+
+    @GetMapping(value = "/tree")
+    @ApiOperation(value = "查询菜单树形列表")
+    public Result tree() {
+        return menuService.tree();
+    }
+
+    @GetMapping(value = "/getRouters")
+    @ApiOperation(value = "查询路由")
+    public Result getRouters() {
+        Long userId = SecurityUtils.getLoginUser().getUserId();
+        return menuService.getRouters(userId);
     }
 
 }

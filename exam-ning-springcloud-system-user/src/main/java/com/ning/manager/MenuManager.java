@@ -32,7 +32,6 @@ public class MenuManager {
 
         // 查询对象
         LambdaQueryWrapper<Menu> wrapper = new QueryWrapper<Menu>().lambda();
-        wrapper.eq(Menu::getVisible, "0");
         wrapper.eq(Menu::getStatus, "0");
         if (StrUtil.isNotEmpty(keyword)) {
             wrapper.like(Menu::getMenuName, keyword);
@@ -60,10 +59,32 @@ public class MenuManager {
     public List<Menu> queryMC() {
         // 查询对象
         LambdaQueryWrapper<Menu> wrapper = new QueryWrapper<Menu>().lambda();
-        wrapper.eq(Menu::getVisible, "0");
         wrapper.eq(Menu::getStatus, "0");
         wrapper.like(Menu::getMenuType, "M").or().like(Menu::getMenuType, "C");
         wrapper.orderByAsc(Menu::getParentId, Menu::getOrderNum, Menu::getUpdateTime);
         return menuDao.selectList(wrapper);
     }
+
+    /**
+     * 查询所有菜单
+     *
+     * @return
+     */
+    public List<Menu> selectAll() {
+        // 查询对象
+        LambdaQueryWrapper<Menu> wrapper = new QueryWrapper<Menu>().lambda();
+        wrapper.eq(Menu::getStatus, "0");
+        return menuDao.selectList(wrapper);
+    }
+
+    /**
+     * 根据用户id查询菜单列表
+     *
+     * @param userId
+     * @return
+     */
+    public List<Menu> selectMenusByUserId(Long userId) {
+        return menuDao.selectMenusByUserId(userId);
+    }
+
 }

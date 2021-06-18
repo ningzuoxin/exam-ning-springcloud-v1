@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
@@ -103,5 +104,7 @@ public class Menu implements Serializable {
     @ApiModelProperty(value = "备注")
     @TableField("remark")
     private String remark;
+
+    private List<Menu> children;
 
 }

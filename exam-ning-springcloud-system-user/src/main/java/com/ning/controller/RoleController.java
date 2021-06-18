@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/user/role")
@@ -27,13 +28,13 @@ public class RoleController {
 
     @PostMapping(value = "/add")
     @ApiOperation(value = "添加角色")
-    public Result add(@RequestBody Role role) {
+    public Result add(@RequestBody Role role, @RequestParam List<Long> menuIds) {
         role.setDataScope("1");
         role.setStatus("0");
         role.setDelFlag("0");
         role.setCreateTime(LocalDateTime.now());
         role.setUpdateTime(LocalDateTime.now());
-        return roleService.add(role);
+        return roleService.add(role, menuIds);
     }
 
     @GetMapping(value = "/get")
