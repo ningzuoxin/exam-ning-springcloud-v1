@@ -26,12 +26,8 @@ spring:
           uri: lb://exam-ning-system-exam
           predicates:
             - Path=/exam/**
-          filters:
-            - StripPrefix=1
         # 用户服务
         - id: exam-ning-system-user
           uri: lb://exam-ning-system-user
           predicates:
             - Path=/system/**
-#          filters:
-#            - StripPrefix=1

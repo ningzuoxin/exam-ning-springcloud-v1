@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
-@RequestMapping(value = "/exam/result/")
+@RequestMapping(value = "/result/")
 @RestController
 public class ExamResultController {
 

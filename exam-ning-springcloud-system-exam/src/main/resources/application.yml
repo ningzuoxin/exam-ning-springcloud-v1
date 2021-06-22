@@ -1,5 +1,7 @@
 server:
   port: 9202
+  servlet:
+    context-path: /exam
 
 spring:
   application:
@@ -32,6 +34,17 @@ mybatis-plus:
 feign:
   hystrix:
     enabled: true
+
+# 使用基于Redis的统一认证服务时，放开以下注释
+security:
+  oauth2:
+    resource:
+      # user-info-uri: http://localhost:8080/auth/oauth/user
+      token-info-uri: http://exam-ning-auth/oauth/check_token
+    client:
+      client-id: ning666888
+      client-secret: 888666
+      scope: ningning
 
 # swagger配置
 swagger:

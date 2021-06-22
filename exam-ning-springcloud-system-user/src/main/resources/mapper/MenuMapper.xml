@@ -31,7 +31,8 @@
     <select id="selectMenusByUserId" resultMap="BaseResultMap">
         select m.* from role_menu rm
         left join menu m on m.menu_id = rm.menu_id
-        where rm.role_id = 5
+        left join user_role ur on ur.role_id = rm.role_id
+        where ur.user_id = #{userId}
         order by m.parent_id asc , m.order_num asc
     </select>
 

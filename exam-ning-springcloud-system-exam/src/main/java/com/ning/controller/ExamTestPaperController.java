@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
-@RequestMapping(value = "/exam/testPaper/")
+@RequestMapping(value = "/testPaper/")
 @RestController
 public class ExamTestPaperController {
 

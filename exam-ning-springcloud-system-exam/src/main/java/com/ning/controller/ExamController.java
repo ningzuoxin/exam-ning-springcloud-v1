@@ -3,19 +3,17 @@ package com.ning.controller;
 import com.ning.api.user.RemoteUserService;
 import com.ning.model.Result;
 import com.ning.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@RequestMapping(value = "/exam/")
 @RestController
 public class ExamController {
 
-    @Autowired
+    @Resource
     RemoteUserService remoteUserService;
 
     @GetMapping(value = {"/", "/index"})
