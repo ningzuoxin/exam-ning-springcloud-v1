@@ -8,6 +8,7 @@ import com.ning.manager.RoleManager;
 import com.ning.manager.RoleMenuManager;
 import com.ning.model.Result;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -71,6 +72,7 @@ public class RoleService {
             return Result.fail("不存在的角色");
         }
 
+        role.setOwnedMenuIds(roleMenuManager.listOwnedMenuIdByRoleId(id));
         return Result.ok(role);
     }
 
@@ -101,9 +103,11 @@ public class RoleService {
      * 编辑角色
      *
      * @param role
+     * @param menuIds
      * @return
      */
-    public Result update(Role role) {
+    @Transactional
+    public Result update(Role role, List<Long> menuIds) {
         Role recRole = roleManager.selectById(role.getRoleId());
         if (ObjectUtil.isEmpty(recRole) || "2".equals(recRole.getDelFlag())) {
             return Result.fail("不存在的角色");
@@ -111,9 +115,16 @@ public class RoleService {
 
         BeanUtil.copyProperties(role, recRole, "roleId", "dataScope", "createBy", "createTime");
         recRole.setUpdateTime(LocalDateTime.now());
-
         Integer result = roleManager.updateById(role);
         if (result == 1) {
+            roleMenuManager.deleteByRoleId(role.getRoleId());
+
+            for (Long menuId : menuIds) {
+                RoleMenu roleMenu = new RoleMenu();
+                roleMenu.setRoleId(role.getRoleId());
+                roleMenu.setMenuId(menuId);
+                roleMenuManager.insert(roleMenu);
+            }
             return Result.ok();
         } else {
             return Result.fail("编辑失败");

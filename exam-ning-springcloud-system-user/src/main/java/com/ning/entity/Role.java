@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
@@ -83,5 +84,9 @@ public class Role implements Serializable {
     @ApiModelProperty(value = "备注")
     @TableField("remark")
     private String remark;
+
+    @ApiModelProperty(value = "拥有的菜单id列表")
+    @TableField(exist = false)
+    private List<Long> ownedMenuIds;
 
 }

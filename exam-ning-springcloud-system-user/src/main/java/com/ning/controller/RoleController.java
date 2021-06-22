@@ -51,8 +51,8 @@ public class RoleController {
 
     @PostMapping(value = "/update")
     @ApiOperation(value = "修改角色")
-    public Result update(@RequestBody Role role) {
-        return roleService.update(role);
+    public Result update(@RequestBody Role role, @RequestParam List<Long> menuIds) {
+        return roleService.update(role, menuIds);
     }
 
 }

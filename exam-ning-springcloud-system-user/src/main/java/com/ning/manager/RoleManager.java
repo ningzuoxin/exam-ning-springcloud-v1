@@ -35,7 +35,8 @@ public class RoleManager {
         if (StrUtil.isNotEmpty(keyword)) {
             wrapper.like(Role::getRoleName, keyword);
         }
-        wrapper.orderByDesc(Role::getRoleSort, Role::getUpdateTime);
+        wrapper.orderByDesc(Role::getUpdateTime);
+        wrapper.orderByAsc(Role::getRoleSort);
 
         return roleDao.selectPage(iPage, wrapper);
     }
