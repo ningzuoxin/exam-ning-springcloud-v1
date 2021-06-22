@@ -80,7 +80,7 @@ public class RoleService {
      * @param id
      * @return
      */
-    public Result del(Long id) {
+    public Result delete(Long id) {
         Role role = roleManager.selectById(id);
         if (ObjectUtil.isEmpty(role) || "2".equals(role.getDelFlag())) {
             return Result.fail("不存在的角色");
@@ -103,7 +103,7 @@ public class RoleService {
      * @param role
      * @return
      */
-    public Result edit(Role role) {
+    public Result update(Role role) {
         Role recRole = roleManager.selectById(role.getRoleId());
         if (ObjectUtil.isEmpty(recRole) || "2".equals(recRole.getDelFlag())) {
             return Result.fail("不存在的角色");

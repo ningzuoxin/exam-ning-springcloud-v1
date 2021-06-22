@@ -32,6 +32,6 @@ spring:
         - id: exam-ning-system-user
           uri: lb://exam-ning-system-user
           predicates:
-            - Path=/user/**
-          filters:
-            - StripPrefix=1
+            - Path=/system/**
+#          filters:
+#            - StripPrefix=1

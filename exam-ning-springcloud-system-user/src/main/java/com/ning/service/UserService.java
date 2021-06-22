@@ -74,7 +74,7 @@ public class UserService {
      *
      * @return
      */
-    public Result editUser(User user) {
+    public Result update(User user) {
         User recUser = userManager.getUserById(user.getId());
         if (ObjectUtil.isEmpty(recUser)) {
             return Result.fail("不存在的用户");
@@ -99,7 +99,7 @@ public class UserService {
      * @param id
      * @return
      */
-    public Result deleteUser(Integer id) {
+    public Result delete(Integer id) {
         User user = userManager.getUserById(id);
         if (ObjectUtil.isEmpty(user)) {
             return Result.fail("不存在的用户");
@@ -124,7 +124,7 @@ public class UserService {
      * @param id
      * @return
      */
-    public Result getUser(Integer id) {
+    public Result get(Integer id) {
         User user = userManager.getUserById(id);
         if (ObjectUtil.isEmpty(user)) {
             return Result.fail("不存在的用户");

@@ -59,8 +59,8 @@ public class ResourceServerRedisConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/index", "/user/selectUserByUsername").permitAll()
-                .antMatchers("/user/**", "/getInfo").authenticated(); // 配置user访问控制，必须认证后才可以访问
+        http.authorizeRequests().antMatchers("/system/index", "/system/user/selectUserByUsername").permitAll()
+                .antMatchers("/system/**").authenticated(); // 配置user访问控制，必须认证后才可以访问
     }
 
     @Override

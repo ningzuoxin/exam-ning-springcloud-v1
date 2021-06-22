@@ -91,6 +91,19 @@ public class MenuService {
         return returnList;
     }
 
+    public Result get(Integer id) {
+
+        return Result.ok();
+    }
+
+    public Result update(Menu menu) {
+        return Result.ok();
+    }
+
+    public Result delete(Integer id) {
+        return Result.ok();
+    }
+
     /**
      * 查询路由
      *

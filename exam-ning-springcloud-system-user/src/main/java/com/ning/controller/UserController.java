@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/user/")
 public class UserController {
 
     @Resource
@@ -50,22 +50,22 @@ public class UserController {
         return userService.addUser(user);
     }
 
-    @PostMapping(value = "/edit")
+    @PostMapping(value = "/update")
     @ApiOperation(value = "修改用户")
-    public Result editUser(@RequestBody @Valid User user) {
-        return userService.editUser(user);
+    public Result update(@RequestBody @Valid User user) {
+        return userService.update(user);
     }
 
     @PostMapping(value = "/delete")
     @ApiOperation(value = "删除用户")
-    public Result deleteUser(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Integer id) {
-        return userService.deleteUser(id);
+    public Result delete(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Integer id) {
+        return userService.delete(id);
     }
 
     @GetMapping(value = "/get")
     @ApiOperation(value = "获取单个用户")
-    public Result getUser(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Integer id) {
-        return userService.getUser(id);
+    public Result get(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Integer id) {
+        return userService.get(id);
     }
 
 }

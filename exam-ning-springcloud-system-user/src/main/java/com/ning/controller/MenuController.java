@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping(value = "/user/menu")
+@RequestMapping(value = "/menu/")
 public class MenuController {
 
     @Resource
@@ -51,6 +51,26 @@ public class MenuController {
     public Result getRouters() {
         Long userId = SecurityUtils.getLoginUser().getUserId();
         return menuService.getRouters(userId);
+    }
+
+    @GetMapping(value = "/get")
+    @ApiOperation(value = "根据id查询菜单")
+    public Result get(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Integer id) {
+        return menuService.get(id);
+    }
+
+    @PostMapping(value = "/update")
+    @ApiOperation(value = "修改菜单")
+    public Result update(@RequestBody Menu menu) {
+        menu.setCreateTime(LocalDateTime.now());
+        menu.setUpdateTime(LocalDateTime.now());
+        return menuService.update(menu);
+    }
+
+    @GetMapping(value = "/delete")
+    @ApiOperation(value = "删除菜单")
+    public Result delete(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Integer id) {
+        return menuService.delete(id);
     }
 
 }

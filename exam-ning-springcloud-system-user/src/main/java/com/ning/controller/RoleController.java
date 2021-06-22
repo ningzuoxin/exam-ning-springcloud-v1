@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/user/role")
+@RequestMapping(value = "/role/")
 public class RoleController {
 
     @Resource
@@ -43,16 +43,16 @@ public class RoleController {
         return roleService.get(id);
     }
 
-    @GetMapping(value = "/del")
+    @GetMapping(value = "/delete")
     @ApiOperation(value = "删除角色")
-    public Result del(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Long id) {
-        return roleService.del(id);
+    public Result delete(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Long id) {
+        return roleService.delete(id);
     }
 
-    @PostMapping(value = "/edit")
+    @PostMapping(value = "/update")
     @ApiOperation(value = "修改角色")
-    public Result edit(@RequestBody Role role) {
-        return roleService.edit(role);
+    public Result update(@RequestBody Role role) {
+        return roleService.update(role);
     }
 
 }
