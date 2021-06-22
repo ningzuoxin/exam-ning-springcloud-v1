@@ -55,4 +55,10 @@ public class RoleController {
         return roleService.update(role, menuIds);
     }
 
+    @GetMapping(value = "/list")
+    @ApiOperation(value = "查询所有角色")
+    public Result list() {
+        return roleService.list();
+    }
+
 }

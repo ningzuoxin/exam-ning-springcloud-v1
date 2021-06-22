@@ -89,5 +89,7 @@ public class User implements Serializable {
     @TableField("update_time")
     private Integer updateTime;
 
+    @TableField(exist = false)
+    private Long roleId;
 
 }

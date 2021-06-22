@@ -10,6 +10,7 @@ import com.ning.entity.Role;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Component
 public class RoleManager {
@@ -83,6 +84,18 @@ public class RoleManager {
      */
     public Integer updateById(Role role) {
         return roleDao.updateById(role);
+    }
+
+    /**
+     * 查询所有角色
+     *
+     * @return
+     */
+    public List<Role> listAllRole() {
+        // 查询对象
+        LambdaQueryWrapper<Role> wrapper = new QueryWrapper<Role>().lambda();
+        wrapper.eq(Role::getDelFlag, 0);
+        return roleDao.selectList(wrapper);
     }
 
 }

@@ -1,13 +1,17 @@
 package com.ning.service;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.convert.Convert;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ning.entity.User;
+import com.ning.entity.UserRole;
 import com.ning.manager.UserManager;
+import com.ning.manager.UserRoleManager;
 import com.ning.model.Result;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -17,6 +21,8 @@ public class UserService {
 
     @Resource
     UserManager userManager;
+    @Resource
+    UserRoleManager userRoleManager;
 
     /**
      * 根据账号查询用户信息
@@ -55,6 +61,7 @@ public class UserService {
      * @param user
      * @return
      */
+    @Transactional
     public Result addUser(User user) {
         Integer count = userManager.count(user.getUsername());
         if (count > 0) {
@@ -63,6 +70,10 @@ public class UserService {
 
         Integer result = userManager.add(user);
         if (result == 1) {
+            UserRole userRole = new UserRole();
+            userRole.setUserId(Convert.toLong(user.getId()));
+            userRole.setRoleId(user.getRoleId());
+            userRoleManager.insert(userRole);
             return Result.ok(user);
         } else {
             return Result.fail("添加失败");
@@ -87,6 +98,16 @@ public class UserService {
         recUser.setUpdateTime((int) DateUtil.currentSeconds());
         Integer result = userManager.edit(recUser);
         if (result == 1) {
+            UserRole userRole = userRoleManager.selectOne(Convert.toLong(user.getId()));
+            if (ObjectUtil.isNotEmpty(userRole)) {
+                userRole.setRoleId(user.getRoleId());
+                userRoleManager.updateById(userRole);
+            } else {
+                userRole = new UserRole();
+                userRole.setUserId(Convert.toLong(user.getId()));
+                userRole.setRoleId(user.getRoleId());
+                userRoleManager.insert(userRole);
+            }
             return Result.ok(recUser);
         } else {
             return Result.fail("编辑失败");
@@ -132,6 +153,15 @@ public class UserService {
         if (user.getIsDelete() == 1) {
             return Result.fail("用户已被删除");
         }
+
+        UserRole userRole = userRoleManager.selectOne(Convert.toLong(id));
+        if (ObjectUtil.isEmpty(userRole)) {
+            user.setRoleId(0L);
+        } else {
+            user.setRoleId(userRole.getRoleId());
+        }
+
+
         return Result.ok(user);
     }
 }

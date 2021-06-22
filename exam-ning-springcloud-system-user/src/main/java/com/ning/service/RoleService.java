@@ -6,6 +6,7 @@ import com.ning.entity.Role;
 import com.ning.entity.RoleMenu;
 import com.ning.manager.RoleManager;
 import com.ning.manager.RoleMenuManager;
+import com.ning.manager.UserRoleManager;
 import com.ning.model.Result;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,8 @@ public class RoleService {
     RoleManager roleManager;
     @Resource
     RoleMenuManager roleMenuManager;
+    @Resource
+    UserRoleManager userRoleManager;
 
     /**
      * 分页查询角色列表
@@ -88,6 +91,11 @@ public class RoleService {
             return Result.fail("不存在的角色");
         }
 
+        Integer count = userRoleManager.countByRoleId(id);
+        if (count > 0) {
+            return Result.fail("存在拥有该角色的用户，不能删除该角色");
+        }
+
         role.setDelFlag("2");
         role.setUpdateTime(LocalDateTime.now());
 
@@ -129,5 +137,14 @@ public class RoleService {
         } else {
             return Result.fail("编辑失败");
         }
+    }
+
+    /**
+     * 查询所有角色
+     *
+     * @return
+     */
+    public Result list() {
+        return Result.ok(roleManager.listAllRole());
     }
 }
