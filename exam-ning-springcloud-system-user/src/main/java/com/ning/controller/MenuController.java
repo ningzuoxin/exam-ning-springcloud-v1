@@ -55,7 +55,7 @@ public class MenuController {
 
     @GetMapping(value = "/get")
     @ApiOperation(value = "根据id查询菜单")
-    public Result get(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Integer id) {
+    public Result get(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Long id) {
         return menuService.get(id);
     }
 
@@ -69,7 +69,7 @@ public class MenuController {
 
     @GetMapping(value = "/delete")
     @ApiOperation(value = "删除菜单")
-    public Result delete(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Integer id) {
+    public Result delete(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Long id) {
         return menuService.delete(id);
     }
 

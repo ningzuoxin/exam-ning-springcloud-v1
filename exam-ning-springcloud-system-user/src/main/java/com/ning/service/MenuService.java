@@ -1,5 +1,7 @@
 package com.ning.service;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.ning.common.model.MetaVo;
 import com.ning.common.model.RouterVo;
 import com.ning.common.model.TreeSelect;
@@ -11,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -91,17 +94,71 @@ public class MenuService {
         return returnList;
     }
 
-    public Result get(Integer id) {
-
-        return Result.ok();
+    /**
+     * 根据id查询菜单
+     *
+     * @param id
+     * @return
+     */
+    public Result get(Long id) {
+        Menu menu = menuManager.selectById(id);
+        if (ObjectUtil.isEmpty(menu)) {
+            return Result.fail("不存在的菜单");
+        }
+        if ("1".equals(menu.getStatus())) {
+            return Result.fail("菜单已停用");
+        }
+        return Result.ok(menu);
     }
 
+    /**
+     * 修改菜单
+     *
+     * @param menu
+     * @return
+     */
     public Result update(Menu menu) {
-        return Result.ok();
+        Menu recMenu = menuManager.selectById(menu.getMenuId());
+        if (ObjectUtil.isEmpty(recMenu)) {
+            return Result.fail("不存在的菜单");
+        }
+        if ("1".equals(recMenu.getStatus())) {
+            return Result.fail("菜单已停用");
+        }
+
+        BeanUtil.copyProperties(menu, recMenu, "menuId", "createBy", "createTime", "status");
+        recMenu.setUpdateTime(LocalDateTime.now());
+        Integer result = menuManager.updateById(recMenu);
+        if (result == 1) {
+            return Result.ok(recMenu);
+        } else {
+            return Result.fail("修改失败");
+        }
     }
 
-    public Result delete(Integer id) {
-        return Result.ok();
+    /**
+     * 删除菜单
+     *
+     * @param id
+     * @return
+     */
+    public Result delete(Long id) {
+        Menu menu = menuManager.selectById(id);
+        if (ObjectUtil.isEmpty(menu)) {
+            return Result.fail("不存在的菜单");
+        }
+        if ("1".equals(menu.getStatus())) {
+            return Result.fail("菜单已停用");
+        }
+
+        menu.setStatus("1");
+        menu.setUpdateTime(LocalDateTime.now());
+        Integer result = menuManager.updateById(menu);
+        if (result == 1) {
+            return Result.ok(menu);
+        } else {
+            return Result.fail("删除失败");
+        }
     }
 
     /**

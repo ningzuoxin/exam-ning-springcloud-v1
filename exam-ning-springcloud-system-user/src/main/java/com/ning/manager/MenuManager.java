@@ -87,4 +87,12 @@ public class MenuManager {
         return menuDao.selectMenusByUserId(userId);
     }
 
+    public Menu selectById(Long id) {
+        return menuDao.selectById(id);
+    }
+
+    public Integer updateById(Menu menu) {
+        return menuDao.updateById(menu);
+    }
+
 }
