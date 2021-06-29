@@ -1,5 +1,6 @@
 package com.ning.config.jwt;
 
+import com.ning.constant.CommonConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -59,9 +60,9 @@ public class AuthorizationServerJwtConfig extends AuthorizationServerConfigurerA
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         // 密码模式
         clients.inMemory()
-                .withClient("ning666888")
-                .scopes("ningning")
-                .secret("888666")
+                .withClient(CommonConstants.CLIENT_ID)
+                .scopes(CommonConstants.SCOPES)
+                .secret(CommonConstants.CLIENT_SECRET)
                 .authorizedGrantTypes("password", "refresh_token");
     }
 
@@ -102,7 +103,7 @@ public class AuthorizationServerJwtConfig extends AuthorizationServerConfigurerA
         // converter.setKeyPair(keyPair);
 
         // 对称加密
-        converter.setSigningKey("ning123456");
+        converter.setSigningKey(CommonConstants.SIGNING_KEY);
         return converter;
     }
 

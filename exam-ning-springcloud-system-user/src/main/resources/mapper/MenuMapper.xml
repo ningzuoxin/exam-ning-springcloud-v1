@@ -29,11 +29,11 @@
     </sql>
 
     <select id="selectMenusByUserId" resultMap="BaseResultMap">
-        select m.* from role_menu rm
-        left join menu m on m.menu_id = rm.menu_id
+        select m.* from menu m
+        left join role_menu rm on rm.menu_id = m.menu_id
         left join user_role ur on ur.role_id = rm.role_id
-        where ur.user_id = #{userId}
-        order by m.parent_id asc , m.order_num asc
+        where m.`status` = '0' and ur.user_id = #{userId}
+        order by m.parent_id asc , m.order_num asc;
     </select>
 
 </mapper>

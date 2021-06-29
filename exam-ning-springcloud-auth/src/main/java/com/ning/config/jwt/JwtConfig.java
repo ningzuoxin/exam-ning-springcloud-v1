@@ -1,5 +1,6 @@
 package com.ning.config.jwt;
 
+import com.ning.constant.CommonConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -33,7 +34,7 @@ public class JwtConfig {
 //        }
 
         // 对称加密
-        converter.setSigningKey("ning123456");
+        converter.setSigningKey(CommonConstants.SIGNING_KEY);
         return converter;
     }
 

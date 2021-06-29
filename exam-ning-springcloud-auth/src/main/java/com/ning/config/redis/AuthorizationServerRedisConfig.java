@@ -1,5 +1,6 @@
 package com.ning.config.redis;
 
+import com.ning.constant.CommonConstants;
 import com.ning.model.LoginUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,7 +44,7 @@ public class AuthorizationServerRedisConfig extends AuthorizationServerConfigure
     @Bean
     public TokenStore tokenStore() {
         RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
-        tokenStore.setPrefix("oauth:access:");
+        tokenStore.setPrefix(CommonConstants.REDIS_STORE_PREFIX);
         return tokenStore;
     }
 
@@ -69,9 +70,9 @@ public class AuthorizationServerRedisConfig extends AuthorizationServerConfigure
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                .withClient("ning666888")
-                .secret("888666")
-                .scopes("ningning")
+                .withClient(CommonConstants.CLIENT_ID)
+                .scopes(CommonConstants.SCOPES)
+                .secret(CommonConstants.CLIENT_SECRET)
                 .authorizedGrantTypes("password", "client_credentials", "refresh_token");
     }
 
