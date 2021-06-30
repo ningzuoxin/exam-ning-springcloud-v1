@@ -10,9 +10,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
  * 认证服务，提供了用户信息，所以也是资源服务器。
  * 使用redis授权服务配置时，打开下面的注释。
  */
-@Configuration
-@EnableResourceServer
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@Configuration
+//@EnableResourceServer
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerRedisConfig extends ResourceServerConfigurerAdapter {
 
     @Override

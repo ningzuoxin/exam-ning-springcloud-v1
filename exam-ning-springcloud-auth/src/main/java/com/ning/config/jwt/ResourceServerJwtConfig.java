@@ -12,14 +12,14 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
-//@Configuration
-//@EnableResourceServer
-//@Order(3)
+@Configuration
+@EnableResourceServer
+@Order(3)
 public class ResourceServerJwtConfig extends ResourceServerConfigurerAdapter {
 
     @Resource
     @Qualifier(value = "jwtTokenStore")
-    TokenStore tokenStore;
+    private TokenStore tokenStore;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -27,7 +27,6 @@ public class ResourceServerJwtConfig extends ResourceServerConfigurerAdapter {
                 .authenticationEntryPoint(
                         (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
                 .and().requestMatchers().antMatchers("/**")
-                .and().authorizeRequests().antMatchers("/**").authenticated()
                 .and().httpBasic();
     }
 
