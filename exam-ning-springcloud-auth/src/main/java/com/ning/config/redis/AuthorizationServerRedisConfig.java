@@ -25,9 +25,9 @@ import java.util.Map;
  * OAuth2 认证服务配置
  * 基于Redis存储
  */
-//@Configuration
-//@EnableAuthorizationServer
 @SuppressWarnings("ALL")
+@Configuration
+@EnableAuthorizationServer
 public class AuthorizationServerRedisConfig extends AuthorizationServerConfigurerAdapter {
 
     @Resource
@@ -92,8 +92,11 @@ public class AuthorizationServerRedisConfig extends AuthorizationServerConfigure
                 .tokenEnhancer(tokenEnhancer());
     }
 
+
     /**
-     * 自定义生成令牌
+     * 增强令牌 添加 user_id 和 user_name 信息
+     *
+     * @return
      */
     @Bean
     public TokenEnhancer tokenEnhancer() {
@@ -102,8 +105,8 @@ public class AuthorizationServerRedisConfig extends AuthorizationServerConfigure
                 DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
                 LoginUser user = (LoginUser) authentication.getUserAuthentication().getPrincipal();
                 Map<String, Object> additionalInformation = new LinkedHashMap();
-                additionalInformation.put("user_name", authentication.getName());
-                additionalInformation.put("user_id", user.getUserId());
+                additionalInformation.put(CommonConstants.USER_NAME, authentication.getName());
+                additionalInformation.put(CommonConstants.USER_ID, user.getUserId());
                 token.setAdditionalInformation(additionalInformation);
             }
             return accessToken;

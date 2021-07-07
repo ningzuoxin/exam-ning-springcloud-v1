@@ -1,5 +1,6 @@
 package com.ning.config.redis;
 
+import com.ning.security.CustomAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
@@ -66,6 +67,9 @@ public class ResourceServerRedisConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.tokenServices(tokenServices());
+
+        // 处理 Invalid access token 方面异常
+        resources.authenticationEntryPoint(new CustomAuthenticationEntryPoint());
     }
 
 }

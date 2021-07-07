@@ -20,4 +20,16 @@ public class CommonConstants {
     // RedisTokenStore prefix
     public static final String REDIS_STORE_PREFIX = "oauth:access:";
 
+    // user_id
+    public static final String USER_ID = "user_id";
+
+    // user_name
+    public static final String USER_NAME = "user_name";
+
+    // Bad credentials
+    public static final String BAD_CREDENTIALS = "Bad credentials";
+
+    // Bad Password
+    public static final String BAD_PASSWORD = "密码错误";
+
 }

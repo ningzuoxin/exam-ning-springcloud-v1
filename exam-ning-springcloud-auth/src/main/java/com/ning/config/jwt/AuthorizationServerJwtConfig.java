@@ -2,7 +2,6 @@ package com.ning.config.jwt;
 
 import com.ning.constant.CommonConstants;
 import com.ning.model.LoginUser;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -16,6 +15,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import javax.annotation.Resource;
 import java.util.LinkedHashMap;
@@ -25,17 +26,18 @@ import java.util.Map;
  * OAuth2 认证服务配置
  * 基于JWT
  */
-@SuppressWarnings("ALL")
-@Configuration
-@EnableAuthorizationServer
+//@SuppressWarnings("ALL")
+//@Configuration
+//@EnableAuthorizationServer
 public class AuthorizationServerJwtConfig extends AuthorizationServerConfigurerAdapter {
 
     @Resource
     private AuthenticationManager authenticationManager;
 
-    @Resource
-    @Qualifier(value = "jwtTokenStore")
-    private TokenStore tokenStore;
+    @Bean
+    public TokenStore tokenStore() {
+        return new JwtTokenStore(jwtAccessTokenConverter());
+    }
 
     /**
      * 配置令牌端点(Token Endpoint)的安全约束
@@ -74,7 +76,8 @@ public class AuthorizationServerJwtConfig extends AuthorizationServerConfigurerA
                 // refresh_token
                 .reuseRefreshTokens(false)
                 // 指定token存储位置
-                .tokenStore(tokenStore)
+                .tokenStore(tokenStore())
+                .tokenEnhancer(jwtAccessTokenConverter())
                 .tokenServices(defaultTokenServices());
     }
 
@@ -82,7 +85,7 @@ public class AuthorizationServerJwtConfig extends AuthorizationServerConfigurerA
     @Bean
     public DefaultTokenServices defaultTokenServices() {
         DefaultTokenServices tokenServices = new DefaultTokenServices();
-        tokenServices.setTokenStore(tokenStore);
+        tokenServices.setTokenStore(tokenStore());
         tokenServices.setSupportRefreshToken(true);
         tokenServices.setTokenEnhancer(tokenEnhancer());
         tokenServices.setAccessTokenValiditySeconds(60 * 10);
@@ -107,4 +110,12 @@ public class AuthorizationServerJwtConfig extends AuthorizationServerConfigurerA
             return accessToken;
         };
     }
+
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setSigningKey(CommonConstants.SIGNING_KEY);
+        return converter;
+    }
+
 }
