@@ -46,14 +46,4 @@ public class GlobalExceptionHandler {
         return Result.fail(message);
     }
 
-    /**
-     * 拦截未知的运行时异常
-     */
-    @ResponseBody
-    @ExceptionHandler(RuntimeException.class)
-    public Result notFount(RuntimeException e) {
-        log.info("GlobalExceptionHandler # notFount exception={}", e.getMessage());
-        return Result.fail(500, e.getMessage());
-    }
-
 }
