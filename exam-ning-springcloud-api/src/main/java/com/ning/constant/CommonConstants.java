@@ -32,4 +32,7 @@ public class CommonConstants {
     // Bad Password
     public static final String BAD_PASSWORD = "密码错误";
 
+    // Bad Token
+    public static final String BAD_TOKEN = "令牌失效";
+
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class MenuManager {
@@ -93,6 +94,18 @@ public class MenuManager {
 
     public Integer updateById(Menu menu) {
         return menuDao.updateById(menu);
+    }
+
+    /**
+     * 根据用户id查询拥有的权限
+     *
+     * @param userId
+     * @return
+     */
+    public List<String> listPermissionsByUserId(Long userId) {
+        List<Menu> menus = this.selectMenusByUserId(userId);
+        List<String> permissions = menus.stream().filter(m -> !"M".equals(m.getMenuType())).map(m -> m.getPerms()).collect(Collectors.toList());
+        return permissions;
     }
 
 }

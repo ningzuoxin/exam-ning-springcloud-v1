@@ -98,4 +98,14 @@ public class RoleManager {
         return roleDao.selectList(wrapper);
     }
 
+    /**
+     * 根据用户id查询角色代码
+     *
+     * @param userId
+     * @return
+     */
+    public String getRoleKeyByUserId(Long userId) {
+        return roleDao.getRoleKeyByUserId(userId);
+    }
+
 }

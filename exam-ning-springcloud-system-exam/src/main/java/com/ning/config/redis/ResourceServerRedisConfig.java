@@ -1,5 +1,8 @@
 package com.ning.config.redis;
 
+import com.ning.security.CustomAccessDeniedHandler;
+import com.ning.security.CustomAuthenticationEntryPoint;
+import com.ning.security.CustomRestTemplateResponseErrorHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +17,6 @@ import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConv
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.security.oauth2.provider.token.UserAuthenticationConverter;
-import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -38,7 +40,7 @@ public class ResourceServerRedisConfig extends ResourceServerConfigurerAdapter {
     @LoadBalanced
     public RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.setErrorHandler(new DefaultResponseErrorHandler());
+        restTemplate.setErrorHandler(new CustomRestTemplateResponseErrorHandler());
         return restTemplate;
     }
 
@@ -65,5 +67,11 @@ public class ResourceServerRedisConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.tokenServices(tokenServices());
+
+        // 处理 Invalid access token 方面异常
+        resources.authenticationEntryPoint(new CustomAuthenticationEntryPoint());
+
+        // 处理 access_denied 方面异常
+        resources.accessDeniedHandler(new CustomAccessDeniedHandler());
     }
 }

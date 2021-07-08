@@ -1,6 +1,9 @@
 package com.ning.controller;
 
 import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.StrUtil;
+import com.ning.manager.MenuManager;
+import com.ning.manager.RoleManager;
 import com.ning.manager.UserManager;
 import com.ning.model.Result;
 import com.ning.utils.SecurityUtils;
@@ -23,6 +26,10 @@ public class IndexController {
 
     @Resource
     UserManager userManager;
+    @Resource
+    RoleManager roleManager;
+    @Resource
+    MenuManager menuManager;
 
     @GetMapping(value = "/index")
     public Result<String> index() {
@@ -35,8 +42,13 @@ public class IndexController {
 
         // 角色集合
         Set<String> roles = new HashSet<>();
+        String role = roleManager.getRoleKeyByUserId(userId);
+        roles.add(StrUtil.isNotEmpty(role) ? role : "");
+
         // 权限集合
         Set<String> permissions = new HashSet<>();
+        permissions.addAll(menuManager.listPermissionsByUserId(userId));
+
         Map<String, Object> map = new HashMap<>();
         map.put("user", userManager.getUserById(Convert.toInt(userId)));
         map.put("roles", roles);
