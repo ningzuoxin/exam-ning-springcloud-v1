@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * <p>
@@ -34,5 +35,7 @@ public class User implements Serializable {
     private Integer isDelete;
     private Integer createTime;
     private Integer updateTime;
+    private Set<String> roles;
+    private Set<String> permissions;
 
 }

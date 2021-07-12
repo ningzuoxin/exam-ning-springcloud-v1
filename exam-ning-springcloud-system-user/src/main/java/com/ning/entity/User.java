@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -89,7 +90,16 @@ public class User implements Serializable {
     @TableField("update_time")
     private Integer updateTime;
 
+    // 角色id
     @TableField(exist = false)
     private Long roleId;
+
+    // 角色代码
+    @TableField(exist = false)
+    private Set<String> roles;
+
+    // 权限代码
+    @TableField(exist = false)
+    private Set<String> permissions;
 
 }

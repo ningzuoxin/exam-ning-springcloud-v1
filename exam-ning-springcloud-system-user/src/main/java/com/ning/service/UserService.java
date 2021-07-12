@@ -4,9 +4,12 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ning.entity.User;
 import com.ning.entity.UserRole;
+import com.ning.manager.MenuManager;
+import com.ning.manager.RoleManager;
 import com.ning.manager.UserManager;
 import com.ning.manager.UserRoleManager;
 import com.ning.model.Result;
@@ -14,8 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+@SuppressWarnings("ALL")
 @Service
 public class UserService {
 
@@ -23,6 +29,10 @@ public class UserService {
     UserManager userManager;
     @Resource
     UserRoleManager userRoleManager;
+    @Resource
+    RoleManager roleManager;
+    @Resource
+    MenuManager menuManager;
 
     /**
      * 根据账号查询用户信息
@@ -31,7 +41,21 @@ public class UserService {
      * @return
      */
     public Result<User> selectUserByUsername(String username) {
-        return Result.ok(userManager.selectUserByUsername(username));
+        User user = userManager.selectUserByUsername(username);
+        if (ObjectUtil.isNotEmpty(user)) {
+            // 角色集合
+            Set<String> roles = new HashSet<>();
+            String role = roleManager.getRoleKeyByUserId((long) user.getId());
+            roles.add(StrUtil.isNotEmpty(role) ? role : "");
+
+            // 权限集合
+            Set<String> permissions = new HashSet<>();
+            permissions.addAll(menuManager.listPermissionsByUserId((long) user.getId()));
+
+            user.setRoles(roles);
+            user.setPermissions(permissions);
+        }
+        return Result.ok(user);
     }
 
     /**
