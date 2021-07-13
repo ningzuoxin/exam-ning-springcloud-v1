@@ -3,11 +3,13 @@ package com.ning.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.ning.common.enums.ExamTestPaperResultStatusEnum;
 import com.ning.common.model.ExamTestPaperModel;
 import com.ning.common.model.MarkScoreModel;
 import com.ning.entity.*;
 import com.ning.manager.*;
 import com.ning.model.Result;
+import com.ning.utils.SecurityUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -110,10 +112,12 @@ public class ExamResultService {
             examTestPaperItemResultManager.updateById(examTestPaperItemResult);
         }
 
-        examTestPaperResult.setStatus("finished");
+        examTestPaperResult.setStatus(ExamTestPaperResultStatusEnum.FINISHED.getType());
         examTestPaperResult.setObjectiveScore(total);
         examTestPaperResult.setScore(examTestPaperResult.getSubjectiveScore() + total);
         examTestPaperResult.setRightItemCount(examTestPaperResult.getRightItemCount() + right);
+        examTestPaperResult.setCheckUserId(SecurityUtils.getLoginUser().getUserId().intValue());
+        examTestPaperResult.setCheckedTime((int) DateUtil.currentSeconds());
         examTestPaperResult.setUpdateTime((int) DateUtil.currentSeconds());
         examTestPaperResultManager.updateById(examTestPaperResult);
 

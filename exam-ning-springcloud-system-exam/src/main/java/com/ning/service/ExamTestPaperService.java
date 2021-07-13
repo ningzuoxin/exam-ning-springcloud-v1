@@ -5,11 +5,13 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ning.common.enums.ExamQuestionTypeEnum;
+import com.ning.common.enums.ExamTestPaperResultStatusEnum;
 import com.ning.common.event.MarkTestPaperStartEvent;
 import com.ning.common.model.ExamTestPaperModel;
 import com.ning.entity.*;
 import com.ning.manager.*;
 import com.ning.model.Result;
+import com.ning.utils.SecurityUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +59,6 @@ public class ExamTestPaperService {
         }
 
         Integer updatedCount = examQuestionManager.updateUsedNumBatchIds(examTestPaperItems.stream().map(t -> t.getQuestionId()).collect(Collectors.toList()));
-        System.out.println("ExamTestPaperService # add updatedCount=" + updatedCount);
 
         return Result.ok(examTestPaperModel);
     }
@@ -129,9 +130,9 @@ public class ExamTestPaperService {
         int now = (int) DateUtil.currentSeconds();
         // 添加试卷结果
         ExamTestPaperResult examTestPaperResult = examTestPaperModel.getExamTestPaperResult();
-        examTestPaperResult.setStatus("doing");
-        examTestPaperResult.setCheckedTime(now);
+        examTestPaperResult.setStatus(ExamTestPaperResultStatusEnum.DOING.getType());
         examTestPaperResult.setUpdateTime(now);
+        examTestPaperResult.setUserId(SecurityUtils.getLoginUser().getUserId().intValue());
         Integer result = examTestPaperResultManager.insert(examTestPaperResult);
         if (result != 1) {
             return Result.fail("提交试卷失败，请检查数据！");
@@ -141,6 +142,7 @@ public class ExamTestPaperService {
         List<ExamTestPaperItemResult> examTestPaperItemResults = examTestPaperModel.getExamTestPaperItemResults();
         for (ExamTestPaperItemResult examTestPaperItemResult : examTestPaperItemResults) {
             examTestPaperItemResult.setTestpaperResultId(examTestPaperResult.getId());
+            examTestPaperItemResult.setUserId(SecurityUtils.getLoginUser().getUserId().intValue());
             examTestPaperItemResultManager.insert(examTestPaperItemResult);
         }
 
@@ -161,9 +163,9 @@ public class ExamTestPaperService {
             return Result.fail("不存在的试卷，请核实参数！");
         }
 
-        int now = (int) DateUtil.currentSeconds();
         examTestPaper.setIsUsed(1);
-        examTestPaper.setUpdateTime(now);
+        examTestPaper.setUpdateTime((int) DateUtil.currentSeconds());
+        examTestPaper.setUpdateUserId(SecurityUtils.getLoginUser().getUserId().intValue());
         Integer result = examTestPaperManager.updateById(examTestPaper);
         if (result != 1) {
             return Result.fail("试卷发布失败，请重新操作！");
@@ -184,9 +186,9 @@ public class ExamTestPaperService {
             return Result.fail("不存在的试卷，请核实参数！");
         }
 
-        int now = (int) DateUtil.currentSeconds();
         examTestPaper.setIsDelete(1);
-        examTestPaper.setUpdateTime(now);
+        examTestPaper.setUpdateTime((int) DateUtil.currentSeconds());
+        examTestPaper.setUpdateUserId(SecurityUtils.getLoginUser().getUserId().intValue());
         Integer result = examTestPaperManager.updateById(examTestPaper);
         if (result != 1) {
             return Result.fail("试卷删除失败，请重新操作！");

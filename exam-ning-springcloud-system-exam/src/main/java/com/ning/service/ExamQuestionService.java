@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ning.entity.ExamQuestion;
 import com.ning.manager.ExamQuestionManager;
 import com.ning.model.Result;
+import com.ning.utils.SecurityUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -66,6 +67,7 @@ public class ExamQuestionService {
 
         examQuestion.setIsShow(isShow);
         examQuestion.setUpdateTime((int) DateUtil.currentSeconds());
+        examQuestion.setUpdateUserId(SecurityUtils.getLoginUser().getUserId().intValue());
         Integer result = examQuestionManager.update(examQuestion);
         if (result == 1) {
             return Result.ok(examQuestion);
@@ -88,6 +90,7 @@ public class ExamQuestionService {
 
         examQuestion.setIsDelete(1);
         examQuestion.setUpdateTime((int) DateUtil.currentSeconds());
+        examQuestion.setUpdateUserId(SecurityUtils.getLoginUser().getUserId().intValue());
         Integer result = examQuestionManager.update(examQuestion);
         if (result == 1) {
             return Result.ok(examQuestion);

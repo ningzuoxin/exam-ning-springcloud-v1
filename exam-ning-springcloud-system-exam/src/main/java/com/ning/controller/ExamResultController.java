@@ -3,6 +3,7 @@ package com.ning.controller;
 import com.ning.common.model.MarkScoreModel;
 import com.ning.model.Result;
 import com.ning.service.ExamResultService;
+import com.ning.utils.SecurityUtils;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,9 +20,8 @@ public class ExamResultController {
 
     @GetMapping(value = "/list")
     @ApiOperation(value = "查询考试结果列表")
-    public Result list(@RequestParam(value = "id", defaultValue = "1") @ApiParam(name = "id", example = "1") Integer id,
-                       @RequestParam(value = "userId", defaultValue = "1") @ApiParam(name = "userId", example = "1") Integer userId) {
-        return examResultService.list(id, userId);
+    public Result list(@RequestParam(value = "id", defaultValue = "1") @ApiParam(name = "id", example = "1") Integer id) {
+        return examResultService.list(id, SecurityUtils.getLoginUser().getUserId().intValue());
     }
 
     @PreAuthorize("@ss.hasPermi('exam:result:detail')")

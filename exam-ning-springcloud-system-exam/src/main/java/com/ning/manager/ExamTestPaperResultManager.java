@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ning.common.enums.ExamTestPaperResultStatusEnum;
 import com.ning.dao.ExamTestPaperResultDao;
 import com.ning.entity.ExamTestPaperResult;
 import org.springframework.stereotype.Component;
@@ -67,10 +68,10 @@ public class ExamTestPaperResultManager {
     public IPage<ExamTestPaperResult> selectPage(Integer pNum, Integer pSize) {
         // 分页对象
         IPage<ExamTestPaperResult> iPage = new Page<>(pNum, pSize);
-        
+
         // 查询对象
         LambdaQueryWrapper<ExamTestPaperResult> wrapper = new QueryWrapper<ExamTestPaperResult>().lambda();
-        wrapper.eq(ExamTestPaperResult::getStatus, "reviewing");
+        wrapper.eq(ExamTestPaperResult::getStatus, ExamTestPaperResultStatusEnum.REVIEWING.getType());
         wrapper.orderByDesc(ExamTestPaperResult::getUpdateTime);
         return examTestPaperResultDao.selectPage(iPage, wrapper);
     }

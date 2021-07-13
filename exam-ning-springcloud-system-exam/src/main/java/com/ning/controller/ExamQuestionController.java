@@ -5,6 +5,7 @@ import com.ning.common.enums.ExamQuestionTypeEnum;
 import com.ning.entity.ExamQuestion;
 import com.ning.model.Result;
 import com.ning.service.ExamQuestionService;
+import com.ning.utils.SecurityUtils;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -46,6 +47,8 @@ public class ExamQuestionController {
         examQuestion.setIsDelete(0);
         examQuestion.setCreateTime(now);
         examQuestion.setUpdateTime(now);
+        examQuestion.setCreateUserId(SecurityUtils.getLoginUser().getUserId().intValue());
+        examQuestion.setUpdateUserId(SecurityUtils.getLoginUser().getUserId().intValue());
         return examQuestionService.add(examQuestion);
     }
 

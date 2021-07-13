@@ -5,6 +5,7 @@ import com.ning.common.enums.ExamTestPaperTypeEnum;
 import com.ning.common.model.ExamTestPaperModel;
 import com.ning.model.Result;
 import com.ning.service.ExamTestPaperService;
+import com.ning.utils.SecurityUtils;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,6 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("ALL")
 @RequestMapping(value = "/testPaper/")
 @RestController
 public class ExamTestPaperController {
@@ -35,6 +37,8 @@ public class ExamTestPaperController {
         examTestPaperModel.setIsDelete(0);
         examTestPaperModel.setCreateTime(now);
         examTestPaperModel.setUpdateTime(now);
+        examTestPaperModel.setCreateUserId(SecurityUtils.getLoginUser().getUserId().intValue());
+        examTestPaperModel.setUpdateUserId(SecurityUtils.getLoginUser().getUserId().intValue());
         return examTestPaperService.add(examTestPaperModel);
     }
 
@@ -60,9 +64,8 @@ public class ExamTestPaperController {
     @ApiOperation(value = "查询考试列表")
     public Result listExam(@RequestParam(value = "type", required = false) @ApiParam(name = "type", example = "") String type,
                            @RequestParam(value = "pNum", defaultValue = "1") @ApiParam(name = "pNum", example = "1") Integer pNum,
-                           @RequestParam(value = "pSize", defaultValue = "10") @ApiParam(name = "pSize", example = "10") Integer pSize,
-                           @RequestParam(value = "userId", defaultValue = "0") @ApiParam(name = "userId", example = "0") Integer userId) {
-        return examTestPaperService.listExam(type, pNum, pSize, userId);
+                           @RequestParam(value = "pSize", defaultValue = "10") @ApiParam(name = "pSize", example = "10") Integer pSize) {
+        return examTestPaperService.listExam(type, pNum, pSize, SecurityUtils.getLoginUser().getUserId().intValue());
     }
 
     @PostMapping(value = "/submit")
