@@ -25,9 +25,9 @@ import java.util.Map;
  * OAuth2 认证服务配置
  * 基于Redis存储
  */
-@SuppressWarnings("ALL")
-@Configuration
-@EnableAuthorizationServer
+//@SuppressWarnings("ALL")
+//@Configuration
+//@EnableAuthorizationServer
 public class AuthorizationServerRedisConfig extends AuthorizationServerConfigurerAdapter {
 
     @Resource

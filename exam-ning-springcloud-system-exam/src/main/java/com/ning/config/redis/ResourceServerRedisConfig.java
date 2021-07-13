@@ -22,9 +22,9 @@ import org.springframework.web.client.RestTemplate;
 /**
  * 使用redis授权服务配置时，打开下面的注释。
  */
-@Configuration
-@EnableResourceServer
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@Configuration
+//@EnableResourceServer
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerRedisConfig extends ResourceServerConfigurerAdapter {
 
     @Value("${security.oauth2.resource.token-info-uri}")
