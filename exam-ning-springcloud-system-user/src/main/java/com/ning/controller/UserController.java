@@ -6,6 +6,7 @@ import com.ning.model.Result;
 import com.ning.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -31,6 +32,7 @@ public class UserController {
         return userService.selectUsers();
     }
 
+    @PreAuthorize("@ss.hasPermi('system:user:page')")
     @GetMapping(value = "/page")
     @ApiOperation(value = "分页查询用户列表")
     public Result selectPage(@RequestParam(value = "keyword", required = false) @ApiParam(name = "keyword", example = "") String keyword,
@@ -39,6 +41,7 @@ public class UserController {
         return userService.selectUserPage(keyword, pNum, pSize);
     }
 
+    @PreAuthorize("@ss.hasPermi('system:user:add')")
     @PostMapping(value = "/add")
     @ApiOperation(value = "添加用户")
     public Result addUser(@RequestBody @Valid User user) {
@@ -50,12 +53,14 @@ public class UserController {
         return userService.addUser(user);
     }
 
+    @PreAuthorize("@ss.hasPermi('system:user:edit')")
     @PostMapping(value = "/update")
     @ApiOperation(value = "修改用户")
     public Result update(@RequestBody @Valid User user) {
         return userService.update(user);
     }
 
+    @PreAuthorize("@ss.hasPermi('system:user:delete')")
     @PostMapping(value = "/delete")
     @ApiOperation(value = "删除用户")
     public Result delete(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Integer id) {

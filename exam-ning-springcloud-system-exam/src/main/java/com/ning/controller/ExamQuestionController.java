@@ -7,6 +7,7 @@ import com.ning.model.Result;
 import com.ning.service.ExamQuestionService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,6 +28,7 @@ public class ExamQuestionController {
         return Result.ok(ExamQuestionTypeEnum.listExamQuestionTypes());
     }
 
+    @PreAuthorize("@ss.hasPermi('exam:question:page')")
     @GetMapping(value = "/page")
     @ApiOperation(value = "分页查询考题列表")
     public Result selectPage(@RequestParam(value = "type", required = false) @ApiParam(name = "type", example = "") String type,
@@ -36,6 +38,7 @@ public class ExamQuestionController {
         return examQuestionService.selectExamQuestionPage(type, keyword, pNum, pSize);
     }
 
+    @PreAuthorize("@ss.hasPermi('exam:question:add')")
     @PostMapping(value = "/add")
     @ApiOperation(value = "添加考题")
     public Result add(@RequestBody @Valid ExamQuestion examQuestion) {

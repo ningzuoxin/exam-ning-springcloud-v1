@@ -5,6 +5,7 @@ import com.ning.model.Result;
 import com.ning.service.RoleService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -18,6 +19,7 @@ public class RoleController {
     @Resource
     RoleService roleService;
 
+    @PreAuthorize("@ss.hasPermi('system:role:page')")
     @GetMapping(value = "/page")
     @ApiOperation(value = "分页查询角色列表")
     public Result page(@RequestParam(value = "keyword", required = false) @ApiParam(name = "keyword", example = "") String keyword,
@@ -26,6 +28,7 @@ public class RoleController {
         return roleService.selectPage(keyword, pNum, pSize);
     }
 
+    @PreAuthorize("@ss.hasPermi('system:role:add')")
     @PostMapping(value = "/add")
     @ApiOperation(value = "添加角色")
     public Result add(@RequestBody Role role, @RequestParam List<Long> menuIds) {
@@ -43,12 +46,14 @@ public class RoleController {
         return roleService.get(id);
     }
 
+    @PreAuthorize("@ss.hasPermi('system:role:delete')")
     @GetMapping(value = "/delete")
     @ApiOperation(value = "删除角色")
     public Result delete(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Long id) {
         return roleService.delete(id);
     }
 
+    @PreAuthorize("@ss.hasPermi('system:role:update')")
     @PostMapping(value = "/update")
     @ApiOperation(value = "修改角色")
     public Result update(@RequestBody Role role, @RequestParam List<Long> menuIds) {

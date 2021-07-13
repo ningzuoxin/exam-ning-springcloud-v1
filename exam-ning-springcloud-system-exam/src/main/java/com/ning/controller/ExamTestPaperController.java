@@ -7,6 +7,7 @@ import com.ning.model.Result;
 import com.ning.service.ExamTestPaperService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -37,6 +38,7 @@ public class ExamTestPaperController {
         return examTestPaperService.add(examTestPaperModel);
     }
 
+    @PreAuthorize("@ss.hasPermi('exam:testPaper:page')")
     @GetMapping(value = "/page")
     @ApiOperation(value = "分页查询试卷列表")
     public Result selectPage(@RequestParam(value = "type", required = false) @ApiParam(name = "type", example = "") String type,
@@ -46,12 +48,14 @@ public class ExamTestPaperController {
         return examTestPaperService.selectExamTestPaperPage(type, keyword, pNum, pSize);
     }
 
+    @PreAuthorize("@ss.hasPermi('exam:testPaper:preview')")
     @GetMapping(value = "/preview")
     @ApiOperation(value = "预览试卷")
     public Result<ExamTestPaperModel> preview(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Integer id) {
         return examTestPaperService.preview(id);
     }
 
+    @PreAuthorize("@ss.hasPermi('exam:testPaper:listExam')")
     @GetMapping(value = "/listExam")
     @ApiOperation(value = "查询考试列表")
     public Result listExam(@RequestParam(value = "type", required = false) @ApiParam(name = "type", example = "") String type,

@@ -6,6 +6,7 @@ import com.ning.service.MenuService;
 import com.ning.utils.SecurityUtils;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -18,6 +19,7 @@ public class MenuController {
     @Resource
     MenuService menuService;
 
+    @PreAuthorize("@ss.hasPermi('system:menu:page')")
     @GetMapping(value = "/page")
     @ApiOperation(value = "分页查询菜单列表")
     public Result page(@RequestParam(value = "keyword", required = false) @ApiParam(name = "keyword", example = "") String keyword,
@@ -26,6 +28,7 @@ public class MenuController {
         return menuService.selectPage(keyword, pNum, pSize);
     }
 
+    @PreAuthorize("@ss.hasPermi('system:menu:add')")
     @PostMapping(value = "/add")
     @ApiOperation(value = "添加菜单")
     public Result add(@RequestBody Menu menu) {
@@ -59,6 +62,7 @@ public class MenuController {
         return menuService.get(id);
     }
 
+    @PreAuthorize("@ss.hasPermi('system:menu:update')")
     @PostMapping(value = "/update")
     @ApiOperation(value = "修改菜单")
     public Result update(@RequestBody Menu menu) {
@@ -67,6 +71,7 @@ public class MenuController {
         return menuService.update(menu);
     }
 
+    @PreAuthorize("@ss.hasPermi('system:menu:delete')")
     @GetMapping(value = "/delete")
     @ApiOperation(value = "删除菜单")
     public Result delete(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Long id) {
