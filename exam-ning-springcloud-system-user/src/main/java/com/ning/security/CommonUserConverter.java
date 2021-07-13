@@ -1,4 +1,4 @@
-package com.ning.config.redis;
+package com.ning.security;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ObjectUtil;

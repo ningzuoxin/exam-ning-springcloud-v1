@@ -1,17 +1,25 @@
 package com.ning.config.jwt;
 
+import com.ning.constant.CommonConstants;
+import com.ning.security.CommonUserConverter;
+import com.ning.security.CustomAccessTokenConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-//@Configuration
+import javax.annotation.Resource;
+
+@Configuration
 public class JwtConfig {
+
+    @Resource
+    JwtAccessTokenConverter jwtAccessTokenConverter;
 
     @Bean(name = "jwtTokenStore")
     public TokenStore tokenStore() {
-        return new JwtTokenStore(jwtTokenEnhancer());
+        return new JwtTokenStore(jwtAccessTokenConverter);
     }
 
     /**
@@ -21,10 +29,13 @@ public class JwtConfig {
      * @return
      */
     @Bean
-    public JwtAccessTokenConverter jwtTokenEnhancer() {
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        CustomAccessTokenConverter accessTokenConverter = new CustomAccessTokenConverter();
+        accessTokenConverter.setUserTokenConverter(new CommonUserConverter());
+        converter.setAccessTokenConverter(accessTokenConverter);
         // 对称加密
-        converter.setSigningKey("ning123456");
+        converter.setSigningKey(CommonConstants.SIGNING_KEY);
         return converter;
     }
 
