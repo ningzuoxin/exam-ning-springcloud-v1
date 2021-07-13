@@ -1,5 +1,6 @@
 package com.ning.controller;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.ning.model.Result;
 import lombok.extern.slf4j.Slf4j;
@@ -70,7 +71,9 @@ public class OauthController {
 
         // 清空 refresh token
         OAuth2RefreshToken refreshToken = accessToken.getRefreshToken();
-        tokenStore.removeRefreshToken(refreshToken);
+        if (ObjectUtil.isNotEmpty(refreshToken)) {
+            tokenStore.removeRefreshToken(refreshToken);
+        }
 
         return Result.ok("");
     }
