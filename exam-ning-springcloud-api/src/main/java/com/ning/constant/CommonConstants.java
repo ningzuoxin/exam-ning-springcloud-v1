@@ -35,4 +35,7 @@ public class CommonConstants {
     // Bad Token
     public static final String BAD_TOKEN = "令牌失效";
 
+    // Default salt
+    public static final String DEFAULT_SALT = "123456";
+
 }

@@ -3,6 +3,7 @@ package com.ning.controller;
 import com.ning.entity.Role;
 import com.ning.model.Result;
 import com.ning.service.RoleService;
+import com.ning.utils.SecurityUtils;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,11 +33,15 @@ public class RoleController {
     @PostMapping(value = "/add")
     @ApiOperation(value = "添加角色")
     public Result add(@RequestBody Role role, @RequestParam List<Long> menuIds) {
-        role.setDataScope("1");
-        role.setStatus("0");
-        role.setDelFlag("0");
-        role.setCreateTime(LocalDateTime.now());
-        role.setUpdateTime(LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+
+        role.setDataScope("1"); // 数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）
+        role.setStatus("0"); // 角色状态（0正常 1停用）
+        role.setDelFlag("0"); // 删除标志（0代表存在 2代表删除）
+        role.setCreateTime(now);
+        role.setUpdateTime(now);
+        role.setCreateBy(SecurityUtils.getLoginUser().getUserId() + "");
+        role.setUpdateBy(SecurityUtils.getLoginUser().getUserId() + "");
         return roleService.add(role, menuIds);
     }
 

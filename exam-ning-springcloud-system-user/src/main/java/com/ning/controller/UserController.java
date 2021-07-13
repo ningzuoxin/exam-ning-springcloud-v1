@@ -1,6 +1,7 @@
 package com.ning.controller;
 
 import cn.hutool.core.date.DateUtil;
+import com.ning.constant.CommonConstants;
 import com.ning.entity.User;
 import com.ning.model.Result;
 import com.ning.service.UserService;
@@ -46,7 +47,8 @@ public class UserController {
     @ApiOperation(value = "添加用户")
     public Result addUser(@RequestBody @Valid User user) {
         int now = (int) DateUtil.currentSeconds();
-        user.setSalt("123456");
+
+        user.setSalt(CommonConstants.DEFAULT_SALT);
         user.setIsDelete(0);
         user.setCreateTime(now);
         user.setUpdateTime(now);

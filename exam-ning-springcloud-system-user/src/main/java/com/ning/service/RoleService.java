@@ -8,6 +8,7 @@ import com.ning.manager.RoleManager;
 import com.ning.manager.RoleMenuManager;
 import com.ning.manager.UserRoleManager;
 import com.ning.model.Result;
+import com.ning.utils.SecurityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -96,8 +97,9 @@ public class RoleService {
             return Result.fail("存在拥有该角色的用户，不能删除该角色");
         }
 
-        role.setDelFlag("2");
+        role.setDelFlag("2");  // 删除标志（0代表存在 2代表删除）
         role.setUpdateTime(LocalDateTime.now());
+        role.setUpdateBy(SecurityUtils.getLoginUser().getUserId() + "");
 
         Integer result = roleManager.updateById(role);
         if (result == 1) {
@@ -122,7 +124,9 @@ public class RoleService {
         }
 
         BeanUtil.copyProperties(role, recRole, "roleId", "dataScope", "createBy", "createTime");
+
         recRole.setUpdateTime(LocalDateTime.now());
+        role.setUpdateBy(SecurityUtils.getLoginUser().getUserId() + "");
         Integer result = roleManager.updateById(role);
         if (result == 1) {
             roleMenuManager.deleteByRoleId(role.getRoleId());

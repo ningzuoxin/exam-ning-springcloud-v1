@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 
+/**
+ * 菜单管理
+ */
 @RestController
 @RequestMapping(value = "/menu/")
 public class MenuController {
@@ -32,8 +35,11 @@ public class MenuController {
     @PostMapping(value = "/add")
     @ApiOperation(value = "添加菜单")
     public Result add(@RequestBody Menu menu) {
-        menu.setCreateTime(LocalDateTime.now());
-        menu.setUpdateTime(LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+        menu.setCreateBy(SecurityUtils.getLoginUser().getUserId() + "");
+        menu.setUpdateBy(SecurityUtils.getLoginUser().getUserId() + "");
+        menu.setCreateTime(now);
+        menu.setUpdateTime(now);
         return menuService.add(menu);
     }
 
@@ -52,8 +58,7 @@ public class MenuController {
     @GetMapping(value = "/getRouters")
     @ApiOperation(value = "查询路由")
     public Result getRouters() {
-        Long userId = SecurityUtils.getLoginUser().getUserId();
-        return menuService.getRouters(userId);
+        return menuService.getRouters(SecurityUtils.getLoginUser().getUserId());
     }
 
     @GetMapping(value = "/get")
@@ -66,7 +71,7 @@ public class MenuController {
     @PostMapping(value = "/update")
     @ApiOperation(value = "修改菜单")
     public Result update(@RequestBody Menu menu) {
-        menu.setCreateTime(LocalDateTime.now());
+        menu.setUpdateBy(SecurityUtils.getLoginUser().getUserId() + "");
         menu.setUpdateTime(LocalDateTime.now());
         return menuService.update(menu);
     }

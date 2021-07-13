@@ -9,6 +9,7 @@ import com.ning.entity.Menu;
 import com.ning.manager.MenuManager;
 import com.ning.model.Result;
 
+import com.ning.utils.SecurityUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -127,7 +128,6 @@ public class MenuService {
         }
 
         BeanUtil.copyProperties(menu, recMenu, "menuId", "createBy", "createTime", "status");
-        recMenu.setUpdateTime(LocalDateTime.now());
         Integer result = menuManager.updateById(recMenu);
         if (result == 1) {
             return Result.ok(recMenu);
@@ -153,6 +153,7 @@ public class MenuService {
 
         menu.setStatus("1");
         menu.setUpdateTime(LocalDateTime.now());
+        menu.setUpdateBy(SecurityUtils.getLoginUser().getUserId() + "");
         Integer result = menuManager.updateById(menu);
         if (result == 1) {
             return Result.ok(menu);
