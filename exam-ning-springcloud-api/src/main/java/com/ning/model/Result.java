@@ -8,8 +8,6 @@ import java.io.Serializable;
 
 /**
  * 响应信息主体
- *
- * @author ruoyi
  */
 @Data
 public class Result<T> implements Serializable {

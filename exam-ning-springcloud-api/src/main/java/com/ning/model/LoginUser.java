@@ -6,8 +6,6 @@ import java.util.Collection;
 
 /**
  * 登录用户身份权限
- *
- * @author ruoyi
  */
 public class LoginUser extends org.springframework.security.core.userdetails.User {
 

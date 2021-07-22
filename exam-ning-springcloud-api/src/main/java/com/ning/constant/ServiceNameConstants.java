@@ -2,8 +2,6 @@ package com.ning.constant;
 
 /**
  * 服务名称
- *
- * @author ruoyi
  */
 public class ServiceNameConstants {
 

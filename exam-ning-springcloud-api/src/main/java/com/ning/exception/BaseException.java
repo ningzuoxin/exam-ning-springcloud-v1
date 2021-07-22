@@ -2,8 +2,6 @@ package com.ning.exception;
 
 /**
  * 基础异常
- *
- * @author ruoyi
  */
 public class BaseException extends RuntimeException {
 

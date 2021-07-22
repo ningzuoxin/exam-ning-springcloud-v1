@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <name>exam-ning-springcloud-v1</name>
-    <url>http://www.baidu.com</url>
+    <url>https://gitee.com/ningzxspace/exam-ning-springcloud-v1</url>
     <description>微服务考试平台</description>
 
     <properties>
