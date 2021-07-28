@@ -44,9 +44,9 @@ mybatis-plus:
 
 # swagger配置
 swagger:
-  title: 用户模块接口文档
+  title: 系统设置模块接口文档
   license: Powered By ning
-  licenseUrl: https://ruoyi.vip
+  licenseUrl: https://gitee.com/ningzxspace/exam-ning-springcloud-v1
   authorization:
     name: ning
     auth-regex: ^.*$
