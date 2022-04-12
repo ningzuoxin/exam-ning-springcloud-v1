@@ -57,4 +57,6 @@ exam-ning-springcloud-v1
 5. 下载前端代码：https://gitee.com/ningzxspace/exam-ning-web-v1，安装依赖【npm install】，本地运行【npm run dev】。
 6. 浏览器访问http://localhost:9528/，学生【student1/123456】、老师【teacher1/123456】、管理员【system/system】。
 
-## 欢迎Star留言交流
+## 欢迎Star留言入群交流
+***
+![技术交流](doc/imgs/09技术交流.png)
