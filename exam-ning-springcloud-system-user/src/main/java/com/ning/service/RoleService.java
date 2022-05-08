@@ -45,7 +45,7 @@ public class RoleService {
      * @return
      */
     public Result add(Role role, List<Long> menuIds) {
-        Integer count = roleManager.selectCount(role.getRoleKey());
+        long count = roleManager.selectCount(role.getRoleKey());
         if (count > 0) {
             return Result.fail("角色代码已经存在");
         }
@@ -92,7 +92,7 @@ public class RoleService {
             return Result.fail("不存在的角色");
         }
 
-        Integer count = userRoleManager.countByRoleId(id);
+        long count = userRoleManager.countByRoleId(id);
         if (count > 0) {
             return Result.fail("存在拥有该角色的用户，不能删除该角色");
         }

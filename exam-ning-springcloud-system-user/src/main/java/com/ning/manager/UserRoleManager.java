@@ -14,7 +14,7 @@ public class UserRoleManager {
     @Resource
     UserRoleDao userRoleDao;
 
-    public Integer countByRoleId(Long roleId) {
+    public Long countByRoleId(Long roleId) {
         // 查询对象
         LambdaQueryWrapper<UserRole> wrapper = new QueryWrapper<UserRole>().lambda();
         wrapper.eq(UserRole::getRoleId, roleId);

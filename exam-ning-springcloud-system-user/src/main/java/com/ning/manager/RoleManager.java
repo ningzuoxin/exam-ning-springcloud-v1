@@ -48,7 +48,7 @@ public class RoleManager {
      * @param roleKey
      * @return
      */
-    public Integer selectCount(String roleKey) {
+    public Long selectCount(String roleKey) {
         LambdaQueryWrapper<Role> wrapper = new QueryWrapper<Role>().lambda();
         wrapper.eq(Role::getDelFlag, 0);
         wrapper.eq(Role::getRoleKey, roleKey);

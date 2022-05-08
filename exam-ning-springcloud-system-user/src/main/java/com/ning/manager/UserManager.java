@@ -69,7 +69,7 @@ public class UserManager {
      * @param username
      * @return
      */
-    public Integer count(String username) {
+    public Long count(String username) {
         return userDao.selectCount(new QueryWrapper<User>().lambda().eq(User::getIsDelete, 0).eq(User::getUsername, username));
     }
 

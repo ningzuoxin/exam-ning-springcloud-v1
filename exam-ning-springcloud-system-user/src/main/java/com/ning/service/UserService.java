@@ -87,7 +87,7 @@ public class UserService {
      */
     @Transactional
     public Result addUser(User user) {
-        Integer count = userManager.count(user.getUsername());
+        long count = userManager.count(user.getUsername());
         if (count > 0) {
             return Result.fail("账号已经存在");
         }
