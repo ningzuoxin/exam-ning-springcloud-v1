@@ -1,0 +1,9 @@
+version: '3'
+services:
+  app:
+    image: ${image}
+    restart: always
+    ports:
+      - 9201:9201
+    volumes:
+      - "/opt/logs/exam-ning-springcloud-system-user:/opt/logs"
