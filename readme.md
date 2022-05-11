@@ -52,6 +52,12 @@ exam-ning-springcloud-v1
 ## 部署文档
 1. 初始化数据库，数据库脚本文件在doc/sql目录，分别创建exam-ning-springcloud-exam和exam-ning-springcloud-user数据库，导入对应sql文件。 
 2. 启动Nacos，下载Nacos，运行startup.cmd。参考：https://nacos.io/zh-cn/docs/quick-start.html
+```
+【注意事项】
+1、注意下 nacos 的版本，本项目依赖升级后 nacos-client 的版本是 2.0.3。
+2、在使用 docker 启动 nacos 时，要注意同时暴露 9848 端口，参考如下命令：
+docker run --name nacos-server -e MODE=standalone -p 8848:8848 -p 9848:9848 -d nacos/nacos-server:latest
+```
 3. 启动Redis。参考：https://www.cnblogs.com/skmobi/p/11696620.html
 4. 依次启动exam-ning-springcloud-gateway、exam-ning-springcloud-auth、exam-ning-springcloud-system-exam、exam-ning-springcloud-system-user。
 5. 下载前端代码：https://gitee.com/ningzxspace/exam-ning-web-v1，安装依赖【npm install】，本地运行【npm run dev】。
