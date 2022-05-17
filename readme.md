@@ -1,15 +1,23 @@
 ## 系统简介
-* 采用前后端分离的模式，前端框架选型vue-element-admin，前端代码地址 https://gitee.com/ningzxspace/exam-ning-web-v1
+* 采用前后端分离的模式，前端框架选型vue-element-admin，前端代码地址：     
+Gitee：https://gitee.com/ningzxspace/exam-ning-web-v1  
+Github：https://github.com/ningzuoxin/exam-ning-web-v1  
 * 后端采用Spring Boot、Spring Cloud & Alibaba、Mybatis-plus。
 * 注册中心、配置中心选型Nacos，权限认证使用OAuth2。
 <table>
     <tr>
         <td>后端代码地址</td>
-        <td><a href="https://gitee.com/ningzxspace/exam-ning-springcloud-v1">https://gitee.com/ningzxspace/exam-ning-springcloud-v1</a></td>
+        <td>
+            <a href="https://gitee.com/ningzxspace/exam-ning-springcloud-v1">https://gitee.com/ningzxspace/exam-ning-springcloud-v1</a><br/>
+            <a href="https://github.com/ningzuoxin/exam-ning-springcloud-v1">https://github.com/ningzuoxin/exam-ning-springcloud-v1</a>
+        </td>
     </tr>
     <tr>
         <td>前端代码地址</td>
-        <td><a href="https://gitee.com/ningzxspace/exam-ning-web-v1">https://gitee.com/ningzxspace/exam-ning-web-v1</a></td>
+        <td>
+            <a href="https://gitee.com/ningzxspace/exam-ning-web-v1">https://gitee.com/ningzxspace/exam-ning-web-v1</a><br/>
+            <a href="https://github.com/ningzuoxin/exam-ning-web-v1">https://github.com/ningzuoxin/exam-ning-web-v1</a>
+        </td>
     </tr>
 </table>
 
@@ -50,7 +58,7 @@ exam-ning-springcloud-v1
 ![查看成绩](doc/imgs/08查看成绩.png)
 
 ## 部署文档
-1. 初始化数据库，数据库脚本文件在doc/sql目录，分别创建exam-ning-springcloud-exam和exam-ning-springcloud-user数据库，导入对应sql文件。 
+1. 初始化数据库，数据库脚本文件在doc/sql目录，分别创建 exam-ning-springcloud-exam 和 exam-ning-springcloud-user 数据库，导入对应sql文件。 
 2. 启动Nacos，下载Nacos，运行startup.cmd。参考：https://nacos.io/zh-cn/docs/quick-start.html
 ```
 【注意事项】
@@ -60,7 +68,7 @@ docker run --name nacos-server -e MODE=standalone -p 8848:8848 -p 9848:9848 -d n
 ```
 3. 启动Redis。参考：https://www.cnblogs.com/skmobi/p/11696620.html
 4. 依次启动exam-ning-springcloud-gateway、exam-ning-springcloud-auth、exam-ning-springcloud-system-exam、exam-ning-springcloud-system-user。
-5. 下载前端代码：https://gitee.com/ningzxspace/exam-ning-web-v1，安装依赖【npm install】，本地运行【npm run dev】。
+5. 下载前端代码：https://gitee.com/ningzxspace/exam-ning-web-v1 或 https://github.com/ningzuoxin/exam-ning-web-v1，安装依赖【npm install】，本地运行【npm run dev】。
 6. 浏览器访问http://localhost:9528/，学生【student1/123456】、老师【teacher1/123456】、管理员【system/system】。
 7. 接口文档地址：http://127.0.0.1:8080/swagger-ui.html
 
