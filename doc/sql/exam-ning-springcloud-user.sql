@@ -200,28 +200,6 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('4189', 'admin', '123456', '', '', '', '', '', '0', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '1', '0', '1618993373');
-INSERT INTO `user` VALUES ('4192', 'ning#4192', '123456', '123456@qq.com', '13101310131', '123456', 'ning1', '', '0', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618557714', '1618557714');
-INSERT INTO `user` VALUES ('4193', 'ning#4193', '123456', '123456@qq.com', '13101310131', '123456', 'ning1', '', '0', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618558032', '1618558032');
-INSERT INTO `user` VALUES ('4194', 'ning#4194', '123456', '123456@qq.com', '13101310131', '123456', 'ning1', '', '1', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618558050', '1619510071');
-INSERT INTO `user` VALUES ('4195', 'ning#4195', '123456', '123456@qq.com', '13101310131', '123456', 'ningzuoxin123456', '9999999999999', '1', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618558057', '1619510044');
-INSERT INTO `user` VALUES ('4196', 'ning#4196', '123456', '123456@qq.com', '13101310131', '123456', 'ning1', '', '0', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618557714', '1618557714');
-INSERT INTO `user` VALUES ('4197', 'ning#4197', '123456', '123456@qq.com', '13101310131', '123456', 'ning1', '', '0', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618558032', '1618558032');
-INSERT INTO `user` VALUES ('4198', 'ning#4198', '123456', '123456@qq.com', '13101310131', '123456', 'ning1', '', '0', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '1', '1618558050', '1618993387');
-INSERT INTO `user` VALUES ('4199', 'ning#4199', '123456', '123456@qq.com', '13101310131', '123456', 'ning111', '', '1', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618558057', '1619510051');
-INSERT INTO `user` VALUES ('4200', 'ning#4200', '123456', '123456@qq.com', '13101310131', '123456', 'ning1', '', '0', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618557714', '1618557714');
-INSERT INTO `user` VALUES ('4201', 'ning#4201', '123456', '123456@qq.com', '13101310131', '123456', 'ning1', '', '0', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618558032', '1618558032');
-INSERT INTO `user` VALUES ('4202', 'ning#4202', '123456', '123456@qq.com', '13101310131', '123456', 'ning1', '', '0', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618558050', '1618558050');
-INSERT INTO `user` VALUES ('4203', 'ning#4203', '123456', '123456@qq.com', '13101310131', '123456', 'ning111', '', '0', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618558057', '1618559970');
-INSERT INTO `user` VALUES ('4204', 'ning#4204', '123456', '123456@qq.com', '13101310131', '123456', 'ning1', '', '0', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618557714', '1618557714');
-INSERT INTO `user` VALUES ('4205', 'ning#4205', '123456', '123456@qq.com', '13101310131', '123456', 'ning1', '', '2', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618558032', '1619510081');
-INSERT INTO `user` VALUES ('4206', 'ning#4206', '123456', '123456@qq.com', '13101310131', '123456', 'ning1', '', '0', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618558050', '1618558050');
-INSERT INTO `user` VALUES ('4207', 'ning#4207', '123456', '123456@qq.com', '13101310131', '123456', 'ning111', '999999999999999999', '2', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618558057', '1619510014');
-INSERT INTO `user` VALUES ('4209', 'ning001', '123456', '123456@qq.com', '13301330133', '123456', '张三丰', '1231231321', '2', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618901020', '1618901020');
-INSERT INTO `user` VALUES ('4210', 'ning#0001', '123', '123@qq.com', '13333333333', '123456', '111', '111', '1', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618902787', '1618902787');
-INSERT INTO `user` VALUES ('4211', 'zuoxinning', '123456', '123456@163.com', '13401230123', '123456', 'zuoxinning', '19901105', '1', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618902928', '1625730624');
-INSERT INTO `user` VALUES ('4212', 'yanrong', '123456', '12345678@qq.com', '13301330133', '123456', '蓉蓉', '987654321', '2', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1618991394', '1624350458');
-INSERT INTO `user` VALUES ('4213', 'ning', '123456', '12345678@qq.com', '13301330133', '123456', 'ning', '1234567890', '1', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1624349221', '1624351110');
 INSERT INTO `user` VALUES ('4214', 'system', 'system', '123456789@qq.com', '13001300130', '123456', '系统管理员', '', '1', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1626155494', '1626155494');
 INSERT INTO `user` VALUES ('4215', 'admin', 'admin', '123456789@qq.com', '13101310131', '123456', '管理员', '', '1', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1626155536', '1626155536');
 INSERT INTO `user` VALUES ('4216', 'student1', '123456', '123456@qq.com', '13201320132', '123456', '学生1', '', '1', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '1626155577', '1626155577');
@@ -240,9 +218,6 @@ CREATE TABLE `user_role` (
 -- ----------------------------
 -- Records of user_role
 -- ----------------------------
-INSERT INTO `user_role` VALUES ('4211', '6');
-INSERT INTO `user_role` VALUES ('4212', '5');
-INSERT INTO `user_role` VALUES ('4213', '6');
 INSERT INTO `user_role` VALUES ('4214', '5');
 INSERT INTO `user_role` VALUES ('4215', '4');
 INSERT INTO `user_role` VALUES ('4216', '6');

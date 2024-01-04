@@ -14,11 +14,11 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       minimum-idle: 5
-      idle-timeout: 180000
+      idle-timeout: 600000
       maximum-pool-size: 10
       auto-commit: true
       pool-name: EXAM_SC_USER_HikariCP
-      max-lifetime: 180000
+      max-lifetime: 1800000
       connection-timeout: 30000
       connection-test-query: SELECT 1
     driver-class-name: com.mysql.cj.jdbc.Driver
