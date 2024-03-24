@@ -1,6 +1,8 @@
 package com.ning.domain.entity;
 
+import com.ning.domain.types.RoleId;
 import com.ning.domain.types.UserId;
+import com.ning.domain.types.Username;
 
 import java.util.Set;
 
@@ -13,7 +15,7 @@ import java.util.Set;
 public class User {
 
     private UserId id;
-    private String username;
+    private Username username;
     private String password;
     private String email;
     private String mobile;
@@ -25,7 +27,7 @@ public class User {
     private Integer isDelete;
     private Integer createTime;
     private Integer updateTime;
-    private Long roleId;
+    private RoleId roleId;
     private Set<String> roles;
     private Set<String> permissions;
 
