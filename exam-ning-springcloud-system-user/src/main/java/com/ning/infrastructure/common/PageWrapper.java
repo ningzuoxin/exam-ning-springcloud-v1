@@ -1,5 +1,6 @@
 package com.ning.infrastructure.common;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +15,7 @@ import java.util.List;
  */
 @Getter
 @Setter
+@Builder
 public class PageWrapper<T> {
 
     // 记录总数

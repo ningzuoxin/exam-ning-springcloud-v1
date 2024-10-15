@@ -1,6 +1,5 @@
 package com.ning.model;
 
-
 import com.ning.constant.Constants;
 import lombok.Data;
 

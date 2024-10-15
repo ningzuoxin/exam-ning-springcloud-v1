@@ -1,5 +1,6 @@
 package com.ning.domain.types;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@AllArgsConstructor
 public class Username {
 
     private String value;

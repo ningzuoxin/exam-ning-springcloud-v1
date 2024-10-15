@@ -5,6 +5,8 @@ import com.ning.infrastructure.persistence.model.UserDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 /**
  * 用户实体、DO 转换器
  *
@@ -19,5 +21,7 @@ public interface UserConverter {
     UserDO toDO(User user);
 
     User toEntity(UserDO userDO);
+
+    List<User> toEntityList(List<UserDO> userDOList);
 
 }
