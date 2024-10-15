@@ -16,14 +16,14 @@ import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Service
+//@Service
 public class RoleService {
 
-    @Resource
+//    @Resource
     RoleManager roleManager;
-    @Resource
+//    @Resource
     RoleMenuManager roleMenuManager;
-    @Resource
+//    @Resource
     UserRoleManager userRoleManager;
 
     /**

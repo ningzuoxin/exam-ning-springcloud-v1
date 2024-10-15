@@ -10,10 +10,10 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+//@Component
 public class RoleMenuManager {
 
-    @Resource
+//    @Resource
     RoleMenuDao roleMenuDao;
 
     public Integer insert(RoleMenu roleMenu) {

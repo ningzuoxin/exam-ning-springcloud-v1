@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-@RestController
+//@RestController
 public class IndexController {
 
     @Value("${server.port}")

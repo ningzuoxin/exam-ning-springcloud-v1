@@ -12,6 +12,11 @@
     <artifactId>exam-ning-springcloud-gateway</artifactId>
 
     <dependencies>
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
         <!--gateway-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

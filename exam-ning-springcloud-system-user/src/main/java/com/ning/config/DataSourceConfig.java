@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * 数据源相关配置
  */
 @Configuration
-@MapperScan(value = "com.ning.dao") // 扫描Mapper接口
+@MapperScan(value = {"com.ning.infrastructure.persistence.dao"}) // 扫描Mapper接口
 public class DataSourceConfig {
 
     /**

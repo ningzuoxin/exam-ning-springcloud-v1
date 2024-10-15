@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@RestController
+//@RestController
 @RequestMapping(value = "/role/")
 public class RoleController {
 

@@ -13,10 +13,10 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+//@Component
 public class MenuManager {
 
-    @Resource
+//    @Resource
     MenuDao menuDao;
 
     /**

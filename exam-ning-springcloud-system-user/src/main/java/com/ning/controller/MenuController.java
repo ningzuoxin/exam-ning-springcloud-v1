@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 /**
  * 菜单管理
  */
-@RestController
+//@RestController
 @RequestMapping(value = "/menu/")
 public class MenuController {
 

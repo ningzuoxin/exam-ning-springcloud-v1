@@ -5,6 +5,7 @@ import com.ning.domain.types.UserId;
 import com.ning.domain.types.Username;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Set;
 
@@ -16,6 +17,7 @@ import java.util.Set;
  */
 @Getter
 @Setter
+@ToString
 public class User {
 
     // 用户 ID

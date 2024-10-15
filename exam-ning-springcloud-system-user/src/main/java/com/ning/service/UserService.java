@@ -22,16 +22,16 @@ import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings("ALL")
-@Service
+//@Service
 public class UserService {
 
-    @Resource
+//    @Resource
     UserManager userManager;
-    @Resource
+//    @Resource
     UserRoleManager userRoleManager;
-    @Resource
+//    @Resource
     RoleManager roleManager;
-    @Resource
+//    @Resource
     MenuManager menuManager;
 
     /**

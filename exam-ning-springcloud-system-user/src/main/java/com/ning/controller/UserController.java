@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+//@RestController
 @RequestMapping(value = "/user/")
 public class UserController {
 

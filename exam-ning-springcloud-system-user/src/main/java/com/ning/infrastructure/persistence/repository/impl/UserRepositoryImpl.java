@@ -29,7 +29,7 @@ import java.util.List;
 public class UserRepositoryImpl implements UserRepository {
 
     private final UserDao userDao;
-    private final UserConverter userConverter;
+    private final UserConverter userConverter = UserConverter.INSTANCE;
 
     /**
      * 查询用户
