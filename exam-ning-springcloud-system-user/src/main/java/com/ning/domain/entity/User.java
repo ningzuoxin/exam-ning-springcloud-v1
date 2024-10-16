@@ -47,4 +47,14 @@ public class User {
     // 权限集合
     private Set<String> permissions;
 
+    public User(UserId id, Username username, String password, String salt, String nickname, int gender, String phoneNumber) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.salt = salt;
+        this.nickname = nickname;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+    }
+
 }

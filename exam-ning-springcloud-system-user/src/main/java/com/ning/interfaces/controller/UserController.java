@@ -1,25 +1,31 @@
-package com.ning.controller;
+package com.ning.interfaces.controller;
 
 import cn.hutool.core.date.DateUtil;
+import com.ning.application.service.UserAppService;
 import com.ning.constant.CommonConstants;
 import com.ning.entity.User;
 import com.ning.model.Result;
-import com.ning.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
 
-//@RestController
+/**
+ * 用户控制器
+ *
+ * @author zuoxin.ning
+ * @since 2024-10-16 23:00
+ */
+@RestController
+@RequiredArgsConstructor
 @RequestMapping(value = "/user/")
 public class UserController {
 
-    @Resource
-    UserService userService;
+    private final UserAppService userAppService;
 
     @PostMapping(value = "/selectUserByUsername")
     @ApiOperation(value = "根据用户名查询用户信息")

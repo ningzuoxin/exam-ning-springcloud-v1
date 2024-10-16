@@ -1,4 +1,4 @@
-package com.ning.controller;
+package com.ning.interfaces.controller;
 
 import com.ning.entity.Role;
 import com.ning.model.Result;

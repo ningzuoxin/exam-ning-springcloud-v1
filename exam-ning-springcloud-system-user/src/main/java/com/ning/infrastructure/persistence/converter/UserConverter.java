@@ -2,8 +2,7 @@ package com.ning.infrastructure.persistence.converter;
 
 import com.ning.domain.entity.User;
 import com.ning.infrastructure.persistence.model.UserDO;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -31,5 +30,8 @@ public interface UserConverter {
     User toEntity(UserDO userDO);
 
     List<User> toEntityList(List<UserDO> userDOList);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateDO(@MappingTarget UserDO dbUserDO, UserDO modifiedUserDO);
 
 }

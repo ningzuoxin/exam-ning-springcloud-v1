@@ -1,4 +1,4 @@
-package com.ning.controller;
+package com.ning.interfaces.controller;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;

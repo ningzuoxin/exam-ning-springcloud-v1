@@ -13,10 +13,12 @@ import com.ning.infrastructure.common.PageWrapper;
 import com.ning.infrastructure.persistence.converter.UserConverter;
 import com.ning.infrastructure.persistence.dao.UserDao;
 import com.ning.infrastructure.persistence.model.UserDO;
+import com.ning.infrastructure.utils.SnowFlake;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 用户仓储实现类
@@ -55,8 +57,20 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User save(User user) {
         UserDO userDO = userConverter.toDO(user);
-        int res = userDao.insert(userDO);
-        return user;
+        if (Objects.isNull(userDO.getUid())) {
+            userDO.setUid(SnowFlake.ID.nextId());
+            userDao.insert(userDO);
+            return user;
+        } else {
+            UserDO dbUserDO = this.findByUid(user.getId().getValue());
+            if (Objects.isNull(dbUserDO)) {
+                throw new IllegalArgumentException("User not exits, id: " + user.getId().getValue());
+            }
+
+            userConverter.updateDO(dbUserDO, userDO);
+            userDao.updateById(dbUserDO);
+            return userConverter.toEntity(dbUserDO);
+        }
     }
 
     /**
@@ -116,11 +130,15 @@ public class UserRepositoryImpl implements UserRepository {
      */
     @Override
     public User find(UserId userId) {
-        QueryWrapper<UserDO> wrapper = new QueryWrapper<>();
-        wrapper.eq("uid", userId.getValue());
-        wrapper.eq("is_deleted", 0);
-        UserDO userDO = userDao.selectOne(wrapper);
+        UserDO userDO = this.findByUid(userId.getValue());
         return userConverter.toEntity(userDO);
+    }
+
+    private UserDO findByUid(Long uid) {
+        QueryWrapper<UserDO> wrapper = new QueryWrapper<>();
+        wrapper.eq("uid", uid);
+        wrapper.eq("is_deleted", 0);
+        return userDao.selectOne(wrapper);
     }
 
 }
