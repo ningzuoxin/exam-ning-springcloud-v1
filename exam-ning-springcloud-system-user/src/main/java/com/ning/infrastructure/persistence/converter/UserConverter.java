@@ -3,6 +3,7 @@ package com.ning.infrastructure.persistence.converter;
 import com.ning.domain.entity.User;
 import com.ning.infrastructure.persistence.model.UserDO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -18,8 +19,15 @@ public interface UserConverter {
 
     UserConverter INSTANCE = Mappers.getMapper(UserConverter.class);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "uid", source = "id.value")
+    @Mapping(target = "username", source = "username.value")
+    @Mapping(target = "roleId", source = "roleId.value")
     UserDO toDO(User user);
 
+    @Mapping(target = "id", expression = "java(new UserId(userDO.getUid()))")
+    @Mapping(target = "username", expression = "java(new Username(userDO.getUsername()))")
+    @Mapping(target = "roleId", expression = "java(new RoleId(userDO.getRoleId()))")
     User toEntity(UserDO userDO);
 
     List<User> toEntityList(List<UserDO> userDOList);

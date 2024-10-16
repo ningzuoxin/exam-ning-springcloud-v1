@@ -17,6 +17,12 @@
             <artifactId>exam-ning-springcloud-api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <!--nacos-discovery-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -83,9 +89,21 @@
             <artifactId>mapstruct</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <!--test-->
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

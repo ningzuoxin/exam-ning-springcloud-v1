@@ -1,7 +1,9 @@
 package com.ning.domain.types;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 基础类型 RoleId
@@ -11,8 +13,10 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@ToString
+@AllArgsConstructor
 public class RoleId {
 
-    private Integer value;
+    private Long value;
 
 }
