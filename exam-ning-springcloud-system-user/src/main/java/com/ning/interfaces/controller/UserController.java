@@ -1,10 +1,12 @@
 package com.ning.interfaces.controller;
 
 import cn.hutool.core.date.DateUtil;
+import com.ning.application.dto.UserDTO;
 import com.ning.application.service.UserAppService;
 import com.ning.constant.CommonConstants;
 import com.ning.entity.User;
 import com.ning.model.Result;
+import com.ning.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
@@ -22,21 +24,22 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/user/")
+@RequestMapping(value = "/users/")
 public class UserController {
 
     private final UserAppService userAppService;
+    private final UserService userService = new UserService();
 
-    @PostMapping(value = "/selectUserByUsername")
-    @ApiOperation(value = "根据用户名查询用户信息")
-    public Result selectUserByUsername(@RequestParam(value = "username") @ApiParam(name = "username", example = "admin") String username) {
-        return userService.selectUserByUsername(username);
+    @GetMapping(value = "/by-username")
+    @ApiOperation(value = "根据用户名查询用户")
+    public Result<UserDTO> getByUsername(@RequestParam(value = "username") @ApiParam(name = "username", example = "admin") String username) {
+        return Result.ok(userAppService.getByUsername(username));
     }
 
-    @GetMapping(value = "/selectUsers")
-    @ApiOperation(value = "查询用户列表")
-    public Result<List<User>> selectUsers() {
-        return userService.selectUsers();
+    @GetMapping(value = "/all")
+    @ApiOperation(value = "查询全部用户")
+    public Result<List<UserDTO>> findAll() {
+        return Result.ok(userAppService.findAll());
     }
 
     @PreAuthorize("@ss.hasPermi('system:user:page')")

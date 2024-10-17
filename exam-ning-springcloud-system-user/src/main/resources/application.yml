@@ -8,7 +8,10 @@ spring:
     name: exam-ning-system-user
   cloud:
     nacos:
+      config:
+        enabled: false
       discovery:
+        enabled: false
         server-addr: 127.0.0.1:8848 # 服务注册中心
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
@@ -24,8 +27,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/exam-ning-springcloud-user?autoReconnect=true&useUnicode=true&characterEncoding=utf8
     username: root
-    password: 123456
-#    password: Su5I6oOtFU33ckBpZyRe
+#    password: 123456
+    password: Su5I6oOtFU33ckBpZyRe
 
 # mybatis-plus
 mybatis-plus:
