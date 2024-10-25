@@ -1,9 +1,6 @@
-package com.ning.infrastructure.common;
+package com.ning.infrastructure.common.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -18,6 +15,7 @@ import java.util.List;
 @Setter
 @Builder
 @ToString
+@AllArgsConstructor
 public class PageWrapper<T> {
 
     // 记录总数

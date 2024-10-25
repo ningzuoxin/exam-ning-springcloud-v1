@@ -3,7 +3,7 @@ package com.ning.controller;
 import cn.hutool.core.date.DateUtil;
 import com.ning.common.enums.ExamTestPaperTypeEnum;
 import com.ning.common.model.ExamTestPaperModel;
-import com.ning.model.Result;
+import com.ning.infrastructure.common.model.Result;
 import com.ning.service.ExamTestPaperService;
 import com.ning.utils.SecurityUtils;
 import io.swagger.annotations.ApiOperation;

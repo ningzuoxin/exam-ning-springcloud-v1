@@ -2,7 +2,7 @@ package com.ning.handler;
 
 import com.ning.constant.CommonConstants;
 import com.ning.exception.BaseException;
-import com.ning.model.Result;
+import com.ning.infrastructure.common.model.Result;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -12,11 +12,9 @@ import com.ning.manager.MenuManager;
 import com.ning.manager.RoleManager;
 import com.ning.manager.UserManager;
 import com.ning.manager.UserRoleManager;
-import com.ning.model.Result;
-import org.springframework.stereotype.Service;
+import com.ning.infrastructure.common.model.Result;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

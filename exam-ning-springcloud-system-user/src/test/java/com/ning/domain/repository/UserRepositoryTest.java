@@ -3,7 +3,7 @@ package com.ning.domain.repository;
 import com.ning.domain.entity.User;
 import com.ning.domain.types.UserId;
 import com.ning.domain.types.Username;
-import com.ning.infrastructure.common.PageWrapper;
+import com.ning.infrastructure.common.model.PageWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -9,7 +9,7 @@ import com.ning.domain.entity.User;
 import com.ning.domain.repository.UserRepository;
 import com.ning.domain.types.UserId;
 import com.ning.domain.types.Username;
-import com.ning.infrastructure.common.PageWrapper;
+import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.infrastructure.persistence.converter.UserConverter;
 import com.ning.infrastructure.persistence.dao.UserDao;
 import com.ning.infrastructure.persistence.model.UserDO;
@@ -132,6 +132,20 @@ public class UserRepositoryImpl implements UserRepository {
     public User find(UserId userId) {
         UserDO userDO = this.findByUid(userId.getValue());
         return userConverter.toEntity(userDO);
+    }
+
+    /**
+     * 统计用户数
+     *
+     * @param username 用户名
+     * @return 用户数
+     */
+    @Override
+    public long count(Username username) {
+        QueryWrapper<UserDO> wrapper = new QueryWrapper<>();
+        wrapper.eq("username", username.getValue());
+        wrapper.eq("is_deleted", 0);
+        return userDao.selectCount(wrapper);
     }
 
     private UserDO findByUid(Long uid) {

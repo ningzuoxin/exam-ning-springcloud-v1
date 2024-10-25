@@ -1,7 +1,7 @@
 package com.ning.factory.user;
 
 import com.ning.api.user.RemoteUserService;
-import com.ning.model.Result;
+import com.ning.infrastructure.common.model.Result;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

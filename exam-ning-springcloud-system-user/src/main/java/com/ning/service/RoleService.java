@@ -7,12 +7,10 @@ import com.ning.entity.RoleMenu;
 import com.ning.manager.RoleManager;
 import com.ning.manager.RoleMenuManager;
 import com.ning.manager.UserRoleManager;
-import com.ning.model.Result;
+import com.ning.infrastructure.common.model.Result;
 import com.ning.utils.SecurityUtils;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 

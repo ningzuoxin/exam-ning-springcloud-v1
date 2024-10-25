@@ -3,7 +3,7 @@ package com.ning.controller;
 import cn.hutool.core.date.DateUtil;
 import com.ning.common.enums.ExamQuestionTypeEnum;
 import com.ning.entity.ExamQuestion;
-import com.ning.model.Result;
+import com.ning.infrastructure.common.model.Result;
 import com.ning.service.ExamQuestionService;
 import com.ning.utils.SecurityUtils;
 import io.swagger.annotations.ApiOperation;

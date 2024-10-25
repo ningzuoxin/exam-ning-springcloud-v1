@@ -8,7 +8,7 @@ import com.ning.common.model.ExamTestPaperModel;
 import com.ning.common.model.MarkScoreModel;
 import com.ning.entity.*;
 import com.ning.manager.*;
-import com.ning.model.Result;
+import com.ning.infrastructure.common.model.Result;
 import com.ning.utils.SecurityUtils;
 import org.springframework.stereotype.Service;
 

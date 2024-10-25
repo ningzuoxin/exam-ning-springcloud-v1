@@ -1,4 +1,4 @@
-package com.ning.model;
+package com.ning.infrastructure.common.model;
 
 import com.ning.constant.Constants;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package com.ning.interfaces.controller;
 
 import com.ning.entity.Menu;
-import com.ning.model.Result;
+import com.ning.infrastructure.common.model.Result;
 import com.ning.service.MenuService;
 import com.ning.utils.SecurityUtils;
 import io.swagger.annotations.ApiOperation;

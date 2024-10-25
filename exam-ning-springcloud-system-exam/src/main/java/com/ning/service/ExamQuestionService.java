@@ -5,7 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ning.entity.ExamQuestion;
 import com.ning.manager.ExamQuestionManager;
-import com.ning.model.Result;
+import com.ning.infrastructure.common.model.Result;
 import com.ning.utils.SecurityUtils;
 import org.springframework.stereotype.Service;
 

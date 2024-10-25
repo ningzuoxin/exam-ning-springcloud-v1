@@ -7,13 +7,11 @@ import com.ning.common.model.RouterVo;
 import com.ning.common.model.TreeSelect;
 import com.ning.entity.Menu;
 import com.ning.manager.MenuManager;
-import com.ning.model.Result;
+import com.ning.infrastructure.common.model.Result;
 
 import com.ning.utils.SecurityUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;

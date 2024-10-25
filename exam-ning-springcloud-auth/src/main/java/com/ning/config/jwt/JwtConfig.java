@@ -1,7 +1,7 @@
 package com.ning.config.jwt;
 
 import com.ning.constant.CommonConstants;
-import com.ning.model.LoginUser;
+import com.ning.infrastructure.common.model.LoginUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;

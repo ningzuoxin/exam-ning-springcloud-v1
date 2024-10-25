@@ -1,6 +1,6 @@
 package com.ning.handler;
 
-import com.ning.model.Result;
+import com.ning.infrastructure.common.model.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.MethodArgumentNotValidException;

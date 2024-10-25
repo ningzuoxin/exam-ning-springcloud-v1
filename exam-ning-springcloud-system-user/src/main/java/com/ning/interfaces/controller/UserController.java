@@ -5,7 +5,8 @@ import com.ning.application.dto.UserDTO;
 import com.ning.application.service.UserAppService;
 import com.ning.constant.CommonConstants;
 import com.ning.entity.User;
-import com.ning.model.Result;
+import com.ning.infrastructure.common.model.PageWrapper;
+import com.ning.infrastructure.common.model.Result;
 import com.ning.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -45,10 +46,10 @@ public class UserController {
     @PreAuthorize("@ss.hasPermi('system:user:page')")
     @GetMapping(value = "/page")
     @ApiOperation(value = "分页查询用户列表")
-    public Result selectPage(@RequestParam(value = "keyword", required = false) @ApiParam(name = "keyword", example = "") String keyword,
-                             @RequestParam(value = "pNum", defaultValue = "1") @ApiParam(name = "pNum", example = "1") Integer pNum,
-                             @RequestParam(value = "pSize", defaultValue = "10") @ApiParam(name = "pSize", example = "10") Integer pSize) {
-        return userService.selectUserPage(keyword, pNum, pSize);
+    public Result<PageWrapper<UserDTO>> findByPage(@RequestParam(value = "keyword", required = false) @ApiParam(name = "keyword", example = "") String keyword,
+                                                   @RequestParam(value = "pageNum", defaultValue = "1") @ApiParam(name = "pageNum", example = "1") Integer pageNum,
+                                                   @RequestParam(value = "pageSize", defaultValue = "10") @ApiParam(name = "pageSize", example = "10") Integer pageSize) {
+        return Result.ok(userAppService.findByPage(keyword, pageNum, pageSize));
     }
 
     @PreAuthorize("@ss.hasPermi('system:user:add')")

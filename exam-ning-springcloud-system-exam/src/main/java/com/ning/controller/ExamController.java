@@ -1,6 +1,6 @@
 package com.ning.controller;
 
-import com.ning.model.Result;
+import com.ning.infrastructure.common.model.Result;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

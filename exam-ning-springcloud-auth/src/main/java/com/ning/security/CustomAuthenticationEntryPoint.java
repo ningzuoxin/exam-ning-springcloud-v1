@@ -1,7 +1,7 @@
 package com.ning.security;
 
 import com.alibaba.fastjson.JSON;
-import com.ning.model.Result;
+import com.ning.infrastructure.common.model.Result;
 import com.ning.utils.ServletUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;

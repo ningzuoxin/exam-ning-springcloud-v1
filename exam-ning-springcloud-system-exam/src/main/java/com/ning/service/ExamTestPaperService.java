@@ -10,7 +10,7 @@ import com.ning.common.event.MarkTestPaperStartEvent;
 import com.ning.common.model.ExamTestPaperModel;
 import com.ning.entity.*;
 import com.ning.manager.*;
-import com.ning.model.Result;
+import com.ning.infrastructure.common.model.Result;
 import com.ning.utils.SecurityUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;

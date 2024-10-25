@@ -1,6 +1,6 @@
 package com.ning.service;
 
-import com.ning.model.LoginUser;
+import com.ning.infrastructure.common.model.LoginUser;
 import com.ning.utils.SecurityUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;

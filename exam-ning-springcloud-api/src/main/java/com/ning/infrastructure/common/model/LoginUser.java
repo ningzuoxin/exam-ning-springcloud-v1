@@ -1,4 +1,4 @@
-package com.ning.model;
+package com.ning.infrastructure.common.model;
 
 import org.springframework.security.core.GrantedAuthority;
 

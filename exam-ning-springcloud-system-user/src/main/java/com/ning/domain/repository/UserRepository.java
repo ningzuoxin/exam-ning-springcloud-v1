@@ -3,7 +3,7 @@ package com.ning.domain.repository;
 import com.ning.domain.entity.User;
 import com.ning.domain.types.UserId;
 import com.ning.domain.types.Username;
-import com.ning.infrastructure.common.PageWrapper;
+import com.ning.infrastructure.common.model.PageWrapper;
 
 import java.util.List;
 
@@ -63,5 +63,13 @@ public interface UserRepository {
      * @return 用户
      */
     User find(UserId userId);
+
+    /**
+     * 统计用户数
+     *
+     * @param username 用户名
+     * @return 用户数
+     */
+    long count(Username username);
 
 }

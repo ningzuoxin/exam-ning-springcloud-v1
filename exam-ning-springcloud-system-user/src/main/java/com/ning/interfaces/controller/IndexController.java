@@ -5,12 +5,11 @@ import cn.hutool.core.util.StrUtil;
 import com.ning.manager.MenuManager;
 import com.ning.manager.RoleManager;
 import com.ning.manager.UserManager;
-import com.ning.model.Result;
+import com.ning.infrastructure.common.model.Result;
 import com.ning.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.HashMap;

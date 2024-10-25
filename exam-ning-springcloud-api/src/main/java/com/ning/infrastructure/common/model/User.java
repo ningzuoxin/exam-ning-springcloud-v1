@@ -1,4 +1,4 @@
-package com.ning.model;
+package com.ning.infrastructure.common.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

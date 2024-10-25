@@ -2,7 +2,7 @@ package com.ning.controller;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import com.ning.model.Result;
+import com.ning.infrastructure.common.model.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;

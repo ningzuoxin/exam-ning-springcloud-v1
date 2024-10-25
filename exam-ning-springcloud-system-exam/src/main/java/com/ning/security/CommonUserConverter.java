@@ -2,7 +2,7 @@ package com.ning.security;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ObjectUtil;
-import com.ning.model.LoginUser;
+import com.ning.infrastructure.common.model.LoginUser;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
