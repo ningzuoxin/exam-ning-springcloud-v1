@@ -5,6 +5,7 @@ import com.ning.application.dto.UserDTO;
 import com.ning.constant.BusinessCodeEnum;
 import com.ning.domain.entity.User;
 import com.ning.domain.repository.UserRepository;
+import com.ning.domain.types.UserId;
 import com.ning.domain.types.Username;
 import com.ning.exception.BusinessException;
 import com.ning.infrastructure.common.model.PageWrapper;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 用户应用服务
@@ -84,6 +86,52 @@ public class UserAppService {
 
         user = userRepository.save(user);
         return userAssembler.toDTO(user);
+    }
+
+    /**
+     * 修改用户
+     *
+     * @param userDTO 用户
+     * @return 用户
+     */
+    public UserDTO update(UserDTO userDTO) {
+        UserId userId = new UserId(userDTO.getId());
+        Optional<User> userOpt = userRepository.find(userId);
+        if (!userOpt.isPresent()) {
+            throw new BusinessException(BusinessCodeEnum.USER_NOT_EXISTS);
+        }
+
+        User user = userOpt.get();
+        user.setEmail(userDTO.getEmail());
+        user.setNickname(userDTO.getNickname());
+        user.setPhoneNumber(userDTO.getPhoneNumber());
+        user.setGender(userDTO.getGender());
+
+        user = userRepository.save(user);
+        return userAssembler.toDTO(user);
+    }
+
+    /**
+     * 删除用户
+     *
+     * @param id 用户 ID
+     * @return 是否操作成功
+     */
+    public boolean delete(Long id) {
+        UserId userId = new UserId(id);
+        return userRepository.remove(userId);
+    }
+
+    /**
+     * 查询用户
+     *
+     * @param id 用户 ID
+     * @return 用户
+     */
+    public UserDTO get(Long id) {
+        UserId userId = new UserId(id);
+        return userRepository.find(userId).map(userAssembler::toDTO)
+                .orElseThrow(() -> new BusinessException(BusinessCodeEnum.USER_NOT_EXISTS));
     }
 
 }

@@ -6,6 +6,7 @@ import com.ning.domain.types.Username;
 import com.ning.infrastructure.common.model.PageWrapper;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 用户仓储
@@ -62,7 +63,7 @@ public interface UserRepository {
      * @param userId 用户 ID
      * @return 用户
      */
-    User find(UserId userId);
+    Optional<User> find(UserId userId);
 
     /**
      * 统计用户数

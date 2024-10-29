@@ -4,6 +4,7 @@ import com.ning.application.dto.UserDTO;
 import com.ning.domain.entity.User;
 import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.interfaces.request.AddUserRequest;
+import com.ning.interfaces.request.UpdateUserRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -31,5 +32,7 @@ public interface UserAssembler {
     PageWrapper<UserDTO> toDTOPageList(PageWrapper<User> pageUserList);
 
     UserDTO toDTO(AddUserRequest request);
+
+    UserDTO toDTO(UpdateUserRequest request);
 
 }

@@ -19,6 +19,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * 用户仓储实现类
@@ -62,11 +63,12 @@ public class UserRepositoryImpl implements UserRepository {
             userDao.insert(userDO);
             return user;
         } else {
-            UserDO dbUserDO = this.findByUid(user.getId().getValue());
-            if (Objects.isNull(dbUserDO)) {
+            Optional<UserDO> userDOOpt = this.findByUid(user.getId().getValue());
+            if (!userDOOpt.isPresent()) {
                 throw new IllegalArgumentException("User not exits, id: " + user.getId().getValue());
             }
 
+            UserDO dbUserDO = userDOOpt.get();
             userConverter.updateDO(dbUserDO, userDO);
             userDao.updateById(dbUserDO);
             return userConverter.toEntity(dbUserDO);
@@ -117,8 +119,22 @@ public class UserRepositoryImpl implements UserRepository {
                 .build();
     }
 
+    /**
+     * 删除用户
+     *
+     * @param userId 用户 ID
+     * @return 是否操作成功
+     */
     @Override
     public boolean remove(UserId userId) {
+        Optional<UserDO> userDOOpt = this.findByUid(userId.getValue());
+        if (!userDOOpt.isPresent()) {
+            return true;
+        }
+
+        UserDO userDO = userDOOpt.get();
+        userDO.setIsDeleted(1);
+        userDao.updateById(userDO);
         return false;
     }
 
@@ -129,9 +145,8 @@ public class UserRepositoryImpl implements UserRepository {
      * @return 用户
      */
     @Override
-    public User find(UserId userId) {
-        UserDO userDO = this.findByUid(userId.getValue());
-        return userConverter.toEntity(userDO);
+    public Optional<User> find(UserId userId) {
+        return this.findByUid(userId.getValue()).map(userConverter::toEntity);
     }
 
     /**
@@ -148,11 +163,11 @@ public class UserRepositoryImpl implements UserRepository {
         return userDao.selectCount(wrapper);
     }
 
-    private UserDO findByUid(Long uid) {
+    private Optional<UserDO> findByUid(Long uid) {
         QueryWrapper<UserDO> wrapper = new QueryWrapper<>();
         wrapper.eq("uid", uid);
         wrapper.eq("is_deleted", 0);
-        return userDao.selectOne(wrapper);
+        return Optional.ofNullable(userDao.selectOne(wrapper));
     }
 
 }

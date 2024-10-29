@@ -26,6 +26,7 @@ public enum BusinessCodeEnum {
     /**
      * 用户模块
      */
+    USER_NOT_EXISTS(400, "用户不存在"),
     USER_USERNAME_EXISTS(400, "用户名已经存在"),
     ;
 

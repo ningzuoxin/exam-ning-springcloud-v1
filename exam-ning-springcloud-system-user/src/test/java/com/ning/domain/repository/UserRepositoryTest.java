@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @SpringBootTest
@@ -35,7 +36,13 @@ class UserRepositoryTest {
 
     @Test
     void saveForUpdate() {
-        User user = userRepository.find(new UserId(123L));
+        Optional<User> userOpt = userRepository.find(new UserId(123L));
+        if (!userOpt.isPresent()) {
+            log.error("user not exists.");
+            return;
+        }
+
+        User user = userOpt.get();
         user.setNickname("si.li");
         user.setGender(2);
         user = userRepository.save(user);
@@ -64,8 +71,12 @@ class UserRepositoryTest {
 
     @Test
     void testFind() {
-        User user = userRepository.find(new UserId(123L));
-        log.info("user: {}.", user);
+        Optional<User> userOpt = userRepository.find(new UserId(123L));
+        if (!userOpt.isPresent()) {
+            log.error("user not exists.");
+            return;
+        }
+        log.info("user: {}.", userOpt.get());
     }
 
 }
