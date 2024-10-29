@@ -6,7 +6,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 响应信息主体
+ * 统一响应结果
  */
 @Data
 public class Result<T> implements Serializable {
@@ -51,6 +51,10 @@ public class Result<T> implements Serializable {
 
     public static <T> Result<T> fail(T data) {
         return restResult(data, FAIL, "failure");
+    }
+
+    public static <T> Result<T> fail(T data, int code, String msg) {
+        return restResult(data, code, msg);
     }
 
     public static <T> Result<T> fail(T data, String msg) {
