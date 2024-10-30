@@ -61,7 +61,7 @@ public class UserRepositoryImpl implements UserRepository {
         if (Objects.isNull(userDO.getUid())) {
             userDO.setUid(SnowFlake.ID.nextId());
             userDao.insert(userDO);
-            return user;
+            return userConverter.toEntity(userDO);
         } else {
             Optional<UserDO> userDOOpt = this.findByUid(user.getId().getValue());
             if (!userDOOpt.isPresent()) {

@@ -75,14 +75,16 @@ public class UserAppService {
             throw new BusinessException(BusinessCodeEnum.USER_USERNAME_EXISTS);
         }
 
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword("123456");
-        user.setSalt("123456");
-        user.setEmail(userDTO.getEmail());
-        user.setNickname(userDTO.getNickname());
-        user.setPhoneNumber(userDTO.getPhoneNumber());
-        user.setGender(userDTO.getGender());
+        User user = new User(
+                new UserId(null),
+                username,
+                userDTO.getNickname(),
+                userDTO.getGender(),
+                userDTO.getPhoneNumber(),
+                userDTO.getIdNumber(),
+                userDTO.getEmail(),
+                userDTO.getAvatar());
+        // todo 角色的处理
 
         user = userRepository.save(user);
         return userAssembler.toDTO(user);
@@ -102,10 +104,14 @@ public class UserAppService {
         }
 
         User user = userOpt.get();
-        user.setEmail(userDTO.getEmail());
-        user.setNickname(userDTO.getNickname());
-        user.setPhoneNumber(userDTO.getPhoneNumber());
-        user.setGender(userDTO.getGender());
+        user.update(
+                userDTO.getPassword(),
+                userDTO.getNickname(),
+                userDTO.getGender(),
+                userDTO.getPhoneNumber(),
+                userDTO.getIdNumber(),
+                userDTO.getEmail(),
+                userDTO.getAvatar());
 
         user = userRepository.save(user);
         return userAssembler.toDTO(user);

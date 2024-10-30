@@ -22,20 +22,24 @@ public class AddUserRequest {
     @ApiModelProperty(value = "账号")
     private String username;
 
-    @NotEmpty(message = "密码不能为空")
-    @ApiModelProperty(value = "密码")
-    private String password;
+    @NotEmpty(message = "昵称不能为空")
+    @ApiModelProperty(value = "昵称")
+    private String nickname;
 
-    @NotEmpty(message = "电子邮箱不能为空")
-    @ApiModelProperty(value = "电子邮箱")
-    private String email;
+    @ApiModelProperty(value = "性别")
+    private Integer gender;
 
     @NotEmpty(message = "手机号码不能为空")
     @ApiModelProperty(value = "手机号码")
     private String phoneNumber;
 
-    @NotEmpty(message = "昵称不能为空")
-    @ApiModelProperty(value = "昵称")
-    private String nickname;
+    @ApiModelProperty(value = "身份证号")
+    private String idNumber;
+
+    @ApiModelProperty(value = "电子邮箱")
+    private String email;
+
+    @ApiModelProperty(value = "头像")
+    private String avatar;
 
 }

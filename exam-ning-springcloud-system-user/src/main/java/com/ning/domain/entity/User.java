@@ -4,7 +4,6 @@ import com.ning.domain.types.RoleId;
 import com.ning.domain.types.UserId;
 import com.ning.domain.types.Username;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -19,7 +18,6 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
 public class User {
 
     // 用户 ID
@@ -49,14 +47,28 @@ public class User {
     // 权限集合
     private Set<String> permissions;
 
-    public User(UserId id, Username username, String password, String salt, String nickname, int gender, String phoneNumber) {
+    public User(UserId id, Username username, String nickname, Integer gender, String phoneNumber, String idNumber, String email, String avatar) {
         this.id = id;
         this.username = username;
-        this.password = password;
-        this.salt = salt;
         this.nickname = nickname;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
+        this.idNumber = idNumber;
+        this.email = email;
+        this.avatar = avatar;
+        // todo 设置初始化的密码和盐
+        this.password = "123456";
+        this.salt = "123";
+    }
+
+    public void update(String password, String nickname, Integer gender, String phoneNumber, String idNumber, String email, String avatar) {
+        this.password = password;
+        this.nickname = nickname;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+        this.idNumber = idNumber;
+        this.email = email;
+        this.avatar = avatar;
     }
 
 }

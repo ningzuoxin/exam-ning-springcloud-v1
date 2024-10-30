@@ -1,5 +1,6 @@
 package com.ning.handler;
 
+import com.ning.constant.BusinessCodeEnum;
 import com.ning.exception.BusinessException;
 import com.ning.infrastructure.common.model.Result;
 import lombok.extern.slf4j.Slf4j;
@@ -35,27 +36,42 @@ public class GlobalExceptionHandler {
     /**
      * 请求方法中校验抛出的异常
      *
-     * @param e
-     * @return
+     * @param e ConstraintViolationException
+     * @return 统一响应结果
      */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
-    public Result handleConstraintViolationException(ConstraintViolationException e) {
+    public Result<String> handleConstraintViolationException(ConstraintViolationException e) {
         // 获取异常中第一个错误信息
         String message = e.getConstraintViolations().iterator().next().getMessage();
-        return Result.fail(message);
+        return Result.fail(null, BusinessCodeEnum.VALIDATE_FAILED.getCode(), message);
     }
 
     /**
      * POST请求参数校验抛出的异常
      *
-     * @param e
-     * @return
+     * @param e MethodArgumentNotValidException
+     * @return 统一响应结果
      */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Result handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public Result<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         // 获取异常中随机一个异常信息
         String message = e.getBindingResult().getFieldError().getDefaultMessage();
-        return Result.fail(message);
+        return Result.fail(null, BusinessCodeEnum.VALIDATE_FAILED.getCode(), message);
+    }
+
+    /**
+     * 处理通用异常
+     *
+     * @param e Exception
+     * @return 统一响应结果
+     */
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    public Result<String> handleException(Exception e) {
+        log.error("error: {}.", e.getMessage(), e);
+        return Result.fail(null, BusinessCodeEnum.FAILED.getCode(), BusinessCodeEnum.FAILED.getMessage());
     }
 
 }
