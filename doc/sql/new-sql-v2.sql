@@ -19,3 +19,65 @@ CREATE TABLE IF NOT EXISTS `sys_user` (
   INDEX `idx_phone_number` (`phone_number`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT '系统用户表';
 
+-- 系统角色表
+CREATE TABLE IF NOT EXISTS `sys_role` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键自增ID',
+  `uid` bigint UNSIGNED NOT NULL UNIQUE COMMENT '业务ID',
+  `role_name` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '角色名称',
+  `role_key` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '角色权限字符串',
+  `sort_num` int DEFAULT 0 COMMENT '排序',
+  `status` tinyint UNSIGNED DEFAULT 0 COMMENT '角色状态，0：正常；1：停用；',
+  `is_deleted` tinyint UNSIGNED DEFAULT 0 COMMENT '是否删除，0：未删除；1：已删除；',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  INDEX `idx_role_key` (`role_key`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT '系统角色表';
+
+-- 系统用户角色表
+CREATE TABLE IF NOT EXISTS `sys_user_role` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键自增ID',
+  `uid` bigint UNSIGNED NOT NULL UNIQUE COMMENT '业务ID',
+  `user_uid` bigint UNSIGNED NOT NULL COMMENT '用户ID',
+  `role_uid` bigint UNSIGNED NOT NULL COMMENT '角色ID',
+  `is_deleted` tinyint UNSIGNED DEFAULT 0 COMMENT '是否删除，0：未删除；1：已删除；',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  INDEX `idx_user_uid` (`user_uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT '系统用户角色表';
+
+-- 系统菜单表
+CREATE TABLE IF NOT EXISTS `sys_menu` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键自增ID',
+  `uid` bigint UNSIGNED NOT NULL UNIQUE COMMENT '业务ID',
+  `menu_name` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '菜单名称',
+  `parent_uid` bigint UNSIGNED DEFAULT 0 COMMENT '父菜单ID',
+  `sort_num` int DEFAULT 0 COMMENT '排序',
+  `path` varchar(256) COLLATE utf8mb4_unicode_ci NULL COMMENT '路由地址',
+  `component` varchar(256) COLLATE utf8mb4_unicode_ci NULL COMMENT '组件路径'
+  `is_frame` tinyint UNSIGNED DEFAULT 0 COMMENT '是否为外链，0：否；1：是；',
+  `menu_type`tinyint UNSIGNED DEFAULT 0 COMMENT '菜单类型，1：目录；2：菜单；3：按钮；',
+  `status` tinyint UNSIGNED DEFAULT 0 COMMENT '菜单状态，0：正常；1：停用；',
+  `perms` varchar(128) COLLATE utf8mb4_unicode_ci NULL COMMENT '权限标识',
+  `icon` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT '#' COMMENT '菜单图标',
+  `is_deleted` tinyint UNSIGNED DEFAULT 0 COMMENT '是否删除，0：未删除；1：已删除；',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  INDEX `idx_parent_uid` (`parent_uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT '系统菜单表';
+
+-- 系统角色菜单表
+CREATE TABLE IF NOT EXISTS `sys_user_role` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键自增ID',
+  `uid` bigint UNSIGNED NOT NULL UNIQUE COMMENT '业务ID',
+  `role_uid` bigint UNSIGNED NOT NULL COMMENT '角色ID',
+  `menu_uid` bigint UNSIGNED NOT NULL COMMENT '用户ID',
+  `is_deleted` tinyint UNSIGNED DEFAULT 0 COMMENT '是否删除，0：未删除；1：已删除；',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  INDEX `idx_user_uid` (`user_uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT '系统角色菜单表';
+

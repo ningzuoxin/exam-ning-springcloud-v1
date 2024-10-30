@@ -82,7 +82,9 @@ public class UserRepositoryImpl implements UserRepository {
      */
     @Override
     public List<User> findAll() {
-        List<UserDO> userDOList = userDao.selectList(null);
+        QueryWrapper<UserDO> wrapper = new QueryWrapper<>();
+        wrapper.eq("is_deleted", 0);
+        List<UserDO> userDOList = userDao.selectList(wrapper);
         return userConverter.toEntityList(userDOList);
     }
 
@@ -135,7 +137,7 @@ public class UserRepositoryImpl implements UserRepository {
         UserDO userDO = userDOOpt.get();
         userDO.setIsDeleted(1);
         userDao.updateById(userDO);
-        return false;
+        return true;
     }
 
     /**

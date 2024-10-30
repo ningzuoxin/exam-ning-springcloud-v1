@@ -29,7 +29,7 @@ class UserRepositoryTest {
     void saveForNew() {
         UserId userId = new UserId(null);
         Username username = new Username("san.zhang");
-        User user = new User(userId, username, "zhangsan", 2, "13101310131", "123456@qq.com");
+        User user = new User(userId, username, "zhangsan", 2, "13101310131", "123456@qq.com", "", "");
         user = userRepository.save(user);
         log.info("user: {}.", user);
     }

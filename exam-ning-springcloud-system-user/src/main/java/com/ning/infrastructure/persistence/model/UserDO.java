@@ -78,11 +78,11 @@ public class UserDO implements Serializable {
     @TableField("is_deleted")
     private Integer isDeleted;
 
-    @ApiModelProperty(value = "注册时间")
+    @ApiModelProperty(value = "创建时间")
     @TableField("create_time")
     private Instant createTime;
 
-    @ApiModelProperty(value = "最后更新时间")
+    @ApiModelProperty(value = "更新时间")
     @TableField("update_time")
     private Instant updateTime;
 
