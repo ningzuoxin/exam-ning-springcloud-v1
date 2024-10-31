@@ -1,9 +1,14 @@
 package com.ning.infrastructure.persistence.repository.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ning.domain.entity.Role;
 import com.ning.domain.repository.RoleRepository;
 import com.ning.domain.types.RoleId;
+import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.infrastructure.persistence.converter.RoleConverter;
 import com.ning.infrastructure.persistence.dao.RoleDao;
 import com.ning.infrastructure.persistence.model.RoleDO;
@@ -95,6 +100,51 @@ public class RoleRepositoryImpl implements RoleRepository {
         wrapper.eq("is_deleted", 0);
         List<RoleDO> roleDOList = roleDao.selectList(wrapper);
         return roleConverter.toEntityList(roleDOList);
+    }
+
+    /**
+     * 分页查询角色列表
+     *
+     * @param keyword  关键词
+     * @param pageNum  当前页
+     * @param pageSize 当前页条数
+     * @return 角色列表
+     */
+    @Override
+    public PageWrapper<Role> findByPage(String keyword, Integer pageNum, Integer pageSize) {
+        // 分页对象
+        IPage<RoleDO> iPage = new Page<>(pageNum, pageSize);
+
+        // 查询对象
+        LambdaQueryWrapper<RoleDO> wrapper = new QueryWrapper<RoleDO>().lambda();
+        wrapper.eq(RoleDO::getIsDeleted, 0);
+        if (StrUtil.isNotEmpty(keyword)) {
+            wrapper.like(RoleDO::getRoleName, keyword);
+        }
+        wrapper.orderByDesc(RoleDO::getUpdateTime);
+        wrapper.orderByAsc(RoleDO::getSortNum);
+
+        IPage<RoleDO> roleDOIPage = roleDao.selectPage(iPage, wrapper);
+        return PageWrapper.<Role>builder()
+                .total(roleDOIPage.getTotal())
+                .pageNum(pageNum)
+                .pageSize(pageSize)
+                .data(roleConverter.toEntityList(roleDOIPage.getRecords()))
+                .build();
+    }
+
+    /**
+     * 统计角色数
+     *
+     * @param roleKey 角色代码
+     * @return 角色数
+     */
+    @Override
+    public long countByRoleKey(String roleKey) {
+        QueryWrapper<RoleDO> wrapper = new QueryWrapper<>();
+        wrapper.eq("role_key", roleKey);
+        wrapper.eq("is_deleted", 0);
+        return roleDao.selectCount(wrapper);
     }
 
     private Optional<RoleDO> findByUid(Long uid) {

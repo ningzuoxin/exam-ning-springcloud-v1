@@ -1,74 +1,75 @@
 package com.ning.interfaces.controller;
 
-import com.ning.entity.Role;
+import com.ning.application.assembler.RoleAssembler;
+import com.ning.application.dto.RoleDTO;
+import com.ning.application.service.RoleAppService;
+import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.infrastructure.common.model.Result;
-import com.ning.service.RoleService;
-import com.ning.utils.SecurityUtils;
+import com.ning.interfaces.request.AddRoleRequest;
+import com.ning.interfaces.request.UpdateRoleRequest;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.security.access.prepost.PreAuthorize;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import java.time.LocalDateTime;
 import java.util.List;
 
-//@RestController
-@RequestMapping(value = "/role/")
+/**
+ * 角色控制器
+ *
+ * @author zuoxin.ning
+ * @since 2024-10-31 12:00
+ */
+@RestController
+@RequiredArgsConstructor
+@RequestMapping(value = "/roles")
 public class RoleController {
 
-    @Resource
-    RoleService roleService;
+    private final RoleAppService roleAppService;
+    private final RoleAssembler roleAssembler = RoleAssembler.INSTANCE;
 
-    @PreAuthorize("@ss.hasPermi('system:role:page')")
-    @GetMapping(value = "/page")
+    //    @PreAuthorize("@ss.hasPermi('system:role:page')")
     @ApiOperation(value = "分页查询角色列表")
-    public Result page(@RequestParam(value = "keyword", required = false) @ApiParam(name = "keyword", example = "") String keyword,
-                       @RequestParam(value = "pNum", defaultValue = "1") @ApiParam(name = "pNum", example = "1") Integer pNum,
-                       @RequestParam(value = "pSize", defaultValue = "10") @ApiParam(name = "pSize", example = "10") Integer pSize) {
-        return roleService.selectPage(keyword, pNum, pSize);
+    @GetMapping(value = "/page")
+    public Result<PageWrapper<RoleDTO>> page(@RequestParam(value = "keyword", required = false) @ApiParam(name = "keyword", example = "") String keyword,
+                                             @RequestParam(value = "pageNum", defaultValue = "1") @ApiParam(name = "pageNum", example = "1") Integer pNum,
+                                             @RequestParam(value = "pageSize", defaultValue = "10") @ApiParam(name = "pageSize", example = "10") Integer pSize) {
+        return Result.ok(roleAppService.findByPage(keyword, pNum, pSize));
     }
 
-    @PreAuthorize("@ss.hasPermi('system:role:add')")
-    @PostMapping(value = "/add")
+    //    @PreAuthorize("@ss.hasPermi('system:role:add')")
     @ApiOperation(value = "添加角色")
-    public Result add(@RequestBody Role role, @RequestParam List<Long> menuIds) {
-        LocalDateTime now = LocalDateTime.now();
-
-        role.setDataScope("1"); // 数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）
-        role.setStatus("0"); // 角色状态（0正常 1停用）
-        role.setDelFlag("0"); // 删除标志（0代表存在 2代表删除）
-        role.setCreateTime(now);
-        role.setUpdateTime(now);
-        role.setCreateBy(SecurityUtils.getLoginUser().getUserId() + "");
-        role.setUpdateBy(SecurityUtils.getLoginUser().getUserId() + "");
-        return roleService.add(role, menuIds);
+    @PostMapping(value = "")
+    public Result<RoleDTO> add(@RequestBody AddRoleRequest request) {
+        RoleDTO roleDTO = roleAssembler.toDTO(request);
+        return Result.ok(roleAppService.add(roleDTO));
     }
 
-    @GetMapping(value = "/get")
     @ApiOperation(value = "查询角色")
-    public Result get(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Long id) {
-        return roleService.get(id);
+    @GetMapping(value = "/{id}")
+    public Result<RoleDTO> get(@PathVariable(value = "id") @ApiParam(name = "id", example = "1") Long id) {
+        return Result.ok(roleAppService.get(id));
     }
 
-    @PreAuthorize("@ss.hasPermi('system:role:delete')")
-    @GetMapping(value = "/delete")
+    //    @PreAuthorize("@ss.hasPermi('system:role:delete')")
     @ApiOperation(value = "删除角色")
-    public Result delete(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Long id) {
-        return roleService.delete(id);
+    @DeleteMapping(value = "/{id}")
+    public Result<Boolean> delete(@PathVariable(value = "id") @ApiParam(name = "id", example = "1") Long id) {
+        return Result.ok(roleAppService.delete(id));
     }
 
-    @PreAuthorize("@ss.hasPermi('system:role:update')")
-    @PostMapping(value = "/update")
+    //    @PreAuthorize("@ss.hasPermi('system:role:update')")
     @ApiOperation(value = "修改角色")
-    public Result update(@RequestBody Role role, @RequestParam List<Long> menuIds) {
-        return roleService.update(role, menuIds);
+    @PutMapping(value = "")
+    public Result<RoleDTO> update(@RequestBody UpdateRoleRequest request) {
+        RoleDTO roleDTO = roleAssembler.toDTO(request);
+        return Result.ok(roleAppService.update(roleDTO));
     }
 
-    @GetMapping(value = "/list")
     @ApiOperation(value = "查询所有角色")
-    public Result list() {
-        return roleService.list();
+    @GetMapping(value = "/all")
+    public Result<List<RoleDTO>> findAll() {
+        return Result.ok(roleAppService.findAll());
     }
 
 }

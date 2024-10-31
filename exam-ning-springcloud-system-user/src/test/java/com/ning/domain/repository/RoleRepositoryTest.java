@@ -21,7 +21,7 @@ class RoleRepositoryTest {
     @Test
     void save() {
         RoleId roleId = new RoleId(null);
-        Role role = new Role(roleId, "管理员", "ADMIN", 1, 0);
+        Role role = new Role(roleId, "管理员", "ADMIN", 1);
         role = roleRepository.save(role);
         log.info("role: {}.", role);
     }

@@ -1,5 +1,6 @@
 package com.ning.domain.entity;
 
+import com.ning.domain.enums.RoleStatusEnum;
 import com.ning.domain.types.RoleId;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,10 +28,16 @@ public class Role {
     // 角色状态，0：正常；1：停用；
     private Integer status;
 
-    public Role(RoleId id, String roleName, String roleKey, Integer sortNum, Integer status) {
+    public Role(RoleId id, String roleName, String roleKey, Integer sortNum) {
         this.id = id;
         this.roleName = roleName;
         this.roleKey = roleKey;
+        this.sortNum = sortNum;
+        this.status = RoleStatusEnum.NORMAL.getValue();
+    }
+
+    public void update(String roleName, Integer sortNum, Integer status) {
+        this.roleName = roleName;
         this.sortNum = sortNum;
         this.status = status;
     }

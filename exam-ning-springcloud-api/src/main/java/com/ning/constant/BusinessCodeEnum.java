@@ -28,6 +28,12 @@ public enum BusinessCodeEnum {
      */
     USER_NOT_EXISTS(1001, "用户不存在"),
     USER_USERNAME_EXISTS(1002, "用户名已经存在"),
+
+    /**
+     * 角色模块
+     */
+    ROLE_NOT_EXISTS(2001, "角色不存在"),
+    ROLE_KEY_EXISTS(2002, "角色代码已经存在"),
     ;
 
     private final Integer code;
