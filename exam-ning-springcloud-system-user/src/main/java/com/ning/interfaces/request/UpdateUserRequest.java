@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * 修改用户请求
@@ -44,5 +45,9 @@ public class UpdateUserRequest {
 
     @ApiModelProperty(value = "头像")
     private String avatar;
+
+    @NotNull(message = "角色不能为空")
+    @ApiModelProperty(value = "角色ID")
+    private Long roleId;
 
 }

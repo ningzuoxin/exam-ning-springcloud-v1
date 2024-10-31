@@ -39,11 +39,11 @@ public class UserRoleDO implements Serializable {
 
     @ApiModelProperty(value = "用户ID")
     @TableField("user_uid")
-    private Long user_uid;
+    private Long userUid;
 
     @ApiModelProperty(value = "角色ID")
     @TableField("role_uid")
-    private Long role_uid;
+    private Long roleUid;
 
     @ApiModelProperty(value = "是否删除，0：未删除；1：已删除；")
     @TableField("is_deleted")

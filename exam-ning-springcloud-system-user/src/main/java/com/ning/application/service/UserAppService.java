@@ -3,8 +3,11 @@ package com.ning.application.service;
 import com.ning.application.assembler.UserAssembler;
 import com.ning.application.dto.UserDTO;
 import com.ning.constant.BusinessCodeEnum;
+import com.ning.domain.entity.Role;
 import com.ning.domain.entity.User;
+import com.ning.domain.repository.RoleRepository;
 import com.ning.domain.repository.UserRepository;
+import com.ning.domain.types.RoleId;
 import com.ning.domain.types.UserId;
 import com.ning.domain.types.Username;
 import com.ning.exception.BusinessException;
@@ -26,6 +29,7 @@ import java.util.Optional;
 public class UserAppService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final UserAssembler userAssembler = UserAssembler.INSTANCE;
 
     /**
@@ -75,6 +79,11 @@ public class UserAppService {
             throw new BusinessException(BusinessCodeEnum.USER_USERNAME_EXISTS);
         }
 
+        Optional<Role> roleOpt = roleRepository.find(new RoleId(userDTO.getRoleId()));
+        if (!roleOpt.isPresent()) {
+            throw new BusinessException(BusinessCodeEnum.ROLE_NOT_EXISTS);
+        }
+
         User user = new User(
                 new UserId(null),
                 username,
@@ -84,8 +93,8 @@ public class UserAppService {
                 userDTO.getIdNumber(),
                 userDTO.getEmail(),
                 userDTO.getAvatar());
-        // todo 角色的处理
-
+        // 设置角色
+        user.setRoleId(new RoleId(userDTO.getRoleId()));
         user = userRepository.save(user);
         return userAssembler.toDTO(user);
     }
@@ -112,7 +121,8 @@ public class UserAppService {
                 userDTO.getIdNumber(),
                 userDTO.getEmail(),
                 userDTO.getAvatar());
-
+        // 设置角色
+        user.setRoleId(new RoleId(userDTO.getRoleId()));
         user = userRepository.save(user);
         return userAssembler.toDTO(user);
     }

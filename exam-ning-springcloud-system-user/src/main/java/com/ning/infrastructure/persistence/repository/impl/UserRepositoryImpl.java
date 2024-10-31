@@ -7,12 +7,15 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ning.domain.entity.User;
 import com.ning.domain.repository.UserRepository;
+import com.ning.domain.types.RoleId;
 import com.ning.domain.types.UserId;
 import com.ning.domain.types.Username;
 import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.infrastructure.persistence.converter.UserConverter;
 import com.ning.infrastructure.persistence.dao.UserDao;
+import com.ning.infrastructure.persistence.dao.UserRoleDao;
 import com.ning.infrastructure.persistence.model.UserDO;
+import com.ning.infrastructure.persistence.model.UserRoleDO;
 import com.ning.infrastructure.utils.SnowFlake;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -32,6 +35,7 @@ import java.util.Optional;
 public class UserRepositoryImpl implements UserRepository {
 
     private final UserDao userDao;
+    private final UserRoleDao userRoleDao;
     private final UserConverter userConverter = UserConverter.INSTANCE;
 
     /**
@@ -46,7 +50,11 @@ public class UserRepositoryImpl implements UserRepository {
         wrapper.eq("username", username.getValue());
         wrapper.eq("is_deleted", 0);
         UserDO userDO = userDao.selectOne(wrapper);
-        return userConverter.toEntity(userDO);
+
+        User user = userConverter.toEntity(userDO);
+        Optional<UserRoleDO> userRoleDOOpt = this.findByUserId(userDO.getUid());
+        userRoleDOOpt.ifPresent(ur -> user.setRoleId(new RoleId(ur.getRoleUid())));
+        return user;
     }
 
     /**
@@ -61,6 +69,9 @@ public class UserRepositoryImpl implements UserRepository {
         if (Objects.isNull(userDO.getUid())) {
             userDO.setUid(SnowFlake.ID.nextId());
             userDao.insert(userDO);
+
+            // 绑定用户和角色
+            this.saveUserRole(userDO.getUid(), userDO.getRoleId());
             return userConverter.toEntity(userDO);
         } else {
             Optional<UserDO> userDOOpt = this.findByUid(user.getId().getValue());
@@ -71,6 +82,16 @@ public class UserRepositoryImpl implements UserRepository {
             UserDO dbUserDO = userDOOpt.get();
             userConverter.updateDO(dbUserDO, userDO);
             userDao.updateById(dbUserDO);
+
+            Optional<UserRoleDO> userRoleDOOpt = this.findByUserId(userDO.getUid());
+            if (userRoleDOOpt.isPresent()) {
+                UserRoleDO userRoleDO = userRoleDOOpt.get();
+                userRoleDO.setRoleUid(userDO.getRoleId());
+                userRoleDao.updateById(userRoleDO);
+            } else {
+                // 绑定用户和角色
+                this.saveUserRole(userDO.getUid(), userDO.getRoleId());
+            }
             return userConverter.toEntity(dbUserDO);
         }
     }
@@ -148,7 +169,15 @@ public class UserRepositoryImpl implements UserRepository {
      */
     @Override
     public Optional<User> find(UserId userId) {
-        return this.findByUid(userId.getValue()).map(userConverter::toEntity);
+        Optional<UserDO> userDOOpt = this.findByUid(userId.getValue());
+        if (!userDOOpt.isPresent()) {
+            return Optional.empty();
+        }
+
+        User user = userConverter.toEntity(userDOOpt.get());
+        Optional<UserRoleDO> userRoleDOOpt = this.findByUserId(userId.getValue());
+        userRoleDOOpt.ifPresent(ur -> user.setRoleId(new RoleId(ur.getRoleUid())));
+        return Optional.of(user);
     }
 
     /**
@@ -170,6 +199,22 @@ public class UserRepositoryImpl implements UserRepository {
         wrapper.eq("uid", uid);
         wrapper.eq("is_deleted", 0);
         return Optional.ofNullable(userDao.selectOne(wrapper));
+    }
+
+    private Optional<UserRoleDO> findByUserId(Long userId) {
+        QueryWrapper<UserRoleDO> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_uid", userId);
+        wrapper.eq("is_deleted", 0);
+        return Optional.ofNullable(userRoleDao.selectOne(wrapper));
+    }
+
+    private void saveUserRole(Long userId, Long roleId) {
+        // 绑定用户和角色
+        UserRoleDO userRoleDO = new UserRoleDO();
+        userRoleDO.setUid(SnowFlake.ID.nextId());
+        userRoleDO.setUserUid(userId);
+        userRoleDO.setRoleUid(roleId);
+        userRoleDao.insert(userRoleDO);
     }
 
 }
