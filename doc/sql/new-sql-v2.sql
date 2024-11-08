@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `sys_menu` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT '系统菜单表';
 
 -- 系统角色菜单表
-CREATE TABLE IF NOT EXISTS `sys_user_role` (
+CREATE TABLE IF NOT EXISTS `sys_role_menu` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键自增ID',
   `uid` bigint UNSIGNED NOT NULL UNIQUE COMMENT '业务ID',
   `role_uid` bigint UNSIGNED NOT NULL COMMENT '角色ID',
@@ -78,6 +78,6 @@ CREATE TABLE IF NOT EXISTS `sys_user_role` (
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  INDEX `idx_user_uid` (`user_uid`)
+  INDEX `idx_role_uid` (`role_uid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT '系统角色菜单表';
 
