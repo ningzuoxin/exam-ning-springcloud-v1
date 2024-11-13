@@ -63,11 +63,11 @@ public class MenuDO implements Serializable {
 
     @ApiModelProperty(value = "菜单类型，1：目录；2：菜单；3：按钮；")
     @TableField("menu_type")
-    private String menuType;
+    private Integer menuType;
 
     @ApiModelProperty(value = "菜单状态，0：正常；1：停用；")
     @TableField("status")
-    private String status;
+    private Integer status;
 
     @ApiModelProperty(value = "权限标识")
     @TableField("perms")

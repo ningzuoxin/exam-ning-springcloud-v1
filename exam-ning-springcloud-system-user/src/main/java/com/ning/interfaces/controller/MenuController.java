@@ -1,11 +1,17 @@
 package com.ning.interfaces.controller;
 
+import com.ning.application.assembler.MenuAssembler;
+import com.ning.application.dto.MenuDTO;
+import com.ning.application.service.MenuAppService;
 import com.ning.entity.Menu;
+import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.infrastructure.common.model.Result;
+import com.ning.interfaces.request.AddMenuRequest;
 import com.ning.service.MenuService;
 import com.ning.utils.SecurityUtils;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,34 +19,37 @@ import javax.annotation.Resource;
 import java.time.LocalDateTime;
 
 /**
- * 菜单管理
+ * 菜单控制器
+ *
+ * @author zuoxin.ning
+ * @since 2024-10-31 12:00
  */
-//@RestController
-@RequestMapping(value = "/menu/")
+@RestController
+@RequiredArgsConstructor
+@RequestMapping(value = "/menus")
 public class MenuController {
+
+    private final MenuAppService menuAppService;
+    private final MenuAssembler menuAssembler = MenuAssembler.INSTANCE;
 
     @Resource
     MenuService menuService;
 
-    @PreAuthorize("@ss.hasPermi('system:menu:page')")
-    @GetMapping(value = "/page")
+    //    @PreAuthorize("@ss.hasPermi('system:menu:page')")
     @ApiOperation(value = "分页查询菜单列表")
-    public Result page(@RequestParam(value = "keyword", required = false) @ApiParam(name = "keyword", example = "") String keyword,
-                       @RequestParam(value = "pNum", defaultValue = "1") @ApiParam(name = "pNum", example = "1") Integer pNum,
-                       @RequestParam(value = "pSize", defaultValue = "10") @ApiParam(name = "pSize", example = "10") Integer pSize) {
-        return menuService.selectPage(keyword, pNum, pSize);
+    @GetMapping(value = "/page")
+    public Result<PageWrapper<MenuDTO>> page(@RequestParam(value = "keyword", required = false) @ApiParam(name = "keyword", example = "") String keyword,
+                                             @RequestParam(value = "pageNum", defaultValue = "1") @ApiParam(name = "pageNum", example = "1") Integer pageNum,
+                                             @RequestParam(value = "pageSize", defaultValue = "10") @ApiParam(name = "pageSize", example = "10") Integer pageSize) {
+        return Result.ok(menuAppService.findByPage(keyword, pageNum, pageSize));
     }
 
-    @PreAuthorize("@ss.hasPermi('system:menu:add')")
-    @PostMapping(value = "/add")
+    //    @PreAuthorize("@ss.hasPermi('system:menu:add')")
     @ApiOperation(value = "添加菜单")
-    public Result add(@RequestBody Menu menu) {
-        LocalDateTime now = LocalDateTime.now();
-        menu.setCreateBy(SecurityUtils.getLoginUser().getUserId() + "");
-        menu.setUpdateBy(SecurityUtils.getLoginUser().getUserId() + "");
-        menu.setCreateTime(now);
-        menu.setUpdateTime(now);
-        return menuService.add(menu);
+    @PostMapping(value = "")
+    public Result<MenuDTO> add(@RequestBody AddMenuRequest request) {
+        MenuDTO menuDTO = menuAssembler.toDTO(request);
+        return Result.ok(menuAppService.add(menuDTO));
     }
 
     @GetMapping(value = "/queryMC")
