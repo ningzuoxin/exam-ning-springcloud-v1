@@ -5,7 +5,7 @@ import com.ning.infrastructure.persistence.model.UserDO;
 
 /**
  * <p>
- * 用户表 Mapper 接口
+ * 系统用户表 Mapper 接口
  * </p>
  *
  * @author zuoxin.ning
