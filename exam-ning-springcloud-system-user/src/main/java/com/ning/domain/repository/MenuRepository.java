@@ -64,4 +64,11 @@ public interface MenuRepository {
      */
     PageWrapper<Menu> findByPage(String keyword, Integer pageNum, Integer pageSize);
 
+    /**
+     * 查询目录和菜单
+     *
+     * @return 菜单列表
+     */
+    List<Menu> findCatalogAndMenu();
+
 }

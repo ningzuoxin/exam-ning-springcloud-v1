@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ning.domain.entity.Menu;
+import com.ning.domain.enums.MenuStatusEnum;
+import com.ning.domain.enums.MenuTypeEnum;
 import com.ning.domain.repository.MenuRepository;
 import com.ning.domain.types.MenuId;
 import com.ning.infrastructure.common.model.PageWrapper;
@@ -142,6 +144,23 @@ public class MenuRepositoryImpl implements MenuRepository {
                 .pageSize(pageSize)
                 .data(menuConverter.toEntityList(menuDOIPage.getRecords()))
                 .build();
+    }
+
+    /**
+     * 查询目录和菜单
+     *
+     * @return 菜单列表
+     */
+    @Override
+    public List<Menu> findCatalogAndMenu() {
+        // 查询对象
+        LambdaQueryWrapper<MenuDO> wrapper = new QueryWrapper<MenuDO>().lambda();
+        wrapper.eq(MenuDO::getIsDeleted, 0);
+        wrapper.eq(MenuDO::getStatus, MenuStatusEnum.NORMAL.getValue());
+        wrapper.eq(MenuDO::getMenuType, MenuTypeEnum.Catalog.getValue()).or().eq(MenuDO::getMenuType, MenuTypeEnum.Menu.getValue());
+        wrapper.orderByAsc(MenuDO::getParentUid, MenuDO::getSortNum, MenuDO::getUpdateTime);
+        List<MenuDO> menuDOList = menuDao.selectList(wrapper);
+        return menuConverter.toEntityList(menuDOList);
     }
 
     private Optional<MenuDO> findByUid(Long uid) {

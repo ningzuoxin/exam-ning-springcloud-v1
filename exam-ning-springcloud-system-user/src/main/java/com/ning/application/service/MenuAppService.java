@@ -9,6 +9,8 @@ import com.ning.infrastructure.common.model.PageWrapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 菜单应用服务
  *
@@ -54,6 +56,16 @@ public class MenuAppService {
                 menuDTO.getIcon());
         menu = menuRepository.save(menu);
         return menuAssembler.toDTO(menu);
+    }
+
+    /**
+     * 查询目录和菜单
+     *
+     * @return 菜单列表
+     */
+    public List<MenuDTO> findCatalogAndMenu() {
+        List<Menu> menuList = menuRepository.findCatalogAndMenu();
+        return menuAssembler.toDTOList(menuList);
     }
 
 }

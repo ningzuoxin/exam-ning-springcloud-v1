@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 菜单控制器
@@ -52,10 +53,10 @@ public class MenuController {
         return Result.ok(menuAppService.add(menuDTO));
     }
 
-    @GetMapping(value = "/queryMC")
     @ApiOperation(value = "查询目录和菜单")
-    public Result queryMC() {
-        return menuService.queryMC();
+    @GetMapping(value = "/catalog-menu")
+    public Result<List<MenuDTO>> findCatalogAndMenu() {
+        return Result.ok(menuAppService.findCatalogAndMenu());
     }
 
     @GetMapping(value = "/tree")
