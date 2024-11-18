@@ -5,8 +5,7 @@ import com.ning.domain.entity.User;
 import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.interfaces.request.AddUserRequest;
 import com.ning.interfaces.request.UpdateUserRequest;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -25,14 +24,21 @@ public interface UserAssembler {
     @Mapping(target = "id", source = "id.value")
     @Mapping(target = "username", source = "username.value")
     @Mapping(target = "roleId", source = "roleId.value")
-    UserDTO toDTO(User user);
+    UserDTO toDTO(User entity);
 
-    List<UserDTO> toDTOList(List<User> userList);
+    List<UserDTO> toDTOList(List<User> entityList);
 
-    PageWrapper<UserDTO> toDTOPageList(PageWrapper<User> pageUserList);
+    PageWrapper<UserDTO> toDTOPageList(PageWrapper<User> pageEntityList);
 
     UserDTO toDTO(AddUserRequest request);
 
     UserDTO toDTO(UpdateUserRequest request);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "username", ignore = true)
+    @Mapping(target = "salt", ignore = true)
+    @Mapping(target = "roleId", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateEntity(@MappingTarget User entity, UserDTO dto);
 
 }

@@ -6,9 +6,8 @@ import com.ning.common.model.MetaVo;
 import com.ning.common.model.RouterVo;
 import com.ning.common.model.TreeSelect;
 import com.ning.entity.Menu;
-import com.ning.manager.MenuManager;
 import com.ning.infrastructure.common.model.Result;
-
+import com.ning.manager.MenuManager;
 import com.ning.utils.SecurityUtils;
 import org.apache.commons.lang3.StringUtils;
 

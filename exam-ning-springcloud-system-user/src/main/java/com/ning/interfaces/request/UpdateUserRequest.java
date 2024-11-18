@@ -19,6 +19,8 @@ import javax.validation.constraints.NotNull;
 @ApiModel(value = "UpdateUserRequest", description = "修改用户请求")
 public class UpdateUserRequest {
 
+    @NotNull(message = "ID不能为空")
+    @NotEmpty(message = "ID不能为空")
     @ApiModelProperty(value = "用户ID")
     private Long id;
 

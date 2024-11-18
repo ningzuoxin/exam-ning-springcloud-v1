@@ -22,16 +22,16 @@ public interface UserConverter {
     @Mapping(target = "uid", source = "id.value")
     @Mapping(target = "username", source = "username.value")
     @Mapping(target = "roleId", source = "roleId.value")
-    UserDO toDO(User user);
+    UserDO toDO(User entity);
 
-    @Mapping(target = "id", expression = "java(new UserId(userDO.getUid()))")
-    @Mapping(target = "username", expression = "java(new Username(userDO.getUsername()))")
-    @Mapping(target = "roleId", expression = "java(new RoleId(userDO.getRoleId()))")
-    User toEntity(UserDO userDO);
+    @Mapping(target = "id", expression = "java(new UserId(dataObject.getUid()))")
+    @Mapping(target = "username", expression = "java(new Username(dataObject.getUsername()))")
+    @Mapping(target = "roleId", expression = "java(new RoleId(dataObject.getRoleId()))")
+    User toEntity(UserDO dataObject);
 
-    List<User> toEntityList(List<UserDO> userDOList);
+    List<User> toEntityList(List<UserDO> dataObjectList);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateDO(@MappingTarget UserDO dbUserDO, UserDO modifiedUserDO);
+    void updateDO(@MappingTarget UserDO dbDataObject, UserDO modifiedDataObject);
 
 }

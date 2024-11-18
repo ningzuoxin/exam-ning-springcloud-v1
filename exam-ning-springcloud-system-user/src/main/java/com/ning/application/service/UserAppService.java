@@ -113,14 +113,7 @@ public class UserAppService {
         }
 
         User user = userOpt.get();
-        user.update(
-                userDTO.getPassword(),
-                userDTO.getNickname(),
-                userDTO.getGender(),
-                userDTO.getPhoneNumber(),
-                userDTO.getIdNumber(),
-                userDTO.getEmail(),
-                userDTO.getAvatar());
+        userAssembler.updateEntity(user, userDTO);
         // 设置角色
         user.setRoleId(new RoleId(userDTO.getRoleId()));
         user = userRepository.save(user);

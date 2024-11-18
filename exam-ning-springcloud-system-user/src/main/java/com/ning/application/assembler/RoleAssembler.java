@@ -5,8 +5,7 @@ import com.ning.domain.entity.Role;
 import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.interfaces.request.AddRoleRequest;
 import com.ning.interfaces.request.UpdateRoleRequest;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -23,14 +22,18 @@ public interface RoleAssembler {
     RoleAssembler INSTANCE = Mappers.getMapper(RoleAssembler.class);
 
     @Mapping(target = "id", source = "id.value")
-    RoleDTO toDTO(Role role);
+    RoleDTO toDTO(Role entity);
 
-    List<RoleDTO> toDTOList(List<Role> roleList);
+    List<RoleDTO> toDTOList(List<Role> entityList);
 
-    PageWrapper<RoleDTO> toDTOPageList(PageWrapper<Role> pageRoleList);
+    PageWrapper<RoleDTO> toDTOPageList(PageWrapper<Role> pageEntityList);
 
     RoleDTO toDTO(AddRoleRequest request);
 
     RoleDTO toDTO(UpdateRoleRequest request);
+
+    @Mapping(target = "id", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateEntity(@MappingTarget Role entity, RoleDTO dto);
 
 }

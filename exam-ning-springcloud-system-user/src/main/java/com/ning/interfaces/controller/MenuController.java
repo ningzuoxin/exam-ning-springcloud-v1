@@ -2,21 +2,19 @@ package com.ning.interfaces.controller;
 
 import com.ning.application.assembler.MenuAssembler;
 import com.ning.application.dto.MenuDTO;
+import com.ning.application.dto.RouterDTO;
+import com.ning.application.dto.TreeSelectDTO;
 import com.ning.application.service.MenuAppService;
-import com.ning.entity.Menu;
 import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.infrastructure.common.model.Result;
 import com.ning.interfaces.request.AddMenuRequest;
-import com.ning.service.MenuService;
+import com.ning.interfaces.request.UpdateMenuRequest;
 import com.ning.utils.SecurityUtils;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -32,9 +30,6 @@ public class MenuController {
 
     private final MenuAppService menuAppService;
     private final MenuAssembler menuAssembler = MenuAssembler.INSTANCE;
-
-    @Resource
-    MenuService menuService;
 
     //    @PreAuthorize("@ss.hasPermi('system:menu:page')")
     @ApiOperation(value = "分页查询菜单列表")
@@ -59,38 +54,38 @@ public class MenuController {
         return Result.ok(menuAppService.findCatalogAndMenu());
     }
 
+    @ApiOperation(value = "查询树形菜单列表")
     @GetMapping(value = "/tree")
-    @ApiOperation(value = "查询菜单树形列表")
-    public Result tree() {
-        return menuService.tree();
+    public Result<List<TreeSelectDTO>> tree() {
+        return Result.ok(menuAppService.tree());
     }
 
-    @GetMapping(value = "/getRouters")
     @ApiOperation(value = "查询路由")
-    public Result getRouters() {
-        return menuService.getRouters(SecurityUtils.getLoginUser().getUserId());
+    @GetMapping(value = "/routers")
+    public Result<List<RouterDTO>> getRouters() {
+        Long userId = SecurityUtils.getLoginUser().getUserId();
+        return Result.ok(menuAppService.getRouters(userId));
     }
 
-    @GetMapping(value = "/get")
     @ApiOperation(value = "根据id查询菜单")
-    public Result get(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Long id) {
-        return menuService.get(id);
+    @GetMapping(value = "/{id:\\d+}")
+    public Result<MenuDTO> get(@PathVariable(value = "id") @ApiParam(name = "id", example = "1") Long id) {
+        return Result.ok(menuAppService.findById(id));
     }
 
-    @PreAuthorize("@ss.hasPermi('system:menu:update')")
-    @PostMapping(value = "/update")
+    //    @PreAuthorize("@ss.hasPermi('system:menu:update')")
     @ApiOperation(value = "修改菜单")
-    public Result update(@RequestBody Menu menu) {
-        menu.setUpdateBy(SecurityUtils.getLoginUser().getUserId() + "");
-        menu.setUpdateTime(LocalDateTime.now());
-        return menuService.update(menu);
+    @PutMapping(value = "")
+    public Result<MenuDTO> update(@RequestBody UpdateMenuRequest request) {
+        MenuDTO menuDTO = menuAssembler.toDTO(request);
+        return Result.ok(menuAppService.update(menuDTO));
     }
 
-    @PreAuthorize("@ss.hasPermi('system:menu:delete')")
-    @GetMapping(value = "/delete")
+    //    @PreAuthorize("@ss.hasPermi('system:menu:delete')")
     @ApiOperation(value = "删除菜单")
-    public Result delete(@RequestParam(value = "id") @ApiParam(name = "id", example = "1") Long id) {
-        return menuService.delete(id);
+    @DeleteMapping(value = "{id}")
+    public Result<Boolean> delete(@PathVariable(value = "id") @ApiParam(name = "id", example = "1") Long id) {
+        return Result.ok(menuAppService.delete(id));
     }
 
 }

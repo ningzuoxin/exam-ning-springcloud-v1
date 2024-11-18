@@ -4,9 +4,8 @@ import com.ning.application.dto.MenuDTO;
 import com.ning.domain.entity.Menu;
 import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.interfaces.request.AddMenuRequest;
-import com.ning.interfaces.request.UpdateRoleRequest;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import com.ning.interfaces.request.UpdateMenuRequest;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -24,14 +23,19 @@ public interface MenuAssembler {
 
     @Mapping(target = "id", source = "id.value")
     @Mapping(target = "parentId", source = "parentId.value")
-    MenuDTO toDTO(Menu menu);
+    MenuDTO toDTO(Menu entity);
 
-    List<MenuDTO> toDTOList(List<Menu> menuList);
+    List<MenuDTO> toDTOList(List<Menu> entityList);
 
-    PageWrapper<MenuDTO> toDTOPageList(PageWrapper<Menu> pageMenuList);
+    PageWrapper<MenuDTO> toDTOPageList(PageWrapper<Menu> pageEntityList);
 
     MenuDTO toDTO(AddMenuRequest request);
 
-    MenuDTO toDTO(UpdateRoleRequest request);
+    MenuDTO toDTO(UpdateMenuRequest request);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "parentId", expression = "java(new MenuId(dto.getParentId()))")
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateEntity(@MappingTarget Menu entity, MenuDTO dto);
 
 }

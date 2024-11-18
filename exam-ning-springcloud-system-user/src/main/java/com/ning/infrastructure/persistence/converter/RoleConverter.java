@@ -20,14 +20,14 @@ public interface RoleConverter {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uid", source = "id.value")
-    RoleDO toDo(Role role);
+    RoleDO toDo(Role entity);
 
-    @Mapping(target = "id", expression = "java(new RoleId(roleDO.getUid()))")
-    Role toEntity(RoleDO roleDO);
+    @Mapping(target = "id", expression = "java(new RoleId(dataObject.getUid()))")
+    Role toEntity(RoleDO dataObject);
 
-    List<Role> toEntityList(List<RoleDO> roleDOList);
+    List<Role> toEntityList(List<RoleDO> dataObjectList);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateDO(@MappingTarget RoleDO dbRoleDO, RoleDO modifiedRoleDO);
+    void updateDO(@MappingTarget RoleDO dbDataObject, RoleDO modifiedDataObject);
 
 }

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -19,6 +20,8 @@ import java.util.List;
 @ApiModel(value = "UpdateRoleRequest", description = "修改角色请求")
 public class UpdateRoleRequest {
 
+    @NotNull(message = "ID不能为空")
+    @NotEmpty(message = "ID不能为空")
     @ApiModelProperty(value = "角色ID")
     private Long id;
 

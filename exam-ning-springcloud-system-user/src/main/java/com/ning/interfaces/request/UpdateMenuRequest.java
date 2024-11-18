@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * 添加菜单请求
@@ -16,7 +17,12 @@ import javax.validation.constraints.NotEmpty;
 @Getter
 @Setter
 @ApiModel(value = "AddMenuRequest", description = "添加菜单请求")
-public class AddMenuRequest {
+public class UpdateMenuRequest {
+
+    @NotNull(message = "ID不能为空")
+    @NotEmpty(message = "ID不能为空")
+    @ApiModelProperty(value = "菜单ID")
+    private Long id;
 
     @NotEmpty(message = "菜单名称不能为空")
     @ApiModelProperty(value = "菜单名称")

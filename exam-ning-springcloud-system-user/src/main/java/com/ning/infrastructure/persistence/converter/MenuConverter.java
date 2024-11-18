@@ -21,15 +21,15 @@ public interface MenuConverter {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uid", source = "id.value")
     @Mapping(target = "parentUid", source = "parentId.value")
-    MenuDO toDO(Menu menu);
+    MenuDO toDO(Menu entity);
 
-    @Mapping(target = "id", expression = "java(new MenuId(menuDO.getUid()))")
-    @Mapping(target = "parentId", expression = "java(new MenuId(menuDO.getParentUid()))")
-    Menu toEntity(MenuDO menuDO);
+    @Mapping(target = "id", expression = "java(new MenuId(dataObject.getUid()))")
+    @Mapping(target = "parentId", expression = "java(new MenuId(dataObject.getParentUid()))")
+    Menu toEntity(MenuDO dataObject);
 
-    List<Menu> toEntityList(List<MenuDO> menuDOList);
+    List<Menu> toEntityList(List<MenuDO> dataObjectList);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateDO(@MappingTarget MenuDO dbMenuDO, MenuDO modifiedMenuDO);
+    void updateDO(@MappingTarget MenuDO dbDataObject, MenuDO modifiedDataObject);
 
 }

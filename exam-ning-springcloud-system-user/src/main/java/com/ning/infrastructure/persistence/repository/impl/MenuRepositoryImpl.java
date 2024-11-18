@@ -10,6 +10,7 @@ import com.ning.domain.enums.MenuStatusEnum;
 import com.ning.domain.enums.MenuTypeEnum;
 import com.ning.domain.repository.MenuRepository;
 import com.ning.domain.types.MenuId;
+import com.ning.domain.types.UserId;
 import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.infrastructure.persistence.converter.MenuConverter;
 import com.ning.infrastructure.persistence.dao.MenuDao;
@@ -160,6 +161,18 @@ public class MenuRepositoryImpl implements MenuRepository {
         wrapper.eq(MenuDO::getMenuType, MenuTypeEnum.Catalog.getValue()).or().eq(MenuDO::getMenuType, MenuTypeEnum.Menu.getValue());
         wrapper.orderByAsc(MenuDO::getParentUid, MenuDO::getSortNum, MenuDO::getUpdateTime);
         List<MenuDO> menuDOList = menuDao.selectList(wrapper);
+        return menuConverter.toEntityList(menuDOList);
+    }
+
+    /**
+     * 查询用户的菜单列表
+     *
+     * @param userId 用户 ID
+     * @return 菜单列表
+     */
+    @Override
+    public List<Menu> findByUserId(UserId userId) {
+        List<MenuDO> menuDOList = menuDao.selectMenusByUserId(userId.getValue());
         return menuConverter.toEntityList(menuDOList);
     }
 

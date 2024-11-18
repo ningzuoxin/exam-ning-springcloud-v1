@@ -36,10 +36,4 @@ public class Role {
         this.status = RoleStatusEnum.NORMAL.getValue();
     }
 
-    public void update(String roleName, Integer sortNum, Integer status) {
-        this.roleName = roleName;
-        this.sortNum = sortNum;
-        this.status = status;
-    }
-
 }

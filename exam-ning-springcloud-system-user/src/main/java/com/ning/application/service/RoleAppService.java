@@ -99,7 +99,7 @@ public class RoleAppService {
         }
 
         Role role = roleOpt.get();
-        role.update(roleDTO.getRoleName(), roleDTO.getSortNum(), roleDTO.getStatus());
+        roleAssembler.updateEntity(role, roleDTO);
 
         role = roleRepository.save(role);
         return roleAssembler.toDTO(role);

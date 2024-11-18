@@ -2,6 +2,7 @@ package com.ning.domain.repository;
 
 import com.ning.domain.entity.Menu;
 import com.ning.domain.types.MenuId;
+import com.ning.domain.types.UserId;
 import com.ning.infrastructure.common.model.PageWrapper;
 
 import java.util.List;
@@ -70,5 +71,13 @@ public interface MenuRepository {
      * @return 菜单列表
      */
     List<Menu> findCatalogAndMenu();
+
+    /**
+     * 查询用户的菜单列表
+     *
+     * @param userId 用户 ID
+     * @return 菜单列表
+     */
+    List<Menu> findByUserId(UserId userId);
 
 }

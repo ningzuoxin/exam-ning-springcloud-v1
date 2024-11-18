@@ -34,6 +34,11 @@ public enum BusinessCodeEnum {
      */
     ROLE_NOT_EXISTS(2001, "角色不存在"),
     ROLE_KEY_EXISTS(2002, "角色代码已经存在"),
+
+    /**
+     * 菜单模块
+     */
+    MENU_NOT_EXISTS(3001, "菜单不存在"),
     ;
 
     private final Integer code;

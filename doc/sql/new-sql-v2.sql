@@ -81,3 +81,8 @@ CREATE TABLE IF NOT EXISTS `sys_role_menu` (
   INDEX `idx_role_uid` (`role_uid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT '系统角色菜单表';
 
+-- 从原 menu 表将数据迁移至新 sys_menu 表 SQL
+insert into sys_menu(uid, menu_name, parent_uid, sort_num, `path`, component, is_frame, menu_type, status, perms, icon)
+select m.menu_id, m.menu_name, m.parent_id, m.order_num, m.`path`, m.component, m.is_frame, (case when m.menu_type = 'M' then 1 when m.menu_type = 'C' then 2 when m.menu_type = 'F' then 3 end) as m_type, m.status, m.perms, m.icon
+from menu m;
+
