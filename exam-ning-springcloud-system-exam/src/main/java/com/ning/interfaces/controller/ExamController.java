@@ -1,4 +1,4 @@
-package com.ning.controller;
+package com.ning.interfaces.controller;
 
 import com.ning.infrastructure.common.model.Result;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,32 +1,40 @@
-package com.ning.controller;
+package com.ning.interfaces.controller;
 
 import cn.hutool.core.date.DateUtil;
-import com.ning.common.enums.ExamQuestionTypeEnum;
+import com.ning.application.dto.QuestionTypeDTO;
+import com.ning.application.service.QuestionAppService;
 import com.ning.entity.ExamQuestion;
 import com.ning.infrastructure.common.model.Result;
 import com.ning.service.ExamQuestionService;
 import com.ning.utils.SecurityUtils;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
-@RequestMapping(value = "/question/")
+/**
+ * 试题控制器
+ *
+ * @author zuoxin.ning
+ * @since 2024-11-21 15:00
+ */
 @RestController
+@RequiredArgsConstructor
+@RequestMapping(value = "/questions")
 public class ExamQuestionController {
 
-    @Resource
+    private final QuestionAppService questionAppService;
+
     ExamQuestionService examQuestionService;
 
-    @GetMapping(value = "/type")
-    @ApiOperation(value = "查询题型")
-    public Result<List<Map<String, String>>> types() {
-        return Result.ok(ExamQuestionTypeEnum.listExamQuestionTypes());
+    @ApiOperation(value = "查询题型列表")
+    @GetMapping(value = "/types")
+    public Result<List<QuestionTypeDTO>> typeList() {
+        return Result.ok(questionAppService.findTypeList());
     }
 
     @PreAuthorize("@ss.hasPermi('exam:question:page')")

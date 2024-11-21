@@ -1,4 +1,4 @@
-package com.ning.controller;
+package com.ning.interfaces.controller;
 
 import cn.hutool.core.date.DateUtil;
 import com.ning.common.enums.ExamTestPaperTypeEnum;
