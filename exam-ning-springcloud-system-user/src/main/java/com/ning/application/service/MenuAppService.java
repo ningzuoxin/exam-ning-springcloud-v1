@@ -46,7 +46,7 @@ public class MenuAppService {
      * @param pageSize 当前页条数
      * @return 菜单列表
      */
-    public PageWrapper<MenuDTO> findByPage(String keyword, Integer pageNum, Integer pageSize) {
+    public PageWrapper<MenuDTO> page(String keyword, Integer pageNum, Integer pageSize) {
         PageWrapper<Menu> pageMenuList = menuRepository.findByPage(keyword, pageNum, pageSize);
         return menuAssembler.toDTOPageList(pageMenuList);
     }
@@ -77,7 +77,7 @@ public class MenuAppService {
      *
      * @return 菜单列表
      */
-    public List<MenuDTO> findCatalogAndMenu() {
+    public List<MenuDTO> catalogAndMenu() {
         List<Menu> menuList = menuRepository.findCatalogAndMenu();
         return menuAssembler.toDTOList(menuList);
     }
@@ -99,7 +99,7 @@ public class MenuAppService {
      * @param userId 用户 ID
      * @return 树形路由列表
      */
-    public List<RouterDTO> getRouters(Long userId) {
+    public List<RouterDTO> routers(Long userId) {
         List<Menu> menuList = menuRepository.findByUserId(new UserId(userId));
         List<Menu> treeMenuList = Menu.tree(menuList);
         return this.buildRouterList(treeMenuList);
@@ -111,7 +111,7 @@ public class MenuAppService {
      * @param menuId 菜单 ID
      * @return 菜单
      */
-    public MenuDTO findById(Long menuId) {
+    public MenuDTO get(Long menuId) {
         Optional<Menu> menuOpt = menuRepository.find(new MenuId(menuId));
         return menuOpt.map(menuAssembler::toDTO).orElse(null);
     }

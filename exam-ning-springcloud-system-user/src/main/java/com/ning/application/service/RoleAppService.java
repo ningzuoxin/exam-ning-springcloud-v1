@@ -35,7 +35,7 @@ public class RoleAppService {
      * @param pageSize 当前页条数
      * @return 角色列表
      */
-    public PageWrapper<RoleDTO> findByPage(String keyword, Integer pageNum, Integer pageSize) {
+    public PageWrapper<RoleDTO> page(String keyword, Integer pageNum, Integer pageSize) {
         PageWrapper<Role> pageRoleList = roleRepository.findByPage(keyword, pageNum, pageSize);
         return roleAssembler.toDTOPageList(pageRoleList);
     }
@@ -110,7 +110,7 @@ public class RoleAppService {
      *
      * @return 全部角色
      */
-    public List<RoleDTO> findAll() {
+    public List<RoleDTO> all() {
         List<Role> roleList = roleRepository.findAll();
         return roleAssembler.toDTOList(roleList);
     }

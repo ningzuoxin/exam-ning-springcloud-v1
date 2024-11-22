@@ -39,6 +39,11 @@ public enum BusinessCodeEnum {
      * 菜单模块
      */
     MENU_NOT_EXISTS(3001, "菜单不存在"),
+
+    /**
+     * 试题模块
+     */
+    QUESTION_NOT_EXISTS(4001, "试题不存在"),
     ;
 
     private final Integer code;

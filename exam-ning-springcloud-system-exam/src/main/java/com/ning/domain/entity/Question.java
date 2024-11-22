@@ -1,5 +1,6 @@
 package com.ning.domain.entity;
 
+import com.ning.domain.types.QuestionId;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,7 +17,7 @@ import lombok.ToString;
 public class Question {
 
     // 试题 ID
-    private Long id;
+    private QuestionId id;
     // 题型
     private String type;
     // 题目内容
@@ -27,5 +28,14 @@ public class Question {
     private String explanation;
     // 选项
     private String options;
+
+    public Question(QuestionId id, String type, String content, String correctAnswer, String explanation, String options) {
+        this.id = id;
+        this.type = type;
+        this.content = content;
+        this.correctAnswer = correctAnswer;
+        this.explanation = explanation;
+        this.options = options;
+    }
 
 }

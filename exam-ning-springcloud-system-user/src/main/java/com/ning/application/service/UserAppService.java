@@ -38,7 +38,7 @@ public class UserAppService {
      * @param username 用户名
      * @return 用户
      */
-    public UserDTO getByUsername(String username) {
+    public UserDTO get(String username) {
         User user = userRepository.find(new Username(username));
         return userAssembler.toDTO(user);
     }
@@ -48,7 +48,7 @@ public class UserAppService {
      *
      * @return 全部用户
      */
-    public List<UserDTO> findAll() {
+    public List<UserDTO> all() {
         List<User> userList = userRepository.findAll();
         return userAssembler.toDTOList(userList);
     }
@@ -61,7 +61,7 @@ public class UserAppService {
      * @param pageSize 当前页条数
      * @return 用户列表
      */
-    public PageWrapper<UserDTO> findByPage(String keyword, Integer pageNum, Integer pageSize) {
+    public PageWrapper<UserDTO> page(String keyword, Integer pageNum, Integer pageSize) {
         PageWrapper<User> pageUserList = userRepository.findByPage(keyword, pageNum, pageSize);
         return userAssembler.toDTOPageList(pageUserList);
     }

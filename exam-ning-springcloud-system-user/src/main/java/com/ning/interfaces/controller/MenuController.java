@@ -37,7 +37,7 @@ public class MenuController {
     public Result<PageWrapper<MenuDTO>> page(@RequestParam(value = "keyword", required = false) @ApiParam(name = "keyword", example = "") String keyword,
                                              @RequestParam(value = "pageNum", defaultValue = "1") @ApiParam(name = "pageNum", example = "1") Integer pageNum,
                                              @RequestParam(value = "pageSize", defaultValue = "10") @ApiParam(name = "pageSize", example = "10") Integer pageSize) {
-        return Result.ok(menuAppService.findByPage(keyword, pageNum, pageSize));
+        return Result.ok(menuAppService.page(keyword, pageNum, pageSize));
     }
 
     //    @PreAuthorize("@ss.hasPermi('system:menu:add')")
@@ -50,8 +50,8 @@ public class MenuController {
 
     @ApiOperation(value = "查询目录和菜单")
     @GetMapping(value = "/catalog-menu")
-    public Result<List<MenuDTO>> findCatalogAndMenu() {
-        return Result.ok(menuAppService.findCatalogAndMenu());
+    public Result<List<MenuDTO>> catalogAndMenu() {
+        return Result.ok(menuAppService.catalogAndMenu());
     }
 
     @ApiOperation(value = "查询树形菜单列表")
@@ -62,15 +62,15 @@ public class MenuController {
 
     @ApiOperation(value = "查询路由")
     @GetMapping(value = "/routers")
-    public Result<List<RouterDTO>> getRouters() {
+    public Result<List<RouterDTO>> routers() {
         Long userId = SecurityUtils.getLoginUser().getUserId();
-        return Result.ok(menuAppService.getRouters(userId));
+        return Result.ok(menuAppService.routers(userId));
     }
 
     @ApiOperation(value = "根据id查询菜单")
     @GetMapping(value = "/{id:\\d+}")
     public Result<MenuDTO> get(@PathVariable(value = "id") @ApiParam(name = "id", example = "1") Long id) {
-        return Result.ok(menuAppService.findById(id));
+        return Result.ok(menuAppService.get(id));
     }
 
     //    @PreAuthorize("@ss.hasPermi('system:menu:update')")

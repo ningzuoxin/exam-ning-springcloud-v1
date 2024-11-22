@@ -31,7 +31,7 @@ public interface QuestionRepository {
     Question save(Question question);
 
     /**
-     * 分页查询试题
+     * 分页查询试题列表
      *
      * @param type     类型
      * @param keyword  关键词

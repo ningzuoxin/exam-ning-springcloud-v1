@@ -34,7 +34,7 @@ public class RoleController {
     public Result<PageWrapper<RoleDTO>> page(@RequestParam(value = "keyword", required = false) @ApiParam(name = "keyword", example = "") String keyword,
                                              @RequestParam(value = "pageNum", defaultValue = "1") @ApiParam(name = "pageNum", example = "1") Integer pageNum,
                                              @RequestParam(value = "pageSize", defaultValue = "10") @ApiParam(name = "pageSize", example = "10") Integer pageSize) {
-        return Result.ok(roleAppService.findByPage(keyword, pageNum, pageSize));
+        return Result.ok(roleAppService.page(keyword, pageNum, pageSize));
     }
 
     //    @PreAuthorize("@ss.hasPermi('system:role:add')")
@@ -68,8 +68,8 @@ public class RoleController {
 
     @ApiOperation(value = "查询所有角色")
     @GetMapping(value = "/all")
-    public Result<List<RoleDTO>> findAll() {
-        return Result.ok(roleAppService.findAll());
+    public Result<List<RoleDTO>> all() {
+        return Result.ok(roleAppService.all());
     }
 
 }

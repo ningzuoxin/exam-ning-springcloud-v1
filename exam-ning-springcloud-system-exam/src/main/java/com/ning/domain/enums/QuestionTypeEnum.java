@@ -3,7 +3,10 @@ package com.ning.domain.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 试题类型枚举
@@ -33,6 +36,10 @@ public enum QuestionTypeEnum {
             }
         }
         return -1;
+    }
+
+    public static List<String> validTypeList() {
+        return Arrays.stream(values()).map(QuestionTypeEnum::getType).collect(Collectors.toList());
     }
 
 }
