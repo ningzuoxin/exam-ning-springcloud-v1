@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `exam_question` (
 CREATE TABLE IF NOT EXISTS `exam_paper` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键自增ID',
   `uid` bigint UNSIGNED NOT NULL UNIQUE COMMENT '业务ID',
-  `type` tinyint UNSIGNED NOT NULL COMMENT '试卷类型，1：正式考试；2：模拟考试；3：日常练习；',
+  `type` tinyint UNSIGNED NOT NULL COMMENT '试卷类型，1：正式；2：模拟；3：练习；',
   `title` varchar(256) NOT NULL COMMENT '试卷标题',
   `time_limit` int UNSIGNED NOT NULL COMMENT '考试时间限制，单位：秒',
   `frequency_limit` int UNSIGNED NOT NULL COMMENT '考试次数限制，0：不限制；',
@@ -168,6 +168,7 @@ CREATE TABLE IF NOT EXISTS `exam_paper_question` (
   INDEX `idx_sort_num` (`sort_num`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='试卷试题表';
 
+-- 试卷试题结果表
 CREATE TABLE IF NOT EXISTS `exam_paper_question_result` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键自增ID',
   `uid` bigint UNSIGNED NOT NULL UNIQUE COMMENT '业务ID',

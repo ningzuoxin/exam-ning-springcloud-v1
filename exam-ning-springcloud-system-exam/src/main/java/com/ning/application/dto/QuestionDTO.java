@@ -1,6 +1,5 @@
 package com.ning.application.dto;
 
-import com.ning.domain.types.QuestionId;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +14,7 @@ import lombok.Setter;
 public class QuestionDTO {
 
     // 试题 ID
-    private QuestionId id;
+    private Long id;
     // 题型
     private String type;
     // 题目内容

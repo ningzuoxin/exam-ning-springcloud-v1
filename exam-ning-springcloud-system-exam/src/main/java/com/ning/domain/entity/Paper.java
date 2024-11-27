@@ -1,5 +1,6 @@
 package com.ning.domain.entity;
 
+import com.ning.domain.enums.PaperStatusEnum;
 import com.ning.domain.types.PaperId;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,5 +37,18 @@ public class Paper {
     private PaperId copyPaperId;
     // 试卷状态
     private Integer status;
+
+    public Paper(PaperId id, Integer type, String title, Integer timeLimit, Integer frequencyLimit, Integer totalScore, Integer passedScore, Integer questionCount, PaperId copyPaperId) {
+        this.id = id;
+        this.type = type;
+        this.title = title;
+        this.timeLimit = timeLimit;
+        this.frequencyLimit = frequencyLimit;
+        this.totalScore = totalScore;
+        this.passedScore = passedScore;
+        this.questionCount = questionCount;
+        this.copyPaperId = copyPaperId;
+        this.status = PaperStatusEnum.NORMAL.getValue();
+    }
 
 }

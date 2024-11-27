@@ -33,6 +33,12 @@ public interface PaperRepository {
      */
     PageWrapper<Paper> findByPage(Integer type, String keyword, Integer pageNum, Integer pageSize);
 
+    /**
+     * 保存试卷
+     *
+     * @param paper 试卷
+     * @return 试卷
+     */
     Paper save(Paper paper);
 
 }

@@ -1,55 +1,61 @@
 package com.ning.interfaces.controller;
 
-import cn.hutool.core.date.DateUtil;
-import com.ning.common.enums.ExamTestPaperTypeEnum;
+import com.ning.application.assembler.PaperAssembler;
+import com.ning.application.dto.PaperDTO;
+import com.ning.application.dto.PaperTypeDTO;
+import com.ning.application.service.PaperAppService;
 import com.ning.common.model.ExamTestPaperModel;
+import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.infrastructure.common.model.Result;
+import com.ning.interfaces.request.AddPaperRequest;
 import com.ning.service.ExamTestPaperService;
 import com.ning.utils.SecurityUtils;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
-@SuppressWarnings("ALL")
-@RequestMapping(value = "/testPaper/")
+/**
+ * 试卷控制器
+ *
+ * @author zuoxin.ning
+ * @since 2024-11-27 11:30
+ */
 @RestController
-public class ExamTestPaperController {
+@RequiredArgsConstructor
+@RequestMapping(value = "/papers")
+public class PaperController {
 
-    @Resource
+    private final PaperAppService paperAppService;
+    private final PaperAssembler paperAssembler = PaperAssembler.INSTANCE;
+
     ExamTestPaperService examTestPaperService;
 
-    @GetMapping(value = "/type")
     @ApiOperation(value = "查询试卷类型")
-    public Result<List<Map<String, String>>> types() {
-        return Result.ok(ExamTestPaperTypeEnum.listExamTestPaperTypes());
+    @GetMapping(value = "/type")
+    public Result<List<PaperTypeDTO>> types() {
+        return Result.ok(paperAppService.types());
     }
 
-    @PostMapping(value = "/add")
     @ApiOperation(value = "添加试卷")
-    public Result add(@RequestBody @Valid ExamTestPaperModel examTestPaperModel) {
-        int now = (int) DateUtil.currentSeconds();
-        examTestPaperModel.setIsDelete(0);
-        examTestPaperModel.setCreateTime(now);
-        examTestPaperModel.setUpdateTime(now);
-        examTestPaperModel.setCreateUserId(SecurityUtils.getLoginUser().getUserId().intValue());
-        examTestPaperModel.setUpdateUserId(SecurityUtils.getLoginUser().getUserId().intValue());
-        return examTestPaperService.add(examTestPaperModel);
+    @PostMapping(value = "")
+    public Result<PaperDTO> add(@RequestBody @Valid AddPaperRequest request) {
+        PaperDTO paperDTO = paperAssembler.toDTO(request);
+        return Result.ok(paperAppService.add(paperDTO));
     }
 
-    @PreAuthorize("@ss.hasPermi('exam:testPaper:page')")
-    @GetMapping(value = "/page")
+    //    @PreAuthorize("@ss.hasPermi('exam:testPaper:page')")
     @ApiOperation(value = "分页查询试卷列表")
-    public Result selectPage(@RequestParam(value = "type", required = false) @ApiParam(name = "type", example = "") String type,
-                             @RequestParam(value = "keyword", required = false) @ApiParam(name = "keyword", example = "") String keyword,
-                             @RequestParam(value = "pNum", defaultValue = "1") @ApiParam(name = "pNum", example = "1") Integer pNum,
-                             @RequestParam(value = "pSize", defaultValue = "10") @ApiParam(name = "pSize", example = "10") Integer pSize) {
-        return examTestPaperService.selectExamTestPaperPage(type, keyword, pNum, pSize);
+    @GetMapping(value = "/page")
+    public Result<PageWrapper<PaperDTO>> page(@RequestParam(value = "type", required = false) @ApiParam(name = "type", example = "") Integer type,
+                                              @RequestParam(value = "keyword", required = false) @ApiParam(name = "keyword", example = "") String keyword,
+                                              @RequestParam(value = "pageNum", defaultValue = "1") @ApiParam(name = "pageNum", example = "1") Integer pageNum,
+                                              @RequestParam(value = "pageSize", defaultValue = "10") @ApiParam(name = "pageSize", example = "10") Integer pageSize) {
+        return Result.ok(paperAppService.page(type, keyword, pageNum, pageSize));
     }
 
     @PreAuthorize("@ss.hasPermi('exam:testPaper:preview')")
