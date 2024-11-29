@@ -4,6 +4,7 @@ import cn.hutool.core.collection.ListUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ning.domain.entity.PaperQuestion;
 import com.ning.domain.repository.PaperQuestionRepository;
+import com.ning.domain.types.PaperId;
 import com.ning.domain.types.PaperQuestionId;
 import com.ning.infrastructure.persistence.converter.PaperQuestionConverter;
 import com.ning.infrastructure.persistence.dao.PaperQuestionDao;
@@ -78,6 +79,18 @@ public class PaperQuestionRepositoryImpl implements PaperQuestionRepository {
             paperQuestionDao.updateById(dbPaperQuestionDO);
             return paperQuestionConverter.toEntity(dbPaperQuestionDO);
         }
+    }
+
+    /**
+     * 查询试卷试题列表
+     *
+     * @param paperId 试卷 ID
+     * @return 试卷试题列表
+     */
+    @Override
+    public List<PaperQuestion> find(PaperId paperId) {
+        List<PaperQuestionDO> paperQuestionDOList = this.findByPaperUid(paperId.getValue());
+        return paperQuestionConverter.toEntityList(paperQuestionDOList);
     }
 
     private List<PaperQuestionDO> findByPaperUid(Long paperUid) {

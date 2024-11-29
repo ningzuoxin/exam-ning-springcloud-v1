@@ -48,6 +48,11 @@ public class Paper {
         this.passedScore = passedScore;
         this.questionCount = questionCount;
         this.copyPaperId = copyPaperId;
+        // 试卷需经发布后，才能正式使用
+        this.status = PaperStatusEnum.DEACTIVATE.getValue();
+    }
+
+    public void publish() {
         this.status = PaperStatusEnum.NORMAL.getValue();
     }
 

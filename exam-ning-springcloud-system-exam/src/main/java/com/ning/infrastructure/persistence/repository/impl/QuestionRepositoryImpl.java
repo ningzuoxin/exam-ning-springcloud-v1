@@ -16,6 +16,7 @@ import com.ning.infrastructure.utils.SnowFlake;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -126,6 +127,21 @@ public class QuestionRepositoryImpl implements QuestionRepository {
         questionDO.setIsDeleted(1);
         questionDao.updateById(questionDO);
         return true;
+    }
+
+    /**
+     * 查询试题列表
+     *
+     * @param idList 试题 ID 列表
+     * @return 试题
+     */
+    @Override
+    public List<Question> find(List<QuestionId> idList) {
+        QueryWrapper<QuestionDO> wrapper = new QueryWrapper<>();
+        wrapper.in("uid", idList.stream().map(QuestionId::getValue));
+        wrapper.eq("is_deleted", 0);
+        List<QuestionDO> questionDOList = questionDao.selectList(wrapper);
+        return questionConverter.toEntityList(questionDOList);
     }
 
     private Optional<QuestionDO> findByUid(Long uid) {

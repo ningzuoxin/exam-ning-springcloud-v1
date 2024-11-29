@@ -4,6 +4,7 @@ import com.ning.domain.entity.Question;
 import com.ning.domain.types.QuestionId;
 import com.ning.infrastructure.common.model.PageWrapper;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -48,5 +49,13 @@ public interface QuestionRepository {
      * @return 是否操作成功
      */
     boolean remove(QuestionId id);
+
+    /**
+     * 查询试题列表
+     *
+     * @param idList 试题 ID 列表
+     * @return 试题
+     */
+    List<Question> find(List<QuestionId> idList);
 
 }

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ning.domain.entity.PaperQuestionResult;
 import com.ning.domain.repository.PaperQuestionResultRepository;
 import com.ning.domain.types.PaperQuestionResultId;
+import com.ning.domain.types.PaperResultId;
 import com.ning.infrastructure.persistence.converter.PaperQuestionResultConverter;
 import com.ning.infrastructure.persistence.dao.PaperQuestionResultDao;
 import com.ning.infrastructure.persistence.model.PaperQuestionResultDO;
@@ -78,6 +79,18 @@ public class PaperQuestionResultRepositoryImpl implements PaperQuestionResultRep
             paperQuestionResultDao.updateById(dbPaperQuestionResultDO);
             return paperQuestionResultConverter.toEntity(dbPaperQuestionResultDO);
         }
+    }
+
+    /**
+     * 查询试卷试题结果列表
+     *
+     * @param paperResultId 试卷结果 ID
+     * @return 试卷试题结果列表
+     */
+    @Override
+    public List<PaperQuestionResult> find(PaperResultId paperResultId) {
+        List<PaperQuestionResultDO> paperQuestionResultDOList = this.findByPaperResultUid(paperResultId.getValue());
+        return paperQuestionResultConverter.toEntityList(paperQuestionResultDOList);
     }
 
     private List<PaperQuestionResultDO> findByPaperResultUid(Long paperResultUid) {

@@ -1,6 +1,7 @@
 package com.ning.domain.repository;
 
 import com.ning.domain.entity.PaperQuestion;
+import com.ning.domain.types.PaperId;
 import com.ning.domain.types.PaperQuestionId;
 
 import java.util.List;
@@ -28,5 +29,13 @@ public interface PaperQuestionRepository {
      * @return 试卷试题
      */
     PaperQuestion save(PaperQuestion paperQuestion);
+
+    /**
+     * 查询试卷试题列表
+     *
+     * @param paperId 试卷 ID
+     * @return 试卷试题列表
+     */
+    List<PaperQuestion> find(PaperId paperId);
 
 }

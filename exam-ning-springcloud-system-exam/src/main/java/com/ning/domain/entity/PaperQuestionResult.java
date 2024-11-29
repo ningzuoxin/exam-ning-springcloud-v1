@@ -31,12 +31,23 @@ public class PaperQuestionResult {
     private Long userUid;
     // 答题结果
     private String answer;
-    // 结果状态，0：未答；1：正确；2：部分正确；3：错误；
+    // 结果状态，0：待批阅；1：正确；2：部分正确；3：错误；
     private Integer status;
     // 得分
     private Float score;
     // 教师点评
     private String comments;
+
+    public PaperQuestionResult(PaperQuestionResultId id, PaperResultId paperResultId, PaperId paperId, PaperQuestionId paperQuestionId, QuestionId questionId, Long userUid, String answer) {
+        this.id = id;
+        this.paperResultId = paperResultId;
+        this.paperId = paperId;
+        this.paperQuestionId = paperQuestionId;
+        this.questionId = questionId;
+        this.userUid = userUid;
+        this.answer = answer;
+        this.status = PaperQuestionResultStatusEnum.PENDING.getValue();
+    }
 
     /**
      * 评分

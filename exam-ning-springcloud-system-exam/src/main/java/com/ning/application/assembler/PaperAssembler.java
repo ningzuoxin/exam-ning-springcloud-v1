@@ -1,9 +1,11 @@
 package com.ning.application.assembler;
 
 import com.ning.application.dto.PaperDTO;
+import com.ning.application.dto.PaperQuestionSubmitDTO;
 import com.ning.domain.entity.Paper;
 import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.interfaces.request.AddPaperRequest;
+import com.ning.interfaces.request.PaperSubmitRequest;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
@@ -34,5 +36,7 @@ public interface PaperAssembler {
     @Mapping(target = "copyPaperId", expression = "java(new PaperId(dto.getCopyPaperId()))")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateEntity(@MappingTarget Paper entity, PaperDTO dto);
+
+    List<PaperQuestionSubmitDTO> toQuestionSubmitDTOList(List<PaperSubmitRequest.PaperQuestionSubmitRequest> requestList);
 
 }

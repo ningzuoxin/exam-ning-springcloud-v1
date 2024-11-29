@@ -3,9 +3,11 @@ package com.ning.domain.service;
 import com.ning.domain.entity.PaperQuestion;
 import com.ning.domain.entity.PaperQuestionResult;
 import com.ning.domain.entity.PaperResult;
+import com.ning.domain.entity.Question;
 import com.ning.domain.enums.PaperQuestionResultStatusEnum;
 import com.ning.domain.repository.PaperQuestionResultRepository;
 import com.ning.domain.repository.PaperResultRepository;
+import com.ning.domain.types.PaperQuestionId;
 import com.ning.domain.types.QuestionId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -57,6 +59,37 @@ public class PaperResultGradingService {
         paperResult.finishGrading(score.get(), rightCount.get());
         paperResultRepository.save(paperResult);
         return paperResult;
+    }
+
+    /**
+     * 评分
+     *
+     * @param paperResult             试卷结果
+     * @param questionList            试题列表
+     * @param paperQuestionList       试卷试题列表
+     * @param paperQuestionResultList 试卷试题结果列表
+     */
+    public void doGrading(PaperResult paperResult,
+                          List<Question> questionList,
+                          List<PaperQuestion> paperQuestionList,
+                          List<PaperQuestionResult> paperQuestionResultList) {
+        Map<PaperQuestionId, PaperQuestion> paperQuestionMap = paperQuestionList.stream().collect(Collectors.toMap(PaperQuestion::getId, Function.identity()));
+        Map<QuestionId, Question> questionMap = questionList.stream().collect(Collectors.toMap(Question::getId, Function.identity()));
+
+        float score = 0f;
+        int rightCount = 0;
+        for (PaperQuestionResult paperQuestionResult : paperQuestionResultList) {
+            QuestionId questionId = paperQuestionResult.getQuestionId();
+            PaperQuestionId paperQuestionId = paperQuestionResult.getPaperQuestionId();
+
+            Question question = questionMap.get(questionId);
+            PaperQuestion paperQuestion = paperQuestionMap.get(paperQuestionId);
+
+            // todo: 执行阅卷
+
+            paperQuestionResultRepository.save(paperQuestionResult);
+        }
+
     }
 
 }

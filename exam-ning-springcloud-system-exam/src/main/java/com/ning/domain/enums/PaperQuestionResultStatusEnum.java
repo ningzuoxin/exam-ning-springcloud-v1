@@ -14,9 +14,9 @@ import lombok.Getter;
 public enum PaperQuestionResultStatusEnum {
 
     /**
-     * 未答
+     * 待批阅
      */
-    UNANSWERED(0, "未答"),
+    PENDING(0, "待批阅"),
     /**
      * 正确
      */

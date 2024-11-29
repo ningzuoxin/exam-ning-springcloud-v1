@@ -178,7 +178,7 @@ CREATE TABLE IF NOT EXISTS `exam_paper_question_result` (
   `question_uid` bigint UNSIGNED NOT NULL COMMENT '试题ID',
   `user_uid` bigint UNSIGNED NOT NULL COMMENT '答题者用户ID',
   `answer` text NOT NULL COMMENT '答题结果',
-  `status` tinyint UNSIGNED DEFAULT 0 COMMENT '结果状态，0：未答；1：正确；2：部分正确；3：错误；',
+  `status` tinyint UNSIGNED DEFAULT 0 COMMENT '结果状态，0：待批阅；1：正确；2：部分正确；3：错误；',
   `score` decimal(4,1) NOT NULL COMMENT '得分',
   `comments` varchar(512) NULL COMMENT '教师点评',
   `is_deleted` tinyint UNSIGNED DEFAULT 0 COMMENT '是否删除，0：未删除；1：已删除；',

@@ -109,6 +109,25 @@ public class PaperRepositoryImpl implements PaperRepository {
         }
     }
 
+    /**
+     * 删除试卷
+     *
+     * @param id 试卷 ID
+     * @return 是否操作成功
+     */
+    @Override
+    public boolean remove(PaperId id) {
+        Optional<PaperDO> paperDOOpt = this.findByUid(id.getValue());
+        if (!paperDOOpt.isPresent()) {
+            return true;
+        }
+
+        PaperDO paperDO = paperDOOpt.get();
+        paperDO.setIsDeleted(1);
+        paperDao.updateById(paperDO);
+        return true;
+    }
+
     private Optional<PaperDO> findByUid(Long uid) {
         QueryWrapper<PaperDO> wrapper = new QueryWrapper<>();
         wrapper.eq("uid", uid);

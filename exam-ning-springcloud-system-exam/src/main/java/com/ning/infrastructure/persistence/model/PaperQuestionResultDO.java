@@ -61,7 +61,7 @@ public class PaperQuestionResultDO implements Serializable {
     @TableField("answer")
     private String answer;
 
-    @ApiModelProperty(value = "结果状态，0：未答；1：正确；2：部分正确；3：错误；")
+    @ApiModelProperty(value = "结果状态，0：待批阅；1：正确；2：部分正确；3：错误；")
     @TableField("status")
     private Integer status;
 

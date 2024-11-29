@@ -47,6 +47,15 @@ public class PaperResult {
     // 批卷时间
     private Instant checkTime;
 
+    public PaperResult(PaperResultId id, PaperId paperId, String paperTitle, Long userUid, Integer timeUsed) {
+        this.id = id;
+        this.paperId = paperId;
+        this.paperTitle = paperTitle;
+        this.userUid = userUid;
+        this.timeUsed = timeUsed;
+        this.status = PaperResultStatusEnum.PENDING.getValue();
+    }
+
     public void finishGrading(Float score, int rightCount) {
         this.score = this.score + score;
         this.subjectiveScore = this.subjectiveScore + score;

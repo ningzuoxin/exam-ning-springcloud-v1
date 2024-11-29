@@ -41,4 +41,12 @@ public interface PaperRepository {
      */
     Paper save(Paper paper);
 
+    /**
+     * 删除试卷
+     *
+     * @param id 试卷 ID
+     * @return 是否操作成功
+     */
+    boolean remove(PaperId id);
+
 }

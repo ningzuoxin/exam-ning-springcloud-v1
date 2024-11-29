@@ -2,6 +2,7 @@ package com.ning.domain.repository;
 
 import com.ning.domain.entity.PaperQuestionResult;
 import com.ning.domain.types.PaperQuestionResultId;
+import com.ning.domain.types.PaperResultId;
 
 import java.util.List;
 
@@ -28,5 +29,13 @@ public interface PaperQuestionResultRepository {
      * @return 试卷试题结果
      */
     PaperQuestionResult save(PaperQuestionResult paperQuestionResult);
+
+    /**
+     * 查询试卷试题结果列表
+     *
+     * @param paperResultId 试卷结果 ID
+     * @return 试卷试题结果列表
+     */
+    List<PaperQuestionResult> find(PaperResultId paperResultId);
 
 }
