@@ -1,29 +1,24 @@
-package com.ning.domain.entity;
+package com.ning.application.dto;
 
-import com.ning.domain.enums.PaperResultStatusEnum;
-import com.ning.domain.types.PaperId;
-import com.ning.domain.types.PaperResultId;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.time.Instant;
 
 /**
- * 试卷结果实体
+ * 试卷结果 DTO
  *
  * @author zuoxin.ning
- * @since 2024-11-27 15:30
+ * @since 2024-11-28 08:00
  */
 @Getter
 @Setter
-@ToString
-public class PaperResult {
+public class PaperResultDTO {
 
     // 试卷结果 ID
-    private PaperResultId id;
+    private Long id;
     // 试卷 ID
-    private PaperId paperId;
+    private Long paperId;
     // 试卷标题
     private String paperTitle;
     // 答题者用户 ID
@@ -46,13 +41,5 @@ public class PaperResult {
     private Long checkUserUid;
     // 批卷时间
     private Instant checkTime;
-
-    public void finishGrading(Float score, int rightCount) {
-        this.score = this.score + score;
-        this.subjectiveScore = this.subjectiveScore + score;
-        this.rightCount = this.rightCount + rightCount;
-        this.status = PaperResultStatusEnum.COMPLETED.getValue();
-        this.checkTime = Instant.now();
-    }
 
 }

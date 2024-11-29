@@ -44,6 +44,11 @@ public enum BusinessCodeEnum {
      * 试题模块
      */
     QUESTION_NOT_EXISTS(4001, "试题不存在"),
+
+    /**
+     * 试卷结果模块
+     */
+    PAPER_RESULT_NOT_EXISTS(5001, "试卷结果不存在"),
     ;
 
     private final Integer code;

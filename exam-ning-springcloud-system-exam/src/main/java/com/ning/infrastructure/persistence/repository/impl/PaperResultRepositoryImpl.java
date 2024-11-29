@@ -12,6 +12,7 @@ import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.infrastructure.persistence.converter.PaperResultConverter;
 import com.ning.infrastructure.persistence.dao.PaperResultDao;
 import com.ning.infrastructure.persistence.model.PaperResultDO;
+import com.ning.infrastructure.utils.SnowFlake;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -57,7 +58,22 @@ public class PaperResultRepositoryImpl implements PaperResultRepository {
      */
     @Override
     public PaperResult save(PaperResult paperResult) {
-        return null;
+        PaperResultDO paperResultDO = paperResultConverter.toDO(paperResult);
+        if (Objects.isNull(paperResultDO.getUid())) {
+            paperResultDO.setUid(SnowFlake.ID.nextId());
+            paperResultDao.insert(paperResultDO);
+            return paperResultConverter.toEntity(paperResultDO);
+        } else {
+            Optional<PaperResultDO> paperResultDOOpt = this.findByUid(paperResult.getId().getValue());
+            if (!paperResultDOOpt.isPresent()) {
+                throw new IllegalArgumentException("PaperResult not exits, id: " + paperResult.getId().getValue());
+            }
+
+            PaperResultDO dbPaperResultDO = paperResultDOOpt.get();
+            paperResultConverter.updateDO(dbPaperResultDO, paperResultDO);
+            paperResultDao.updateById(dbPaperResultDO);
+            return paperResultConverter.toEntity(dbPaperResultDO);
+        }
     }
 
     /**

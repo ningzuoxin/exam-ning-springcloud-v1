@@ -21,6 +21,7 @@ public interface PaperAssembler {
     PaperAssembler INSTANCE = Mappers.getMapper(PaperAssembler.class);
 
     @Mapping(target = "id", source = "id.value")
+    @Mapping(target = "copyPaperId", source = "copyPaperId.value")
     PaperDTO toDTO(Paper entity);
 
     List<PaperDTO> toDTOList(List<Paper> entityList);
@@ -30,6 +31,7 @@ public interface PaperAssembler {
     PaperDTO toDTO(AddPaperRequest request);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "copyPaperId", expression = "java(new PaperId(dto.getCopyPaperId()))")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateEntity(@MappingTarget Paper entity, PaperDTO dto);
 

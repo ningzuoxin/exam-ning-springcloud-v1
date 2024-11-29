@@ -22,7 +22,7 @@ public interface PaperResultConverter {
     @Mapping(target = "uid", source = "id.value")
     PaperResultDO toDO(PaperResult entity);
 
-    @Mapping(target = "id", expression = "java(new PaperId(dataObject.getUid()))")
+    @Mapping(target = "id", expression = "java(new PaperResultId(dataObject.getUid()))")
     PaperResult toEntity(PaperResultDO dataObject);
 
     List<PaperResult> toEntityList(List<PaperResultDO> dataObjectList);

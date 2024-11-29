@@ -1,5 +1,6 @@
 package com.ning.domain.entity;
 
+import com.ning.domain.enums.PaperQuestionResultStatusEnum;
 import com.ning.domain.types.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,5 +37,20 @@ public class PaperQuestionResult {
     private Float score;
     // 教师点评
     private String comments;
+
+    /**
+     * 评分
+     *
+     * @param rightScore 回答正确得分
+     */
+    public void grading(Float rightScore) {
+        if (this.score >= rightScore) {
+            this.status = PaperQuestionResultStatusEnum.CORRECT.getValue();
+        } else if (this.score == 0) {
+            this.status = PaperQuestionResultStatusEnum.INCORRECT.getValue();
+        } else {
+            this.status = PaperQuestionResultStatusEnum.PARTIALLY_CORRECT.getValue();
+        }
+    }
 
 }
