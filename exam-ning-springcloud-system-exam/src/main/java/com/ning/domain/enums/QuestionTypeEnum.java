@@ -42,4 +42,13 @@ public enum QuestionTypeEnum {
         return Arrays.stream(values()).map(QuestionTypeEnum::getType).collect(Collectors.toList());
     }
 
+    public static QuestionTypeEnum fromType(String type) {
+        for (QuestionTypeEnum e : values()) {
+            if (Objects.equals(e.getType(), type)) {
+                return e;
+            }
+        }
+        throw new IllegalArgumentException("unsupported question type");
+    }
+
 }

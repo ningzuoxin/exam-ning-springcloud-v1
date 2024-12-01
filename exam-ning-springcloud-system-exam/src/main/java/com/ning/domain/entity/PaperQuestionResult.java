@@ -64,4 +64,14 @@ public class PaperQuestionResult {
         }
     }
 
+    /**
+     * 评分
+     *
+     * @param result 批阅答案结果
+     */
+    public void grading(AnswerCheckResult result) {
+        this.status = result.getStatus().getValue();
+        this.score = result.getScore();
+    }
+
 }

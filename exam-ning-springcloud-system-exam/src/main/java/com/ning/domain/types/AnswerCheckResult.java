@@ -4,7 +4,7 @@ import com.ning.domain.enums.PaperQuestionResultStatusEnum;
 import lombok.Value;
 
 /**
- * 答案批阅结果
+ * 批阅答案结果
  *
  * @author zuoxin.ning
  * @since 2024-11-30 22:00

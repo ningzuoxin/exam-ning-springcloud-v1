@@ -56,12 +56,37 @@ public class PaperResult {
         this.status = PaperResultStatusEnum.PENDING.getValue();
     }
 
-    public void finishGrading(Float score, int rightCount) {
+    /**
+     * 结束主观题评分
+     *
+     * @param score      主观题得分
+     * @param rightCount 答题正确数
+     */
+    public void finishSubjectGrading(Float score, int rightCount) {
         this.score = this.score + score;
         this.subjectiveScore = this.subjectiveScore + score;
         this.rightCount = this.rightCount + rightCount;
         this.status = PaperResultStatusEnum.COMPLETED.getValue();
         this.checkTime = Instant.now();
+    }
+
+    /**
+     * 结束客观题评分
+     *
+     * @param score              客观题评分
+     * @param rightCount         答题正确数
+     * @param hasSubjectQuestion 是否有主观题
+     */
+    public void finishObjectiveGrading(Float score, int rightCount, boolean hasSubjectQuestion) {
+        this.score = score;
+        this.rightCount = rightCount;
+        this.subjectiveScore = 0f;
+        this.objectiveScore = score;
+        this.checkTime = Instant.now();
+        this.status = PaperResultStatusEnum.IN_PROGRESS.getValue();
+        if (!hasSubjectQuestion) {
+            this.status = PaperResultStatusEnum.COMPLETED.getValue();
+        }
     }
 
 }
