@@ -9,7 +9,7 @@ import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.infrastructure.common.model.Result;
 import com.ning.interfaces.request.AddMenuRequest;
 import com.ning.interfaces.request.UpdateMenuRequest;
-import com.ning.utils.SecurityUtils;
+import com.ning.infrastructure.utils.SecurityUtils;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;

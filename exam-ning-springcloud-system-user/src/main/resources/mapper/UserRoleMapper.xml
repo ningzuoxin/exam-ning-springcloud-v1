@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ning.dao.UserRoleDao">
+<mapper namespace="com.ning.infrastructure.persistence.dao.UserRoleDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ning.entity.UserRole">
-        <id column="user_id" property="userId"/>
-        <result column="role_id" property="roleId"/>
+    <resultMap id="BaseResultMap" type="com.ning.infrastructure.persistence.model.UserRoleDO">
+        <id column="id" property="id" />
+        <result column="uid" property="uid" />
+        <result column="user_uid" property="userUid" />
+        <result column="role_uid" property="roleUid" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        user_id, role_id
+        id, uid, user_uid, role_uid, is_deleted, create_time, update_time
     </sql>
 
 </mapper>

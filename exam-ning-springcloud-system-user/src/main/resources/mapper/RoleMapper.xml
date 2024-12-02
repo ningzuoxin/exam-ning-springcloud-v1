@@ -1,33 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ning.dao.RoleDao">
+<mapper namespace="com.ning.infrastructure.persistence.dao.RoleDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ning.entity.Role">
-        <id column="role_id" property="roleId"/>
-        <result column="role_name" property="roleName"/>
-        <result column="role_key" property="roleKey"/>
-        <result column="role_sort" property="roleSort"/>
-        <result column="data_scope" property="dataScope"/>
-        <result column="status" property="status"/>
-        <result column="del_flag" property="delFlag"/>
-        <result column="create_by" property="createBy"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_by" property="updateBy"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="remark" property="remark"/>
+    <resultMap id="BaseResultMap" type="com.ning.infrastructure.persistence.model.RoleDO">
+        <id column="id" property="id" />
+        <result column="uid" property="uid" />
+        <result column="role_name" property="roleName" />
+        <result column="role_key" property="roleKey" />
+        <result column="sort_num" property="sortNum" />
+        <result column="status" property="status" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        role_id, role_name, role_key, role_sort, data_scope, status, del_flag, create_by, create_time, update_by, update_time, remark
+        id, uid, role_name, role_key, sort_num, status, is_deleted, create_time, update_time
     </sql>
-
-    <!-- 根据用户id查询角色代码 -->
-    <select id="getRoleKeyByUserId" resultType="java.lang.String">
-        select r.role_key from user_role ur
-        inner join role r on r.role_id = ur.role_id
-        where r.del_flag = '0' and r.`status` = '0' and ur.user_id = #{userId}
-    </select>
 
 </mapper>

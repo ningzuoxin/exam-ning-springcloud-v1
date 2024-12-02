@@ -27,13 +27,13 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/exam-ning-springcloud-user?autoReconnect=true&useUnicode=true&characterEncoding=utf8
     username: root
-#    password: 123456
-    password: Su5I6oOtFU33ckBpZyRe
+    password: 123456
+#    password: Su5I6oOtFU33ckBpZyRe
 
 # mybatis-plus
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml
-  type-aliases-package: com.ning.entity
+  type-aliases-package: com.ning.infrastructure.persistence.model
 
 # 使用基于Redis的统一认证服务时，放开以下注释
 #security:
