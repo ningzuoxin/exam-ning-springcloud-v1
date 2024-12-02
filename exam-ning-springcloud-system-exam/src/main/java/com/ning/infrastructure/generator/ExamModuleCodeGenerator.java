@@ -18,7 +18,7 @@ public class ExamModuleCodeGenerator {
 
     private final static String DB_URL = "jdbc:mysql://127.0.0.1:3306/exam-ning-springcloud-exam?autoReconnect=true&useUnicode=true&characterEncoding=utf8";
     private final static String DB_USERNAME = "root";
-    private final static String DB_PASSWORD = "123456";
+    private final static String DB_PASSWORD = "Su5I6oOtFU33ckBpZyRe";
 
     public static void main(String[] args) {
         String projectPath = System.getProperty("user.dir") + MODULE;
@@ -37,7 +37,7 @@ public class ExamModuleCodeGenerator {
                             .pathInfo(Collections.singletonMap(OutputFile.mapperXml, projectPath + "/src/main/resources/mapper/")); // 设置mapperXml生成路径
                 })
                 .templateConfig(builder -> {
-                    builder.disable(TemplateType.CONTROLLER, TemplateType.SERVICE, TemplateType.SERVICEIMPL, TemplateType.ENTITY); // 排除controller、service、service impl
+                    builder.disable(TemplateType.CONTROLLER, TemplateType.SERVICE, TemplateType.SERVICEIMPL, TemplateType.ENTITY, TemplateType.MAPPER); // 排除controller、service、service impl
                 })
                 .strategyConfig(builder -> {
                     builder.entityBuilder()
@@ -49,8 +49,8 @@ public class ExamModuleCodeGenerator {
                             .enableBaseResultMap() // 启用 BaseResultMap 生成
                             .formatMapperFileName("%sDao") // Mapper xml 命名方式
                             .formatXmlFileName("%sMapper"); // mapper 命名方式
-                    builder.addInclude("") // 设置需要生成的表名
-                            .addTablePrefix(""); // 设置过滤表前缀
+                    builder.addInclude("exam_paper_result") // 设置需要生成的表名
+                            .addTablePrefix("exam"); // 设置过滤表前缀
                 })
                 .execute();
     }

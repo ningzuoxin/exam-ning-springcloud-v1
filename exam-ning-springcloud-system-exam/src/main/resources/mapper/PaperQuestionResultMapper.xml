@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ning.infrastructure.persistence.dao.PaperQuestionResultDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ning.infrastructure.persistence.model.PaperQuestionResultDO">
+        <id column="id" property="id" />
+        <result column="uid" property="uid" />
+        <result column="paper_result_uid" property="paperResultUid" />
+        <result column="paper_uid" property="paperUid" />
+        <result column="paper_question_uid" property="paperQuestionUid" />
+        <result column="question_uid" property="questionUid" />
+        <result column="user_uid" property="userUid" />
+        <result column="answer" property="answer" />
+        <result column="status" property="status" />
+        <result column="score" property="score" />
+        <result column="comments" property="comments" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, uid, paper_result_uid, paper_uid, paper_question_uid, question_uid, user_uid, answer, status, score, comments, is_deleted, create_time, update_time
+    </sql>
+
+</mapper>

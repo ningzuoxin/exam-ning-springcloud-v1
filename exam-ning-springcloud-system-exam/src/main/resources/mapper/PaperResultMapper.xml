@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ning.infrastructure.persistence.dao.PaperResultDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ning.infrastructure.persistence.model.PaperResultDO">
+        <id column="id" property="id" />
+        <result column="uid" property="uid" />
+        <result column="paper_uid" property="paperUid" />
+        <result column="paper_title" property="paperTitle" />
+        <result column="user_uid" property="userUid" />
+        <result column="score" property="score" />
+        <result column="objective_score" property="objectiveScore" />
+        <result column="subjective_score" property="subjectiveScore" />
+        <result column="comments" property="comments" />
+        <result column="right_count" property="rightCount" />
+        <result column="time_used" property="timeUsed" />
+        <result column="status" property="status" />
+        <result column="check_user_uid" property="checkUserUid" />
+        <result column="check_time" property="checkTime" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, uid, paper_uid, paper_title, user_uid, score, objective_score, subjective_score, comments, right_count, time_used, status, check_user_uid, check_time, is_deleted, create_time, update_time
+    </sql>
+
+</mapper>
