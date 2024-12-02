@@ -1,5 +1,6 @@
 package com.ning.domain.service;
 
+import cn.hutool.json.JSONUtil;
 import com.ning.domain.check.AnswerCheckHandler;
 import com.ning.domain.entity.PaperQuestion;
 import com.ning.domain.entity.PaperQuestionResult;
@@ -93,7 +94,7 @@ public class PaperResultGradingService {
             }
 
             // 批阅答案
-            String correctAnswer = question.getCorrectAnswer();
+            String correctAnswer = JSONUtil.toJsonStr(question.getCorrectAnswer());
             String answer = paperQuestionResult.getAnswer();
             Float rightScore = paperQuestion.getRightScore();
             AnswerCheckResult checkResult = AnswerCheckHandler.check(questionType, correctAnswer, answer, rightScore);

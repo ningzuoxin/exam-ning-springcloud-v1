@@ -3,6 +3,8 @@ package com.ning.application.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * 试题 DTO
  *
@@ -19,11 +21,11 @@ public class QuestionDTO {
     private String type;
     // 题目内容
     private String content;
-    // 正确答案
-    private String correctAnswer;
     // 解析
     private String explanation;
+    // 正确答案
+    private List<String> correctAnswer;
     // 选项
-    private String options;
+    private List<QuestionOptionDTO> options;
 
 }

@@ -69,7 +69,7 @@ public class QuestionAppService {
                 questionDTO.getContent(),
                 questionDTO.getCorrectAnswer(),
                 questionDTO.getExplanation(),
-                questionDTO.getOptions());
+                questionAssembler.toOptionEntityList(questionDTO.getOptions()));
         question = questionRepository.save(question);
         return questionAssembler.toDTO(question);
     }

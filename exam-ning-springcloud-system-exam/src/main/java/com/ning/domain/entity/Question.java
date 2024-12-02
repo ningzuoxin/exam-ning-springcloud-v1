@@ -1,9 +1,12 @@
 package com.ning.domain.entity;
 
 import com.ning.domain.types.QuestionId;
+import com.ning.domain.types.QuestionOption;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.List;
 
 /**
  * 试题实体
@@ -23,13 +26,13 @@ public class Question {
     // 题目内容
     private String content;
     // 正确答案
-    private String correctAnswer;
+    private List<String> correctAnswer;
     // 解析
     private String explanation;
     // 选项
-    private String options;
+    private List<QuestionOption> options;
 
-    public Question(QuestionId id, String type, String content, String correctAnswer, String explanation, String options) {
+    public Question(QuestionId id, String type, String content, List<String> correctAnswer, String explanation, List<QuestionOption> options) {
         this.id = id;
         this.type = type;
         this.content = content;

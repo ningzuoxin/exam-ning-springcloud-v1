@@ -20,9 +20,13 @@ public interface QuestionConverter {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uid", source = "id.value")
+    @Mapping(target = "correctAnswer", expression = "java(cn.hutool.json.JSONUtil.toJsonStr(entity.getCorrectAnswer()))")
+    @Mapping(target = "options", expression = "java(cn.hutool.json.JSONUtil.toJsonStr(entity.getOptions()))")
     QuestionDO toDO(Question entity);
 
     @Mapping(target = "id", expression = "java(new QuestionId(dataObject.getUid()))")
+    @Mapping(target = "correctAnswer", expression = "java(cn.hutool.json.JSONUtil.toList(dataObject.getCorrectAnswer(), String.class))")
+    @Mapping(target = "options", expression = "java(cn.hutool.json.JSONUtil.toList(dataObject.getOptions(), QuestionOption.class))")
     Question toEntity(QuestionDO dataObject);
 
     List<Question> toEntityList(List<QuestionDO> dataObjectList);

@@ -14,7 +14,7 @@ import com.ning.domain.repository.*;
 import com.ning.domain.types.*;
 import com.ning.exception.BusinessException;
 import com.ning.infrastructure.common.model.PageWrapper;
-import com.ning.utils.SecurityUtils;
+import com.ning.infrastructure.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

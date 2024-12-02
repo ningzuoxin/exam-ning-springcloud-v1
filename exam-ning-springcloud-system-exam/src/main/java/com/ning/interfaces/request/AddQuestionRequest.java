@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 /**
  * 添加试题请求
@@ -19,8 +20,8 @@ import javax.validation.constraints.NotEmpty;
 @ApiModel(value = "AddQuestionRequest", description = "添加试题请求")
 public class AddQuestionRequest {
 
-    @NotEmpty(message = "题型不能为空")
     @QuestionTypeConstraint
+    @NotEmpty(message = "题型不能为空")
     @ApiModelProperty(value = "题型")
     private String type;
 
@@ -30,13 +31,26 @@ public class AddQuestionRequest {
 
     @NotEmpty(message = "正确答案不能为空")
     @ApiModelProperty(value = "正确答案")
-    private String correctAnswer;
+    private List<String> correctAnswer;
 
     @ApiModelProperty(value = "解析")
     private String explanation;
 
-    @NotEmpty(message = "选项不能为空")
     @ApiModelProperty(value = "选项")
-    private String options;
+    private List<AddQuestionOptionRequest> options;
+
+    /**
+     * 试卷试题结果评分请求
+     */
+    @Getter
+    @Setter
+    public static class AddQuestionOptionRequest {
+
+        // 选项 ID
+        private String id;
+        // 选项内容
+        private String text;
+
+    }
 
 }

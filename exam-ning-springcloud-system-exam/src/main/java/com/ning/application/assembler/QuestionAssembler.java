@@ -1,10 +1,13 @@
 package com.ning.application.assembler;
 
 import com.ning.application.dto.QuestionDTO;
+import com.ning.application.dto.QuestionOptionDTO;
 import com.ning.domain.entity.Question;
+import com.ning.domain.types.QuestionOption;
 import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.interfaces.request.AddQuestionRequest;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -29,8 +32,6 @@ public interface QuestionAssembler {
 
     QuestionDTO toDTO(AddQuestionRequest request);
 
-    @Mapping(target = "id", ignore = true)
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateEntity(@MappingTarget Question entity, QuestionDTO dto);
+    List<QuestionOption> toOptionEntityList(List<QuestionOptionDTO> dtoList);
 
 }
