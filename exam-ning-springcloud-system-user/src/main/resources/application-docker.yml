@@ -1,0 +1,57 @@
+server:
+  port: 9201
+  servlet:
+    context-path: /system
+
+spring:
+  application:
+    name: exam-ning-system-user
+  cloud:
+    nacos:
+      discovery:
+        server-addr: host.docker.internal:8848 # 服务注册中心
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      idle-timeout: 600000
+      maximum-pool-size: 10
+      auto-commit: true
+      pool-name: EXAM_SC_USER_HikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://host.docker.internal:3306/exam-ning-springcloud-user?autoReconnect=true&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: Su5I6oOtFU33ckBpZyRe
+
+# mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+  type-aliases-package: com.ning.entity
+
+# 使用基于Redis的统一认证服务时，放开以下注释
+#security:
+#  oauth2:
+#    resource:
+#      # user-info-uri: http://localhost:8080/auth/oauth/user
+#      token-info-uri: http://exam-ning-auth/oauth/check_token
+#    client:
+#      client-id: ning666888
+#      client-secret: 888666
+#      scope: ningning
+
+# swagger配置
+swagger:
+  title: 系统设置模块接口文档
+  license: Powered By ning
+  licenseUrl: https://gitee.com/ningzxspace/exam-ning-springcloud-v1
+  authorization:
+    name: ning
+    auth-regex: ^.*$
+    authorization-scope-list:
+      - scope: server
+        description: 客户端授权范围
+    token-url-list:
+      - http://localhost:8080/auth/oauth/token

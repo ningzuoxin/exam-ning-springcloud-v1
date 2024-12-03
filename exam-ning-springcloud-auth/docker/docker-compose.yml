@@ -1,9 +1,43 @@
-version: '3'
+# docker-compose 启动命令
+# docker-compose -p exam-cloud -f docker/docker-compose.yml up -d
 services:
-  app:
-    image: ${image}
-    restart: always
+  auth:
+    image: "exam-auth:latest"
+    container_name: "auth-service"
+    restart: unless-stopped
     ports:
-      - 9527:9527
+      - "9527:9527"
     volumes:
-      - "/opt/logs/exam-ning-springcloud-auth:/opt/logs"
+      - "/tmp/logs/exam-ning-springcloud-auth:/opt/logs"
+  gateway:
+    image: "exam-gateway:latest"
+    depends_on:
+      - auth
+    container_name: "gateway-service"
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/tmp/logs/exam-ning-springcloud-gateway:/opt/logs"
+  exam:
+    image: "exam-service:latest"
+    depends_on:
+      - auth
+      - gateway
+    container_name: "exam-service"
+    restart: unless-stopped
+    ports:
+      - "9202:9202"
+    volumes:
+      - "/tmp/logs/exam-ning-springcloud-system-exam:/opt/logs"
+  user:
+    image: "user-service:latest"
+    depends_on:
+      - auth
+      - gateway
+    container_name: "user-service"
+    restart: unless-stopped
+    ports:
+      - "9201:9201"
+    volumes:
+      - "/tmp/logs/exam-ning-springcloud-system-user:/opt/logs"

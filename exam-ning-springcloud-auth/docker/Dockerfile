@@ -1,7 +1,13 @@
 # 打包镜像命令
-# docker build -t ${IMAGE} -f deploy/Dockerfile target/exam-ning-springcloud-auth
+# docker build -t exam-auth -f docker/Dockerfile .
+
 FROM openjdk:8-jdk-alpine
-MAINTAINER zxning@qq.com
+LABEL maintainer="zuoxin.ning"
 WORKDIR /opt/app
-COPY . .
+COPY docker/* .
+COPY target/exam-ning-springcloud-auth.jar .
+
+# 设置环境变量
+ENV SPRING_PROFILES_ACTIVE=docker
+
 CMD ["sh", "-x", "run.sh"]

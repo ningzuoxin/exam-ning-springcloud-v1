@@ -1,0 +1,24 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: exam-ning-auth
+  cloud:
+    nacos:
+      discovery:
+        server-addr: host.docker.internal:8848 # 服务注册中心
+  redis:
+    host: host.docker.internal
+    port: 6379
+    database: 15
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 30000
+        readTimeout: 30000
+  hystrix:
+    enabled: false
+
