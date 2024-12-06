@@ -20,7 +20,6 @@ import javax.validation.constraints.NotNull;
 public class UpdateUserRequest {
 
     @NotNull(message = "ID不能为空")
-    @NotEmpty(message = "ID不能为空")
     @ApiModelProperty(value = "用户ID")
     private Long id;
 

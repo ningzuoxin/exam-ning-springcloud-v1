@@ -52,9 +52,13 @@ public class UserRepositoryImpl implements UserRepository {
         UserDO userDO = userDao.selectOne(wrapper);
 
         User user = userConverter.toEntity(userDO);
-        Optional<UserRoleDO> userRoleDOOpt = this.findByUserId(userDO.getUid());
-        userRoleDOOpt.ifPresent(ur -> user.setRoleId(new RoleId(ur.getRoleUid())));
-        return user;
+
+        return Optional.ofNullable(userDO)
+                .map(u -> {
+                    Optional<UserRoleDO> userRoleDOOpt = this.findByUserId(u.getUid());
+                    userRoleDOOpt.ifPresent(ur -> user.assignRole(new RoleId(ur.getRoleUid())));
+                    return user;
+                }).orElse(user);
     }
 
     /**

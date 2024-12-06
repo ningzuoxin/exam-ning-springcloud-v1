@@ -25,6 +25,7 @@
         <mybatis.plus.version>3.5.1</mybatis.plus.version>
         <velocity.version>2.3</velocity.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
+        <validation.version>2.0.2</validation.version>
     </properties>
 
     <dependencyManagement>
@@ -112,6 +113,12 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${org.mapstruct.version}</version>
+            </dependency>
+            <!-- validation -->
+            <dependency>
+                <groupId>jakarta.validation</groupId>
+                <artifactId>jakarta.validation-api</artifactId>
+                <version>${validation.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

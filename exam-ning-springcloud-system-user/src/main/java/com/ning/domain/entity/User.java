@@ -61,14 +61,8 @@ public class User {
         this.salt = "123";
     }
 
-    public void update(String password, String nickname, Integer gender, String phoneNumber, String idNumber, String email, String avatar) {
-        this.password = password;
-        this.nickname = nickname;
-        this.gender = gender;
-        this.phoneNumber = phoneNumber;
-        this.idNumber = idNumber;
-        this.email = email;
-        this.avatar = avatar;
+    public void assignRole(RoleId roleId) {
+        this.roleId = roleId;
     }
 
 }

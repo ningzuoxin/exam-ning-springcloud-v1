@@ -26,6 +26,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/menus")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class MenuController {
 
     private final MenuAppService menuAppService;
