@@ -6,13 +6,12 @@ import com.ning.infrastructure.common.model.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.validation.ConstraintViolationException;
+import jakarta.validation.ConstraintViolationException;
 
 /**
  * 全局异常处理
@@ -68,15 +67,15 @@ public class GlobalExceptionHandler {
      * @param e InvalidGrantException
      * @return 统一响应结果
      */
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler(value = InvalidGrantException.class)
-    public Result<String> handleInvalidGrantException(InvalidGrantException e) {
-        String message = e.getMessage();
-        if (CommonConstants.BAD_CREDENTIALS.equals(message)) {
-            message = CommonConstants.BAD_PASSWORD;
-        }
-        return Result.fail("", BusinessCodeEnum.VALIDATE_FAILED.getCode(), message);
-    }
+//    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+//    @ExceptionHandler(value = InvalidGrantException.class)
+//    public Result<String> handleInvalidGrantException(InvalidGrantException e) {
+//        String message = e.getMessage();
+//        if (CommonConstants.BAD_CREDENTIALS.equals(message)) {
+//            message = CommonConstants.BAD_PASSWORD;
+//        }
+//        return Result.fail("", BusinessCodeEnum.VALIDATE_FAILED.getCode(), message);
+//    }
 
     /**
      * 处理基础异常
