@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>exam-ning-springcloud-v1</artifactId>
         <groupId>com.ning</groupId>
+        <artifactId>exam-ning-springcloud-v1</artifactId>
         <version>1.0.0</version>
     </parent>
 
@@ -32,6 +32,11 @@
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+        <!-- security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
     </dependencies>
 
