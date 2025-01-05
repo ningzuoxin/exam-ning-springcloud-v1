@@ -24,10 +24,11 @@
         <spring.cloud.version>2024.0.0</spring.cloud.version>
         <spring.cloud.alibaba.version>2.2.7.RELEASE</spring.cloud.alibaba.version>
         <hutool.version>5.8.34</hutool.version>
-        <swagger.fox.version>2.9.2</swagger.fox.version>
+        <swagger.fox.version>3.0.0</swagger.fox.version>
         <swagger.core.version>1.5.24</swagger.core.version>
         <mybatis.plus.version>3.5.9</mybatis.plus.version>
         <velocity.version>2.3</velocity.version>
+        <mybatis.spring.version>3.0.4</mybatis.spring.version>
         <mapstruct.version>1.6.3</mapstruct.version>
     </properties>
 
@@ -88,9 +89,20 @@
                 <version>${mybatis.plus.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-jsqlparser</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.velocity</groupId>
                 <artifactId>velocity-engine-core</artifactId>
                 <version>${velocity.version}</version>
+            </dependency>
+            <!-- mybatis spring -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis.spring.version}</version>
             </dependency>
             <!-- mapstruct -->
             <dependency>

@@ -6,15 +6,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
+/**
+ * 认证授权服务启动入口
+ *
+ * @author zuoxin.ning
+ * @since 2025-01-04 11:30
+ */
 @Slf4j
 @EnableFeignClients
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 @SpringBootApplication
-public class ExamNingAuthApplication {
+public class AuthServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ExamNingAuthApplication.class, args);
-        log.info("auth server run success !!!");
+        SpringApplication.run(AuthServiceApplication.class, args);
+        log.info("auth service run success !!!");
     }
 
 }

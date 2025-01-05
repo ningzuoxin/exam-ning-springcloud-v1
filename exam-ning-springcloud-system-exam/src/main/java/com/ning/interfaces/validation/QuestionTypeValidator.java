@@ -4,8 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import com.ning.domain.enums.QuestionTypeEnum;
 import com.ning.interfaces.validation.constraints.QuestionTypeConstraint;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * 试题类型校验注解校验器

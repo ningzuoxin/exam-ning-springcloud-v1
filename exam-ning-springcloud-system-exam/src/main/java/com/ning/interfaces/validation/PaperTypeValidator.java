@@ -3,8 +3,8 @@ package com.ning.interfaces.validation;
 import com.ning.domain.enums.PaperTypeEnum;
 import com.ning.interfaces.validation.constraints.PaperTypeConstraint;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import java.util.Objects;
 
 /**

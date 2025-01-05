@@ -12,6 +12,31 @@ spring:
     host: 127.0.0.1
     port: 6379
     database: 15
+#  security:
+#    user:
+#      name: user
+#      password: password
+#    oauth2:
+#      authorizationserver:
+#        client:
+#          oidc-client:
+#            registration:
+#              client-id: "oidc-client"
+#              client-secret: "{noop}secret"
+#              client-authentication-methods:
+#                - "client_secret_basic"
+#              authorization-grant-types:
+#                - "authorization_code"
+#                - "refresh_token"
+#              redirect-uris:
+#                - "http://127.0.0.1:9527/login/oauth2/code/oidc-client"
+#                - "https://www.baidu.com"
+#              post-logout-redirect-uris:
+#                - "http://127.0.0.1:9527/"
+#              scopes:
+#                - "openid"
+#                - "profile"
+#            require-authorization-consent: true
 
 feign:
   client:
