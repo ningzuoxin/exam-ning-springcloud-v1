@@ -2,13 +2,13 @@
 <Configuration status="WARN" monitorInterval="30">
     <Properties>
         <!-- Base configuration -->
-<!--        <Property name="LOG_BASE_PATH">${spring:logging.file.path}</Property>-->
-<!--        <Property name="MAX_SIZE">${spring:logging.file.max-size}</Property>-->
-<!--        <Property name="MAX_HISTORY">${spring:logging.file.max-history}</Property>-->
+        <Property name="LOG_PATH">${spring:logging.file.path}</Property>
+        <Property name="MAX_SIZE">${spring:logging.file.max-size}</Property>
+        <Property name="MAX_HISTORY">${spring:logging.file.max-history}</Property>
 
-        <Property name="LOG_PATH">/tmp/mnt/logs/truvera</Property>
-        <Property name="MAX_SIZE">100MB</Property>
-        <Property name="MAX_HISTORY">30</Property>
+<!--        <Property name="LOG_PATH">E:\tmp\mnt\logs\exam\user</Property>-->
+<!--        <Property name="MAX_SIZE">100MB</Property>-->
+<!--        <Property name="MAX_HISTORY">30</Property>-->
 
         <!-- Log pattern -->
         <Property name="PATTERN_FORMAT">%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Property>
@@ -75,7 +75,7 @@
 
     <Loggers>
         <!-- Project logger -->
-        <Logger name="ai.truvera.api" level="INFO" additivity="false">
+        <Logger name="com.ning" level="INFO" additivity="false">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="InfoFile"/>
             <AppenderRef ref="WarnFile"/>
