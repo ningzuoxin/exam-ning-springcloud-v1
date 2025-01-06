@@ -4,15 +4,13 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
-
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Set;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * <p>
@@ -20,71 +18,71 @@ import java.util.Set;
  * </p>
  *
  * @author zuoxin.ning
- * @since 2024-03-24 08:00
+ * @since 2025-01-01 00:00:01
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
+@Getter
+@Setter
 @TableName("sys_user")
-@ApiModel(value = "UserDO对象", description = "系统用户表")
+@Schema(name = "UserDO", description = "系统用户表")
 public class UserDO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Schema(description = "主键自增ID")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "业务ID")
+    @Schema(description = "业务ID")
     @TableField("uid")
     private Long uid;
 
-    @ApiModelProperty(value = "用户名")
+    @Schema(description = "用户名")
     @TableField("username")
     private String username;
 
-    @ApiModelProperty(value = "密码")
+    @Schema(description = "密码")
     @TableField("password")
     private String password;
 
-    @ApiModelProperty(value = "盐")
+    @Schema(description = "盐")
     @TableField("salt")
     private String salt;
 
-    @ApiModelProperty(value = "昵称")
+    @Schema(description = "昵称")
     @TableField("nickname")
     private String nickname;
 
-    @ApiModelProperty(value = "性别，0：未知；1：男；2：女；")
+    @Schema(description = "性别，0：未知；1：男；2：女；")
     @TableField("gender")
-    private Integer gender;
+    private Byte gender;
 
-    @ApiModelProperty(value = "手机号码")
+    @Schema(description = "手机号码")
     @TableField("phone_number")
     private String phoneNumber;
 
-    @ApiModelProperty(value = "身份证号")
+    @Schema(description = "身份证号")
     @TableField("id_number")
     private String idNumber;
 
-    @ApiModelProperty(value = "电子邮箱")
+    @Schema(description = "电子邮箱")
     @TableField("email")
     private String email;
 
-    @ApiModelProperty(value = "头像")
+    @Schema(description = "头像")
     @TableField("avatar")
     private String avatar;
 
-    @ApiModelProperty(value = "是否删除，0：未删除；1：已删除；")
+    @Schema(description = "是否删除，0：未删除；1：已删除；")
     @TableField("is_deleted")
-    private Integer isDeleted;
+    private Byte isDeleted;
 
-    @ApiModelProperty(value = "创建时间")
+    @Schema(description = "创建时间")
     @TableField("create_time")
-    private Instant createTime;
+    private LocalDateTime createTime;
 
-    @ApiModelProperty(value = "更新时间")
+    @Schema(description = "更新时间")
     @TableField("update_time")
-    private Instant updateTime;
+    private LocalDateTime updateTime;
 
     // 角色id
     @TableField(exist = false)

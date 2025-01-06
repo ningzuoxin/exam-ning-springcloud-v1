@@ -1,7 +1,7 @@
 package com.ning.infrastructure.persistence.dao;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ning.infrastructure.persistence.model.MenuDO;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * </p>
  *
  * @author zuoxin.ning
- * @since 2024-11-13 09:00
+ * @since 2025-01-01 00:00:01
  */
 public interface MenuDao extends BaseMapper<MenuDO> {
 

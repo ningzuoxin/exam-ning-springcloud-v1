@@ -1,7 +1,7 @@
 package com.ning.infrastructure.persistence.dao;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ning.infrastructure.persistence.model.RoleDO;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
  * </p>
  *
  * @author zuoxin.ning
- * @since 2024-10-30 21:00
+ * @since 2025-01-01 00:00:01
  */
 public interface RoleDao extends BaseMapper<RoleDO> {
 

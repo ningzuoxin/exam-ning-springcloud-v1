@@ -46,14 +46,15 @@ public class SwaggerConfig {
         }
         // noinspection unchecked
         List<Predicate<String>> basePath = new ArrayList<Predicate<String>>();
-        swaggerProperties.getBasePath().forEach(path -> basePath.add(PathSelectors.ant(path)));
+        // todo error
+//        swaggerProperties.getBasePath().forEach(path -> basePath.add(PathSelectors.ant(path)));
 
         // exclude-path处理
         if (swaggerProperties.getExcludePath().isEmpty()) {
             swaggerProperties.getExcludePath().addAll(DEFAULT_EXCLUDE_PATH);
         }
         List<Predicate<String>> excludePath = new ArrayList<>();
-        swaggerProperties.getExcludePath().forEach(path -> excludePath.add(PathSelectors.ant(path)));
+//        swaggerProperties.getExcludePath().forEach(path -> excludePath.add(PathSelectors.ant(path)));
 
         // noinspection Guava
         return new Docket(DocumentationType.SWAGGER_2)

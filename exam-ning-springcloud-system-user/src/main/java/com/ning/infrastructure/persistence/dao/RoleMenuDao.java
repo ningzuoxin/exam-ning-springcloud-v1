@@ -1,7 +1,7 @@
 package com.ning.infrastructure.persistence.dao;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ning.infrastructure.persistence.model.RoleMenuDO;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
@@ -9,7 +9,7 @@ import com.ning.infrastructure.persistence.model.RoleMenuDO;
  * </p>
  *
  * @author zuoxin.ning
- * @since 2024-11-13 09:00
+ * @since 2025-01-01 00:00:01
  */
 public interface RoleMenuDao extends BaseMapper<RoleMenuDO> {
 
