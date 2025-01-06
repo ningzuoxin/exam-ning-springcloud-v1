@@ -64,3 +64,14 @@ swagger:
         description: 客户端授权范围
     token-url-list:
       - http://localhost:8080/auth/oauth/token
+
+logging:
+  #  config: classpath:log4j2.xml
+  #  file:
+  #    path: ${LOG_FILE_PATH:logs/truvera}
+  #    max-size: 100 MB
+  #    max-history: 30
+  level:
+    root: ${LOG_LEVEL_ROOT:ERROR}
+    org.springframework.web: ERROR
+    com.auth0.example: TRACE
