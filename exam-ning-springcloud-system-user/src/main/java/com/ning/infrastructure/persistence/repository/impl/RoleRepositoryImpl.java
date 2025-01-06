@@ -84,7 +84,7 @@ public class RoleRepositoryImpl implements RoleRepository {
         }
 
         RoleDO roleDO = roleDOOpt.get();
-        roleDO.setIsDeleted(1);
+        roleDO.setIsDeleted((byte) 1);
         roleDao.updateById(roleDO);
         return true;
     }

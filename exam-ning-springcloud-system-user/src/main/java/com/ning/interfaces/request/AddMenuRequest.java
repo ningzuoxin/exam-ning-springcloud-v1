@@ -1,7 +1,6 @@
 package com.ning.interfaces.request;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,40 +14,40 @@ import jakarta.validation.constraints.NotEmpty;
  */
 @Getter
 @Setter
-@ApiModel(value = "AddMenuRequest", description = "添加菜单请求")
+@Schema(name = "AddMenuRequest", description = "添加菜单请求")
 public class AddMenuRequest {
 
     @NotEmpty(message = "菜单名称不能为空")
-    @ApiModelProperty(value = "菜单名称")
+    @Schema(name = "菜单名称")
     private String menuName;
 
     @NotEmpty(message = "父菜单ID不能为空")
-    @ApiModelProperty(value = "父菜单ID")
+    @Schema(name = "父菜单ID")
     private Long parentId;
 
-    @ApiModelProperty(value = "排序")
+    @Schema(name = "排序")
     private Integer sortNum;
 
     @NotEmpty(message = "路由地址不能为空")
-    @ApiModelProperty(value = "路由地址")
+    @Schema(name = "路由地址")
     private String path;
 
     @NotEmpty(message = "组件路径不能为空")
-    @ApiModelProperty(value = "组件路径")
+    @Schema(name = "组件路径")
     private String component;
 
     @NotEmpty(message = "是否为外链不能为空")
-    @ApiModelProperty(value = "是否为外链，0：否；1：是；")
+    @Schema(name = "是否为外链，0：否；1：是；")
     private Integer isFrame;
 
     @NotEmpty(message = "是否为外链不能为空")
-    @ApiModelProperty(value = "菜单类型，1：目录；2：菜单；3：按钮；")
+    @Schema(name = "菜单类型，1：目录；2：菜单；3：按钮；")
     private Integer menuType;
 
-    @ApiModelProperty(value = "权限标识")
+    @Schema(name = "权限标识")
     private String perms;
 
-    @ApiModelProperty(value = "菜单图标")
+    @Schema(name = "菜单图标")
     private String icon;
 
 }

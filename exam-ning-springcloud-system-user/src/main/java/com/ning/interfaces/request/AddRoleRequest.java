@@ -1,11 +1,11 @@
 package com.ning.interfaces.request;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
 import jakarta.validation.constraints.NotEmpty;
+
 import java.util.List;
 
 /**
@@ -16,21 +16,21 @@ import java.util.List;
  */
 @Getter
 @Setter
-@ApiModel(value = "AddRoleRequest", description = "添加角色请求")
+@Schema(name = "AddRoleRequest", description = "添加角色请求")
 public class AddRoleRequest {
 
     @NotEmpty(message = "角色名称不能为空")
-    @ApiModelProperty(value = "角色名称")
+    @Schema(name = "角色名称")
     private String roleName;
 
     @NotEmpty(message = "角色权限字符串不能为空")
-    @ApiModelProperty(value = "角色权限字符串")
+    @Schema(name = "角色权限字符串")
     private String roleKey;
 
-    @ApiModelProperty(value = "排序")
+    @Schema(name = "排序")
     private Integer sortNum;
 
-    @ApiModelProperty(value = "菜单ID列表")
+    @Schema(name = "菜单ID列表")
     private List<Long> menuIdList;
 
 }

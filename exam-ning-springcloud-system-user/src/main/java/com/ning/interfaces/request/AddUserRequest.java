@@ -1,7 +1,6 @@
 package com.ning.interfaces.request;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,35 +15,35 @@ import jakarta.validation.constraints.NotNull;
  */
 @Getter
 @Setter
-@ApiModel(value = "AddUserRequest", description = "添加用户请求")
+@Schema(name = "AddUserRequest", description = "添加用户请求")
 public class AddUserRequest {
 
     @NotEmpty(message = "账号不能为空")
-    @ApiModelProperty(value = "账号")
+    @Schema(name = "账号")
     private String username;
 
     @NotEmpty(message = "昵称不能为空")
-    @ApiModelProperty(value = "昵称")
+    @Schema(name = "昵称")
     private String nickname;
 
-    @ApiModelProperty(value = "性别")
+    @Schema(name = "性别")
     private Integer gender;
 
     @NotEmpty(message = "手机号码不能为空")
-    @ApiModelProperty(value = "手机号码")
+    @Schema(name = "手机号码")
     private String phoneNumber;
 
-    @ApiModelProperty(value = "身份证号")
+    @Schema(name = "身份证号")
     private String idNumber;
 
-    @ApiModelProperty(value = "电子邮箱")
+    @Schema(name = "电子邮箱")
     private String email;
 
-    @ApiModelProperty(value = "头像")
+    @Schema(name = "头像")
     private String avatar;
 
     @NotNull(message = "角色不能为空")
-    @ApiModelProperty(value = "角色ID")
+    @Schema(name = "角色ID")
     private Long roleId;
 
 }

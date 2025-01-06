@@ -99,7 +99,7 @@ public class MenuRepositoryImpl implements MenuRepository {
         }
 
         MenuDO menuDO = menuDOOpt.get();
-        menuDO.setIsDeleted(1);
+        menuDO.setIsDeleted((byte) 1);
         menuDao.updateById(menuDO);
         return false;
     }

@@ -1,12 +1,12 @@
 package com.ning.interfaces.request;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+
 import java.util.List;
 
 /**
@@ -17,25 +17,25 @@ import java.util.List;
  */
 @Getter
 @Setter
-@ApiModel(value = "UpdateRoleRequest", description = "修改角色请求")
+@Schema(name = "UpdateRoleRequest", description = "修改角色请求")
 public class UpdateRoleRequest {
 
     @NotNull(message = "ID不能为空")
     @NotEmpty(message = "ID不能为空")
-    @ApiModelProperty(value = "角色ID")
+    @Schema(name = "角色ID")
     private Long id;
 
     @NotEmpty(message = "角色名称不能为空")
-    @ApiModelProperty(value = "角色名称")
+    @Schema(name = "角色名称")
     private String roleName;
 
-    @ApiModelProperty(value = "排序")
+    @Schema(name = "排序")
     private Integer sortNum;
 
-    @ApiModelProperty(value = "状态")
+    @Schema(name = "状态")
     private Integer status;
 
-    @ApiModelProperty(value = "菜单ID列表")
+    @Schema(name = "菜单ID列表")
     private List<Long> menuIdList;
 
 }
