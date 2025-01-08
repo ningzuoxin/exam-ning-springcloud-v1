@@ -10,6 +10,7 @@ import com.ning.interfaces.request.UpdateUserRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
@@ -43,7 +44,7 @@ public class UserController {
         return Result.ok(userAppService.all());
     }
 
-    //    @PreAuthorize("@ss.hasPermi('system:user:page')")
+    @PreAuthorize("@ss.hasPermi('system:user:page')")
     @Operation(summary = "分页查询用户列表")
     @GetMapping(value = "/page")
     public Result<PageWrapper<UserDTO>> page(@RequestParam(value = "keyword", required = false) @Parameter(name = "keyword", example = "") String keyword,
@@ -52,7 +53,7 @@ public class UserController {
         return Result.ok(userAppService.page(keyword, pageNum, pageSize));
     }
 
-    //    @PreAuthorize("@ss.hasPermi('system:user:add')")
+    @PreAuthorize("@ss.hasPermi('system:user:add')")
     @Operation(summary = "添加用户")
     @PostMapping(value = "")
     public Result<UserDTO> add(@RequestBody @Valid AddUserRequest request) {
@@ -60,7 +61,7 @@ public class UserController {
         return Result.ok(userAppService.add(userDTO));
     }
 
-    //    @PreAuthorize("@ss.hasPermi('system:user:edit')")
+    @PreAuthorize("@ss.hasPermi('system:user:edit')")
     @Operation(summary = "修改用户")
     @PutMapping(value = "")
     public Result<UserDTO> update(@RequestBody @Valid UpdateUserRequest request) {
@@ -68,7 +69,7 @@ public class UserController {
         return Result.ok(userAppService.update(userDTO));
     }
 
-    //    @PreAuthorize("@ss.hasPermi('system:user:delete')")
+    @PreAuthorize("@ss.hasPermi('system:user:delete')")
     @Operation(summary = "删除用户")
     @DeleteMapping(value = "/{id}")
     public Result<Boolean> delete(@PathVariable(value = "id") @Parameter(name = "id", example = "1") Long id) {

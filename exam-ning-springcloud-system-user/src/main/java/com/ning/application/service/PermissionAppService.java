@@ -3,6 +3,7 @@ package com.ning.application.service;
 import com.ning.infrastructure.common.model.LoginUser;
 import com.ning.infrastructure.utils.SecurityUtils;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.PatternMatchUtils;
 import org.springframework.util.StringUtils;
@@ -12,8 +13,8 @@ import java.util.Collection;
 /**
  * 自定义权限实现
  */
-//@Service("ss")
-public class PermissionService {
+@Service("ss")
+public class PermissionAppService {
 
     /**
      * 所有权限标识
@@ -53,7 +54,7 @@ public class PermissionService {
      * @return 用户是否不具备某权限
      */
     public boolean lacksPermi(String permission) {
-        return hasPermi(permission) != true;
+        return !hasPermi(permission);
     }
 
     /**
