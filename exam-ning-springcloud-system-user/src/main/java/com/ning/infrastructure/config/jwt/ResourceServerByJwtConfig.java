@@ -1,5 +1,7 @@
 package com.ning.infrastructure.config.jwt;
 
+import com.ning.infrastructure.security.CustomAccessDeniedHandler;
+import com.ning.infrastructure.security.CustomAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +35,10 @@ public class ResourceServerByJwtConfig {
                 )
                 .oauth2ResourceServer((oauth2) -> oauth2
                         .jwt((jwt) -> jwt.decoder(jwtDecoder()))
+                )
+                .exceptionHandling(e -> e
+                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+                        .accessDeniedHandler(new CustomAccessDeniedHandler())
                 );
         return http.build();
     }

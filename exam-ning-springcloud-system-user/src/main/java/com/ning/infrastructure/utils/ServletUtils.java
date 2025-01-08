@@ -1,18 +1,20 @@
 package com.ning.infrastructure.utils;
 
 import cn.hutool.core.convert.Convert;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 
 /**
  * 客户端工具类
  */
+@Slf4j
 public class ServletUtils {
 
     /**
@@ -83,7 +85,7 @@ public class ServletUtils {
             response.setCharacterEncoding("utf-8");
             response.getWriter().print(string);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("render response error. str: {}.", string, e);
         }
         return null;
     }

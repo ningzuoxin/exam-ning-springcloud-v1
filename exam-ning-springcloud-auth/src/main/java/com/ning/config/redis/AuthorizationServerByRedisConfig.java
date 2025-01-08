@@ -69,7 +69,7 @@ public class AuthorizationServerByRedisConfig {
                 .securityMatcher(authorizationServerConfigurer.getEndpointsMatcher())
                 .with(authorizationServerConfigurer, (authorizationServer) ->
                         authorizationServer
-                                .tokenGenerator(new OAuth2AccessTokenGenerator())
+//                                .tokenGenerator(new OAuth2AccessTokenGenerator())
                                 .oidc(Customizer.withDefaults())    // Enable OpenID Connect 1.0
                 )
                 .authorizeHttpRequests((authorize) ->
