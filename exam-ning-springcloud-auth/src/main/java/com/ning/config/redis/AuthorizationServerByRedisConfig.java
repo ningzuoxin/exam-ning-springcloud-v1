@@ -21,6 +21,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
+import org.springframework.security.oauth2.jwt.JwsHeader;
+import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
@@ -167,13 +169,20 @@ public class AuthorizationServerByRedisConfig {
 //        return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
 //    }
 
+    /**
+     * 自定义 JWT 令牌的声明内容
+     *
+     * @return 自定义 JWT
+     */
     @Bean
     public OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer() {
         return context -> {
-            if (context.getTokenType().getValue().equals(OAuth2TokenType.ACCESS_TOKEN.getValue())) {
+            Object principal = context.getPrincipal().getPrincipal();
+            JwtClaimsSet.Builder claims = context.getClaims();
+            if (context.getTokenType().equals(OAuth2TokenType.ACCESS_TOKEN)) {
                 Instant now = Instant.now();
                 long expiry = now.plus(3600, ChronoUnit.SECONDS).toEpochMilli(); // 设置为1小时后过期
-                context.getClaims().claim("exp", Date.from(Instant.ofEpochMilli(expiry)));
+                claims.claim("exp", Date.from(Instant.ofEpochMilli(expiry)));
             }
         };
     }

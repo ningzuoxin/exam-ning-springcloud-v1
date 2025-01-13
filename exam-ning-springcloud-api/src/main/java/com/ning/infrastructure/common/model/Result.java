@@ -2,15 +2,19 @@ package com.ning.infrastructure.common.model;
 
 import com.ning.constant.Constants;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
  * 统一响应结果
  */
 @Data
+@NoArgsConstructor
 public class Result<T> implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
