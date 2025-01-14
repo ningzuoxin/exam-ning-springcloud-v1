@@ -1,8 +1,8 @@
 package com.ning.infrastructure.security;
 
 import com.alibaba.fastjson.JSON;
-import com.ning.constant.CommonConstants;
-import com.ning.infrastructure.common.model.Result;
+import com.ning.constant.ErrorCodeEnum;
+import com.ning.infrastructure.common.model.ErrorResponse;
 import com.ning.infrastructure.utils.ServletUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,9 +17,8 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
-        Result<String> result = Result.fail(HttpStatus.UNAUTHORIZED.value(), CommonConstants.INVALID_TOKEN);
-        result.setData(e.getMessage());
-        ServletUtils.renderString(response, JSON.toJSONString(result));
+        ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.UNAUTHORIZED);
+        ServletUtils.renderString(response, HttpStatus.UNAUTHORIZED, JSON.toJSONString(errorResponse));
     }
 
 }

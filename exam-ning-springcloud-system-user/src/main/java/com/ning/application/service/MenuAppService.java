@@ -6,7 +6,7 @@ import com.ning.application.dto.MenuDTO;
 import com.ning.application.dto.MetaDTO;
 import com.ning.application.dto.RouterDTO;
 import com.ning.application.dto.TreeSelectDTO;
-import com.ning.constant.BusinessCodeEnum;
+import com.ning.constant.ErrorCodeEnum;
 import com.ning.domain.entity.Menu;
 import com.ning.domain.enums.MenuStatusEnum;
 import com.ning.domain.enums.MenuTypeEnum;
@@ -126,7 +126,7 @@ public class MenuAppService {
         MenuId menuId = new MenuId(menuDTO.getId());
         Optional<Menu> menuOpt = menuRepository.find(menuId);
         if (!menuOpt.isPresent()) {
-            throw new BusinessException(BusinessCodeEnum.ROLE_NOT_EXISTS);
+            throw new BusinessException(ErrorCodeEnum.ROLE_NOT_EXISTS);
         }
 
         Menu menu = menuOpt.get();

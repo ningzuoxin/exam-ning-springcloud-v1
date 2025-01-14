@@ -1,18 +1,16 @@
 package com.ning.api.user;
 
-import com.ning.constant.ServiceNameConstants;
 import com.ning.factory.user.RemoteUserFallbackFactory;
-import com.ning.infrastructure.common.model.Result;
 import com.ning.infrastructure.common.model.User;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 //@FeignClient(contextId = "remoteUserService", path = "/system", value = ServiceNameConstants.USER_SERVICE, fallbackFactory = RemoteUserFallbackFactory.class)
 @FeignClient(name = "remoteUserService", path = "/system", url = "http://127.0.0.1:9201", fallbackFactory = RemoteUserFallbackFactory.class)
 public interface RemoteUserService {
 
-    @PostMapping(value = "/user/selectUserByUsername")
-    Result<User> selectUserByUsername(@RequestParam("username") String username);
+    @GetMapping(value = "/users/by-username")
+    User selectUserByUsername(@RequestParam("username") String username);
 
 }

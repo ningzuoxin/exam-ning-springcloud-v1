@@ -1,8 +1,10 @@
 package com.ning.exception;
 
-import com.ning.constant.BusinessCodeEnum;
+import com.ning.constant.ErrorCodeEnum;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serial;
 
 /**
  * 自定义业务异常
@@ -14,25 +16,26 @@ import lombok.Setter;
 @Setter
 public class BusinessException extends RuntimeException {
 
+    @Serial
     private static final long serialVersionUID = -4585228147276606617L;
 
-    private Integer code;
+    private String code;
     private String message;
 
     private BusinessException() {
         super();
     }
 
-    public BusinessException(int code, String message) {
+    public BusinessException(String code, String message) {
         super();
         this.code = code;
         this.message = message;
     }
 
-    public BusinessException(BusinessCodeEnum businessCodeEnum) {
+    public BusinessException(ErrorCodeEnum errorCodeEnum) {
         super();
-        this.code = businessCodeEnum.getCode();
-        this.message = businessCodeEnum.getMessage();
+        this.code = errorCodeEnum.getCode();
+        this.message = errorCodeEnum.getMessage();
     }
 
 }

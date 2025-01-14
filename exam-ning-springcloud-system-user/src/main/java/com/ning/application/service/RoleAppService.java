@@ -2,7 +2,7 @@ package com.ning.application.service;
 
 import com.ning.application.assembler.RoleAssembler;
 import com.ning.application.dto.RoleDTO;
-import com.ning.constant.BusinessCodeEnum;
+import com.ning.constant.ErrorCodeEnum;
 import com.ning.domain.entity.Role;
 import com.ning.domain.repository.RoleRepository;
 import com.ning.domain.types.RoleId;
@@ -49,7 +49,7 @@ public class RoleAppService {
     public RoleDTO add(RoleDTO roleDTO) {
         long count = roleRepository.countByRoleKey(roleDTO.getRoleKey());
         if (count > 0) {
-            throw new BusinessException(BusinessCodeEnum.ROLE_KEY_EXISTS);
+            throw new BusinessException(ErrorCodeEnum.ROLE_KEY_EXISTS);
         }
 
         Role role = new Role(new RoleId(null),
@@ -95,7 +95,7 @@ public class RoleAppService {
         RoleId roleId = new RoleId(roleDTO.getId());
         Optional<Role> roleOpt = roleRepository.find(roleId);
         if (!roleOpt.isPresent()) {
-            throw new BusinessException(BusinessCodeEnum.ROLE_NOT_EXISTS);
+            throw new BusinessException(ErrorCodeEnum.ROLE_NOT_EXISTS);
         }
 
         Role role = roleOpt.get();

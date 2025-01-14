@@ -10,12 +10,10 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- * <p>
- * 用户表
- * </p>
+ * 用户 DTO
  *
- * @author ningning
- * @since 2020-09-15
+ * @author zuoxin.ning
+ * @since 2024-10-17 09:00
  */
 @Data
 @NoArgsConstructor
@@ -26,20 +24,29 @@ public class User implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    // 用户 ID
     private Long id;
+    // 用户名
     private String username;
+    // 密码
     private String password;
-    private String email;
-    private String mobile;
-    private String salt;
+    // 昵称
     private String nickname;
-    private String idcard;
+    // 性别
     private Integer gender;
+    // 手机号码
+    private String phoneNumber;
+    // 身份证号
+    private String idNumber;
+    // 电子邮箱
+    private String email;
+    // 头像
     private String avatar;
-    private Integer isDelete;
-    private Integer createTime;
-    private Integer updateTime;
+    // 角色 ID
+    private Long roleId;
+    // 角色集合
     private Set<String> roles;
+    // 权限集合
     private Set<String> permissions;
 
 }

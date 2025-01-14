@@ -5,15 +5,15 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ning.infrastructure.persistence.model.PaperQuestionDO">
         <id column="id" property="id" />
-        <result column="uid" property="uid" />
-        <result column="paper_uid" property="paperUid" />
-        <result column="question_uid" property="questionUid" />
-        <result column="right_score" property="rightScore" />
-        <result column="miss_score" property="missScore" />
-        <result column="sort_num" property="sortNum" />
-        <result column="is_deleted" property="isDeleted" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
+        <errorResponse column="uid" property="uid" />
+        <errorResponse column="paper_uid" property="paperUid" />
+        <errorResponse column="question_uid" property="questionUid" />
+        <errorResponse column="right_score" property="rightScore" />
+        <errorResponse column="miss_score" property="missScore" />
+        <errorResponse column="sort_num" property="sortNum" />
+        <errorResponse column="is_deleted" property="isDeleted" />
+        <errorResponse column="create_time" property="createTime" />
+        <errorResponse column="update_time" property="updateTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->

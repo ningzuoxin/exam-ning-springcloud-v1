@@ -2,7 +2,7 @@ package com.ning.application.service;
 
 import com.ning.application.assembler.UserAssembler;
 import com.ning.application.dto.UserDTO;
-import com.ning.constant.BusinessCodeEnum;
+import com.ning.constant.ErrorCodeEnum;
 import com.ning.domain.entity.Role;
 import com.ning.domain.entity.User;
 import com.ning.domain.repository.RoleRepository;
@@ -76,12 +76,12 @@ public class UserAppService {
         Username username = new Username(userDTO.getUsername());
         long count = userRepository.count(username);
         if (count > 0) {
-            throw new BusinessException(BusinessCodeEnum.USER_USERNAME_EXISTS);
+            throw new BusinessException(ErrorCodeEnum.USER_USERNAME_EXISTS);
         }
 
         Optional<Role> roleOpt = roleRepository.find(new RoleId(userDTO.getRoleId()));
         if (!roleOpt.isPresent()) {
-            throw new BusinessException(BusinessCodeEnum.ROLE_NOT_EXISTS);
+            throw new BusinessException(ErrorCodeEnum.ROLE_NOT_EXISTS);
         }
 
         User user = new User(
@@ -109,7 +109,7 @@ public class UserAppService {
         UserId userId = new UserId(userDTO.getId());
         Optional<User> userOpt = userRepository.find(userId);
         if (!userOpt.isPresent()) {
-            throw new BusinessException(BusinessCodeEnum.USER_NOT_EXISTS);
+            throw new BusinessException(ErrorCodeEnum.USER_NOT_EXISTS);
         }
 
         User user = userOpt.get();
@@ -140,7 +140,7 @@ public class UserAppService {
     public UserDTO get(Long id) {
         UserId userId = new UserId(id);
         return userRepository.find(userId).map(userAssembler::toDTO)
-                .orElseThrow(() -> new BusinessException(BusinessCodeEnum.USER_NOT_EXISTS));
+                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.USER_NOT_EXISTS));
     }
 
 }

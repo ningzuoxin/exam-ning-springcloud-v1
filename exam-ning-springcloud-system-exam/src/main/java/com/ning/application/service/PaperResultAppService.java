@@ -4,7 +4,7 @@ import com.ning.application.assembler.PaperResultAssembler;
 import com.ning.application.dto.PaperQuestionResultGradingDTO;
 import com.ning.application.dto.PaperResultDTO;
 import com.ning.application.dto.PaperResultDetailDTO;
-import com.ning.constant.BusinessCodeEnum;
+import com.ning.constant.ErrorCodeEnum;
 import com.ning.domain.entity.PaperQuestion;
 import com.ning.domain.entity.PaperQuestionResult;
 import com.ning.domain.entity.PaperResult;
@@ -87,7 +87,7 @@ public class PaperResultAppService {
     public PaperResultDTO grading(Long paperResultUid, List<PaperQuestionResultGradingDTO> questionGradingList) {
         Optional<PaperResult> paperResultOpt = paperResultRepository.find(new PaperResultId(paperResultUid));
         if (!paperResultOpt.isPresent()) {
-            throw new BusinessException(BusinessCodeEnum.PAPER_RESULT_NOT_EXISTS);
+            throw new BusinessException(ErrorCodeEnum.PAPER_RESULT_NOT_EXISTS);
         }
 
         PaperResult paperResult = paperResultOpt.get();

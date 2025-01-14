@@ -35,7 +35,7 @@ public class ResourceServerByJwtConfig {
 
         http
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/index", "/user/selectUserByUsername").permitAll()
+                        .requestMatchers("/index", "/users/by-username").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer((oauth2) -> oauth2

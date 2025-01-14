@@ -3,7 +3,7 @@ package com.ning.application.service;
 import com.ning.application.assembler.QuestionAssembler;
 import com.ning.application.dto.QuestionDTO;
 import com.ning.application.dto.QuestionTypeDTO;
-import com.ning.constant.BusinessCodeEnum;
+import com.ning.constant.ErrorCodeEnum;
 import com.ning.domain.entity.Question;
 import com.ning.domain.enums.QuestionTypeEnum;
 import com.ning.domain.repository.QuestionRepository;
@@ -93,7 +93,7 @@ public class QuestionAppService {
      */
     public QuestionDTO get(Long id) {
         Optional<Question> questionOpt = questionRepository.find(new QuestionId(id));
-        return questionOpt.map(questionAssembler::toDTO).orElseThrow(() -> new BusinessException(BusinessCodeEnum.QUESTION_NOT_EXISTS));
+        return questionOpt.map(questionAssembler::toDTO).orElseThrow(() -> new BusinessException(ErrorCodeEnum.QUESTION_NOT_EXISTS));
     }
 
 }

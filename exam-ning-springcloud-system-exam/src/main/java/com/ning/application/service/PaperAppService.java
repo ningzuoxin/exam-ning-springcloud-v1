@@ -7,7 +7,7 @@ import com.ning.application.dto.PaperDTO;
 import com.ning.application.dto.PaperPreviewDTO;
 import com.ning.application.dto.PaperQuestionSubmitDTO;
 import com.ning.application.dto.PaperTypeDTO;
-import com.ning.constant.BusinessCodeEnum;
+import com.ning.constant.ErrorCodeEnum;
 import com.ning.domain.entity.*;
 import com.ning.domain.enums.PaperTypeEnum;
 import com.ning.domain.repository.*;
@@ -99,7 +99,7 @@ public class PaperAppService {
     public PaperDTO publish(Long paperUid) {
         Optional<Paper> paperOpt = paperRepository.find(new PaperId(paperUid));
         if (!paperOpt.isPresent()) {
-            throw new BusinessException(BusinessCodeEnum.PAPER_NOT_EXISTS);
+            throw new BusinessException(ErrorCodeEnum.PAPER_NOT_EXISTS);
         }
 
         Paper paper = paperOpt.get();
@@ -127,7 +127,7 @@ public class PaperAppService {
     public PaperPreviewDTO preview(Long paperUid) {
         Optional<Paper> paperOpt = paperRepository.find(new PaperId(paperUid));
         if (!paperOpt.isPresent()) {
-            throw new BusinessException(BusinessCodeEnum.PAPER_NOT_EXISTS);
+            throw new BusinessException(ErrorCodeEnum.PAPER_NOT_EXISTS);
         }
 
         Paper paper = paperOpt.get();
@@ -172,7 +172,7 @@ public class PaperAppService {
     public boolean submit(Long paperUid, Integer timeUsed, List<PaperQuestionSubmitDTO> questionSubmitList) {
         Optional<Paper> paperOpt = paperRepository.find(new PaperId(paperUid));
         if (!paperOpt.isPresent()) {
-            throw new BusinessException(BusinessCodeEnum.PAPER_NOT_EXISTS);
+            throw new BusinessException(ErrorCodeEnum.PAPER_NOT_EXISTS);
         }
 
         Paper paper = paperOpt.get();

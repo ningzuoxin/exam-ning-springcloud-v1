@@ -16,8 +16,14 @@ public class LoginUser extends org.springframework.security.core.userdetails.Use
      */
     private Long userId;
 
-    public LoginUser(Long userId, String username, String password, boolean enabled, boolean accountNonExpired,
-                     boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+    public LoginUser(Long userId,
+                     String username,
+                     String password,
+                     boolean enabled,
+                     boolean accountNonExpired,
+                     boolean credentialsNonExpired,
+                     boolean accountNonLocked,
+                     Collection<? extends GrantedAuthority> authorities) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
         this.userId = userId;
     }

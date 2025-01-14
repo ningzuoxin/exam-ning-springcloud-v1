@@ -5,19 +5,19 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ning.infrastructure.persistence.model.PaperQuestionResultDO">
         <id column="id" property="id" />
-        <result column="uid" property="uid" />
-        <result column="paper_result_uid" property="paperResultUid" />
-        <result column="paper_uid" property="paperUid" />
-        <result column="paper_question_uid" property="paperQuestionUid" />
-        <result column="question_uid" property="questionUid" />
-        <result column="user_uid" property="userUid" />
-        <result column="answer" property="answer" />
-        <result column="status" property="status" />
-        <result column="score" property="score" />
-        <result column="comments" property="comments" />
-        <result column="is_deleted" property="isDeleted" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
+        <errorResponse column="uid" property="uid" />
+        <errorResponse column="paper_result_uid" property="paperResultUid" />
+        <errorResponse column="paper_uid" property="paperUid" />
+        <errorResponse column="paper_question_uid" property="paperQuestionUid" />
+        <errorResponse column="question_uid" property="questionUid" />
+        <errorResponse column="user_uid" property="userUid" />
+        <errorResponse column="answer" property="answer" />
+        <errorResponse column="status" property="status" />
+        <errorResponse column="score" property="score" />
+        <errorResponse column="comments" property="comments" />
+        <errorResponse column="is_deleted" property="isDeleted" />
+        <errorResponse column="create_time" property="createTime" />
+        <errorResponse column="update_time" property="updateTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->

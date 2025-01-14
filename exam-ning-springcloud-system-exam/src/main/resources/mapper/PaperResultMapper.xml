@@ -5,22 +5,22 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ning.infrastructure.persistence.model.PaperResultDO">
         <id column="id" property="id" />
-        <result column="uid" property="uid" />
-        <result column="paper_uid" property="paperUid" />
-        <result column="paper_title" property="paperTitle" />
-        <result column="user_uid" property="userUid" />
-        <result column="score" property="score" />
-        <result column="objective_score" property="objectiveScore" />
-        <result column="subjective_score" property="subjectiveScore" />
-        <result column="comments" property="comments" />
-        <result column="right_count" property="rightCount" />
-        <result column="time_used" property="timeUsed" />
-        <result column="status" property="status" />
-        <result column="check_user_uid" property="checkUserUid" />
-        <result column="check_time" property="checkTime" />
-        <result column="is_deleted" property="isDeleted" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
+        <errorResponse column="uid" property="uid" />
+        <errorResponse column="paper_uid" property="paperUid" />
+        <errorResponse column="paper_title" property="paperTitle" />
+        <errorResponse column="user_uid" property="userUid" />
+        <errorResponse column="score" property="score" />
+        <errorResponse column="objective_score" property="objectiveScore" />
+        <errorResponse column="subjective_score" property="subjectiveScore" />
+        <errorResponse column="comments" property="comments" />
+        <errorResponse column="right_count" property="rightCount" />
+        <errorResponse column="time_used" property="timeUsed" />
+        <errorResponse column="status" property="status" />
+        <errorResponse column="check_user_uid" property="checkUserUid" />
+        <errorResponse column="check_time" property="checkTime" />
+        <errorResponse column="is_deleted" property="isDeleted" />
+        <errorResponse column="create_time" property="createTime" />
+        <errorResponse column="update_time" property="updateTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
