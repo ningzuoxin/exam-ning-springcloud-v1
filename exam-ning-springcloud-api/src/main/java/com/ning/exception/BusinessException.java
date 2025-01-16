@@ -6,12 +6,6 @@ import lombok.Setter;
 
 import java.io.Serial;
 
-/**
- * 自定义业务异常
- *
- * @author zuoxin.ning
- * @since 2024-10-25 14:00
- */
 @Getter
 @Setter
 public class BusinessException extends RuntimeException {

@@ -1,6 +1,7 @@
 package com.ning.factory.user;
 
 import com.ning.api.user.RemoteUserService;
+import com.ning.infrastructure.common.model.CurrentUser;
 import com.ning.infrastructure.common.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
@@ -17,7 +18,7 @@ public class RemoteUserFallbackFactory implements FallbackFactory<RemoteUserServ
 
         log.info(" ====== RemoteUserFallbackFactory # create ====== " + throwable.getMessage());
 
-        return username -> new User();
+        return username -> new CurrentUser();
     }
 
 }

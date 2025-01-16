@@ -2,6 +2,7 @@ package com.ning.application.assembler;
 
 import com.ning.application.dto.UserDTO;
 import com.ning.domain.entity.User;
+import com.ning.infrastructure.common.model.CurrentUser;
 import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.interfaces.request.AddUserRequest;
 import com.ning.interfaces.request.UpdateUserRequest;
@@ -40,5 +41,11 @@ public interface UserAssembler {
     @Mapping(target = "roleId", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateEntity(@MappingTarget User entity, UserDTO dto);
+
+    @Mapping(target = "userId", source = "id.value")
+    @Mapping(target = "uname", source = "username.value")
+    @Mapping(target = "pwd", source = "password")
+    @Mapping(target = "roleId", source = "roleId.value")
+    CurrentUser toCurrentUser(User entity);
 
 }

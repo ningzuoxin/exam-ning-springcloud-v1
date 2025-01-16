@@ -3,6 +3,7 @@ package com.ning.interfaces.controller;
 import com.ning.application.assembler.UserAssembler;
 import com.ning.application.dto.UserDTO;
 import com.ning.application.service.UserAppService;
+import com.ning.infrastructure.common.model.CurrentUser;
 import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.interfaces.request.AddUserRequest;
 import com.ning.interfaces.request.UpdateUserRequest;
@@ -31,9 +32,9 @@ public class UserController {
     private final UserAssembler userAssembler = UserAssembler.INSTANCE;
 
     @Operation(summary = "根据用户名查询用户")
-    @GetMapping(value = "/by-username")
-    public UserDTO get(@RequestParam(value = "username") @Parameter(name = "username", example = "admin") String username) {
-        return userAppService.get(username);
+    @GetMapping(value = "/current-user")
+    public CurrentUser get(@RequestParam(value = "username") @Parameter(name = "username", example = "admin") String username) {
+        return userAppService.currentUser(username);
     }
 
     @Operation(summary = "查询全部用户")

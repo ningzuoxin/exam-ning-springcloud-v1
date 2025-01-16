@@ -11,6 +11,7 @@ import com.ning.domain.types.RoleId;
 import com.ning.domain.types.UserId;
 import com.ning.domain.types.Username;
 import com.ning.exception.BusinessException;
+import com.ning.infrastructure.common.model.CurrentUser;
 import com.ning.infrastructure.common.model.PageWrapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -38,9 +39,9 @@ public class UserAppService {
      * @param username 用户名
      * @return 用户
      */
-    public UserDTO get(String username) {
+    public CurrentUser currentUser(String username) {
         User user = userRepository.find(new Username(username));
-        return userAssembler.toDTO(user);
+        return userAssembler.toCurrentUser(user);
     }
 
     /**
@@ -80,7 +81,7 @@ public class UserAppService {
         }
 
         Optional<Role> roleOpt = roleRepository.find(new RoleId(userDTO.getRoleId()));
-        if (!roleOpt.isPresent()) {
+        if (roleOpt.isEmpty()) {
             throw new BusinessException(ErrorCodeEnum.ROLE_NOT_EXISTS);
         }
 
@@ -108,7 +109,7 @@ public class UserAppService {
     public UserDTO update(UserDTO userDTO) {
         UserId userId = new UserId(userDTO.getId());
         Optional<User> userOpt = userRepository.find(userId);
-        if (!userOpt.isPresent()) {
+        if (userOpt.isEmpty()) {
             throw new BusinessException(ErrorCodeEnum.USER_NOT_EXISTS);
         }
 
