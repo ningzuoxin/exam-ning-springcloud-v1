@@ -65,4 +65,8 @@ public class User {
         this.roleId = roleId;
     }
 
+    public void assignPermissions(Set<String> permissions) {
+        this.permissions = permissions;
+    }
+
 }

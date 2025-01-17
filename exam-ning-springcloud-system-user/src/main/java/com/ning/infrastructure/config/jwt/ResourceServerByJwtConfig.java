@@ -2,6 +2,7 @@ package com.ning.infrastructure.config.jwt;
 
 import com.ning.infrastructure.security.CustomAccessDeniedHandler;
 import com.ning.infrastructure.security.CustomAuthenticationEntryPoint;
+import com.ning.infrastructure.security.CustomJwtAuthenticationConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +34,7 @@ public class ResourceServerByJwtConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         AuthenticationEntryPoint authenticationEntryPoint = new CustomAuthenticationEntryPoint();
         AccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
+        CustomJwtAuthenticationConverter jwtAuthenticationConverter = new CustomJwtAuthenticationConverter();
 
         http
                 .authorizeHttpRequests((authorize) -> authorize
@@ -40,7 +42,7 @@ public class ResourceServerByJwtConfig {
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer((oauth2) -> oauth2
-                        .jwt((jwt) -> jwt.decoder(jwtDecoder()))
+                        .jwt((jwt) -> jwt.decoder(jwtDecoder()).jwtAuthenticationConverter(jwtAuthenticationConverter))
                         .authenticationEntryPoint(authenticationEntryPoint)
                 )
                 .exceptionHandling(e -> e
@@ -53,13 +55,6 @@ public class ResourceServerByJwtConfig {
     @Bean
     JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withJwkSetUri(this.jwkSetUri).build();
-    }
-
-    @Bean
-    public JwtAuthenticationConverter jwtAuthenticationConverter() {
-        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
-        converter.setPrincipalClaimName("u");
-        return converter;
     }
 
 }

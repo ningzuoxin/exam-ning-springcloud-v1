@@ -125,7 +125,7 @@ public class MenuAppService {
     public MenuDTO update(MenuDTO menuDTO) {
         MenuId menuId = new MenuId(menuDTO.getId());
         Optional<Menu> menuOpt = menuRepository.find(menuId);
-        if (!menuOpt.isPresent()) {
+        if (menuOpt.isEmpty()) {
             throw new BusinessException(ErrorCodeEnum.ROLE_NOT_EXISTS);
         }
 

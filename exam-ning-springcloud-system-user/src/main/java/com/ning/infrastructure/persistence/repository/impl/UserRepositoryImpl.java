@@ -79,7 +79,7 @@ public class UserRepositoryImpl implements UserRepository {
             return userConverter.toEntity(userDO);
         } else {
             Optional<UserDO> userDOOpt = this.findByUid(user.getId().getValue());
-            if (!userDOOpt.isPresent()) {
+            if (userDOOpt.isEmpty()) {
                 throw new IllegalArgumentException("User not exits, id: " + user.getId().getValue());
             }
 
@@ -155,7 +155,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public boolean remove(UserId userId) {
         Optional<UserDO> userDOOpt = this.findByUid(userId.getValue());
-        if (!userDOOpt.isPresent()) {
+        if (userDOOpt.isEmpty()) {
             return true;
         }
 
@@ -174,7 +174,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Optional<User> find(UserId userId) {
         Optional<UserDO> userDOOpt = this.findByUid(userId.getValue());
-        if (!userDOOpt.isPresent()) {
+        if (userDOOpt.isEmpty()) {
             return Optional.empty();
         }
 

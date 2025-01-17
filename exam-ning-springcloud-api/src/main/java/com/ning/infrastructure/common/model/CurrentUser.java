@@ -1,11 +1,12 @@
 package com.ning.infrastructure.common.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
@@ -26,21 +27,14 @@ public class CurrentUser implements UserDetails {
     private Long userId;
     private String uname;
     private String pwd;
-    private String nickname;
-    private String avatar;
-    private Long roleId;
-    private Set<String> roles;
     private Set<String> permissions;
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<String> authoritySet = new HashSet<>();
-        // roles
-        authoritySet.addAll(Objects.nonNull(roles) ? roles : Set.of());
-
         // permissions
-        authoritySet.addAll(Objects.nonNull(permissions) ? permissions : Set.of());
-        return AuthorityUtils.createAuthorityList(authoritySet.toArray(new String[0]));
+        Set<String> authoritySet = new HashSet<>(Objects.nonNull(permissions) ? permissions : Set.of());
+        return authoritySet.stream().map(SimpleGrantedAuthority::new).toList();
     }
 
     @Override

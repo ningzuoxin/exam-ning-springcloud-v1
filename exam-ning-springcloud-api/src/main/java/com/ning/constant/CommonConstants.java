@@ -38,4 +38,14 @@ public class CommonConstants {
     // Default salt
     public static final String DEFAULT_SALT = "123456";
 
+    public static final int JWT_EXP_TIME = 3600;
+
+    public static final String JWT_SUB = "sub";
+
+    public static final String JWT_EXP = "exp";
+
+    public static final String JWT_UID = "uid";
+
+    public static final String JWT_PERMISSIONS = "permissions";
+
 }

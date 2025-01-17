@@ -1,9 +1,11 @@
 package com.ning.infrastructure.utils;
 
-import com.ning.infrastructure.common.model.LoginUser;
+import com.ning.infrastructure.common.model.CurrentUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.Objects;
 
 /**
  * 权限获取工具类
@@ -23,16 +25,16 @@ public class SecurityUtils {
      * 获取用户
      */
     public static String getUsername() {
-        return getLoginUser().getUsername();
+        return Objects.requireNonNull(getCurrentUser()).getUsername();
     }
 
     /**
      * 获取用户
      */
-    public static LoginUser getLoginUser(Authentication authentication) {
+    public static CurrentUser getCurrentUser(Authentication authentication) {
         Object principal = authentication.getPrincipal();
-        if (principal instanceof LoginUser) {
-            return (LoginUser) principal;
+        if (principal instanceof CurrentUser currentUser) {
+            return currentUser;
         }
         return null;
     }
@@ -40,12 +42,12 @@ public class SecurityUtils {
     /**
      * 获取用户
      */
-    public static LoginUser getLoginUser() {
+    public static CurrentUser getCurrentUser() {
         Authentication authentication = getAuthentication();
         if (authentication == null) {
             return null;
         }
-        return getLoginUser(authentication);
+        return getCurrentUser(authentication);
     }
 
     /**

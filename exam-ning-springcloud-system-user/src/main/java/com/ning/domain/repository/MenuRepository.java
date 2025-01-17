@@ -80,4 +80,6 @@ public interface MenuRepository {
      */
     List<Menu> findByUserId(UserId userId);
 
+    List<String> findAllPermissions();
+
 }

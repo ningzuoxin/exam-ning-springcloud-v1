@@ -176,6 +176,14 @@ public class MenuRepositoryImpl implements MenuRepository {
         return menuConverter.toEntityList(menuDOList);
     }
 
+    @Override
+    public List<String> findAllPermissions() {
+        return this.findAll().stream()
+                .map(Menu::getPerms)
+                .filter(StrUtil::isNotBlank)
+                .toList();
+    }
+
     private Optional<MenuDO> findByUid(Long uid) {
         QueryWrapper<MenuDO> wrapper = new QueryWrapper<>();
         wrapper.eq("uid", uid);

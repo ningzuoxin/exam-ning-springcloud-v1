@@ -5,6 +5,7 @@ import com.ning.application.dto.UserDTO;
 import com.ning.constant.ErrorCodeEnum;
 import com.ning.domain.entity.Role;
 import com.ning.domain.entity.User;
+import com.ning.domain.repository.MenuRepository;
 import com.ning.domain.repository.RoleRepository;
 import com.ning.domain.repository.UserRepository;
 import com.ning.domain.types.RoleId;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * 用户应用服务
@@ -31,6 +33,7 @@ public class UserAppService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final MenuRepository menuRepository;
     private final UserAssembler userAssembler = UserAssembler.INSTANCE;
 
     /**
@@ -41,6 +44,8 @@ public class UserAppService {
      */
     public CurrentUser currentUser(String username) {
         User user = userRepository.find(new Username(username));
+        // todo
+        user.assignPermissions(Set.copyOf(menuRepository.findAllPermissions()));
         return userAssembler.toCurrentUser(user);
     }
 

@@ -63,7 +63,7 @@ public class MenuController {
     @Operation(summary = "查询路由")
     @GetMapping(value = "/routers")
     public List<RouterDTO> routers() {
-        Long userId = SecurityUtils.getLoginUser().getUserId();
+        Long userId = SecurityUtils.getCurrentUser().getUserId();
         return menuAppService.routers(userId);
     }
 

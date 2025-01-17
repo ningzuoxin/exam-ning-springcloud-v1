@@ -45,7 +45,6 @@ public interface UserAssembler {
     @Mapping(target = "userId", source = "id.value")
     @Mapping(target = "uname", source = "username.value")
     @Mapping(target = "pwd", source = "password")
-    @Mapping(target = "roleId", source = "roleId.value")
     CurrentUser toCurrentUser(User entity);
 
 }
