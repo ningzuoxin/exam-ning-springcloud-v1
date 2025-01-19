@@ -14,7 +14,7 @@ class IDUtilsTest {
 
     @Test
     public void id() {
-        Long id = idUtils.getId("user");
+        Long id = idUtils.getId();
         log.info("res: {}.", id);
     }
 

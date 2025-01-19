@@ -8,10 +8,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class IDUtils {
 
+    private final static String ID = "ID";
+
     private final IDGen idGen;
 
-    public Long getId(String type) {
-        return idGen.get(type).getId();
+    public Long getId() {
+        return idGen.get(ID).getId();
     }
 
 }
