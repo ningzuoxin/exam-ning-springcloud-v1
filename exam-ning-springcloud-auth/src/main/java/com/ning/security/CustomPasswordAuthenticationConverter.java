@@ -13,7 +13,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class CustomPasswordAuthenticationConverter implements AuthenticationConverter {
@@ -41,14 +40,7 @@ public class CustomPasswordAuthenticationConverter implements AuthenticationConv
             throwError(OAuth2ErrorCodes.INVALID_REQUEST, OAuth2ParameterNames.PASSWORD, ACCESS_TOKEN_REQUEST_ERROR_URI);
         }
 
-        Map<String, Object> additionalParameters = new HashMap<>();
-        parameters.forEach((key, value) -> {
-            if (!key.equals(OAuth2ParameterNames.GRANT_TYPE)) {
-                additionalParameters.put(key, (value.size() == 1) ? value.get(0) : value.toArray(new String[0]));
-            }
-        });
-
-        return new CustomPasswordAuthenticationToken(clientPrincipal, additionalParameters);
+        return new CustomPasswordAuthenticationToken(clientPrincipal, username, password);
     }
 
     private void throwError(String errorCode, String parameterName, String errorUri) {
