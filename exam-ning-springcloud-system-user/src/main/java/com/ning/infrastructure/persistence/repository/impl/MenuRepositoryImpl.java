@@ -15,7 +15,6 @@ import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.infrastructure.persistence.converter.MenuConverter;
 import com.ning.infrastructure.persistence.dao.MenuDao;
 import com.ning.infrastructure.persistence.model.MenuDO;
-import com.ning.infrastructure.utils.SnowFlake;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -69,7 +68,6 @@ public class MenuRepositoryImpl implements MenuRepository {
     public Menu save(Menu menu) {
         MenuDO menuDO = menuConverter.toDO(menu);
         if (Objects.isNull(menuDO.getUid())) {
-            menuDO.setUid(SnowFlake.ID.nextId());
             menuDao.insert(menuDO);
             return menuConverter.toEntity(menuDO);
         } else {

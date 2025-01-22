@@ -12,7 +12,6 @@ import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.infrastructure.persistence.converter.QuestionConverter;
 import com.ning.infrastructure.persistence.dao.QuestionDao;
 import com.ning.infrastructure.persistence.model.QuestionDO;
-import com.ning.infrastructure.utils.SnowFlake;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -60,7 +59,6 @@ public class QuestionRepositoryImpl implements QuestionRepository {
     public Question save(Question question) {
         QuestionDO questionDO = questionConverter.toDO(question);
         if (Objects.isNull(questionDO.getUid())) {
-            questionDO.setUid(SnowFlake.ID.nextId());
             questionDao.insert(questionDO);
             return questionConverter.toEntity(questionDO);
         } else {

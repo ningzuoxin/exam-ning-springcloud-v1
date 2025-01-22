@@ -1,9 +1,7 @@
 package com.ning.infrastructure.persistence.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,7 +29,7 @@ public class MenuDO implements Serializable {
     private Long id;
 
     @Schema(description = "业务ID")
-    @TableField("uid")
+    @TableField(value = "uid", fill = FieldFill.INSERT)
     private Long uid;
 
     @Schema(description = "菜单名称")

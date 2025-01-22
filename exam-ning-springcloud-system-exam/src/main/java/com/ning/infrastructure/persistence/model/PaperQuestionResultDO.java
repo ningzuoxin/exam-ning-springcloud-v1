@@ -1,9 +1,6 @@
 package com.ning.infrastructure.persistence.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -34,7 +31,7 @@ public class PaperQuestionResultDO implements Serializable {
     private Long id;
 
     @ApiModelProperty(value = "业务ID")
-    @TableField("uid")
+    @TableField(value = "uid", fill = FieldFill.INSERT)
     private Long uid;
 
     @ApiModelProperty(value = "试卷结果ID")

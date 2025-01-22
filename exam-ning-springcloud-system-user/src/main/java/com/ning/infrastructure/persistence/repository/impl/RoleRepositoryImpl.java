@@ -12,7 +12,6 @@ import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.infrastructure.persistence.converter.RoleConverter;
 import com.ning.infrastructure.persistence.dao.RoleDao;
 import com.ning.infrastructure.persistence.model.RoleDO;
-import com.ning.infrastructure.utils.SnowFlake;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -54,7 +53,6 @@ public class RoleRepositoryImpl implements RoleRepository {
     public Role save(Role role) {
         RoleDO roleDO = roleConverter.toDo(role);
         if (Objects.isNull(roleDO.getUid())) {
-            roleDO.setUid(SnowFlake.ID.nextId());
             roleDao.insert(roleDO);
             return roleConverter.toEntity(roleDO);
         } else {

@@ -16,7 +16,6 @@ import com.ning.infrastructure.persistence.dao.UserDao;
 import com.ning.infrastructure.persistence.dao.UserRoleDao;
 import com.ning.infrastructure.persistence.model.UserDO;
 import com.ning.infrastructure.persistence.model.UserRoleDO;
-import com.ning.infrastructure.utils.SnowFlake;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -71,7 +70,6 @@ public class UserRepositoryImpl implements UserRepository {
     public User save(User user) {
         UserDO userDO = userConverter.toDO(user);
         if (Objects.isNull(userDO.getUid())) {
-            userDO.setUid(SnowFlake.ID.nextId());
             userDao.insert(userDO);
 
             // 绑定用户和角色
@@ -215,7 +213,6 @@ public class UserRepositoryImpl implements UserRepository {
     private void saveUserRole(Long userId, Long roleId) {
         // 绑定用户和角色
         UserRoleDO userRoleDO = new UserRoleDO();
-        userRoleDO.setUid(SnowFlake.ID.nextId());
         userRoleDO.setUserUid(userId);
         userRoleDO.setRoleUid(roleId);
         userRoleDao.insert(userRoleDO);

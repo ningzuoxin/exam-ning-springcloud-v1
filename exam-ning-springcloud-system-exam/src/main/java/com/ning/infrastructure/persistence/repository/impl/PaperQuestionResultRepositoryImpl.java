@@ -9,7 +9,6 @@ import com.ning.domain.types.PaperResultId;
 import com.ning.infrastructure.persistence.converter.PaperQuestionResultConverter;
 import com.ning.infrastructure.persistence.dao.PaperQuestionResultDao;
 import com.ning.infrastructure.persistence.model.PaperQuestionResultDO;
-import com.ning.infrastructure.utils.SnowFlake;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -65,7 +64,6 @@ public class PaperQuestionResultRepositoryImpl implements PaperQuestionResultRep
     public PaperQuestionResult save(PaperQuestionResult paperQuestionResult) {
         PaperQuestionResultDO paperQuestionResultDO = paperQuestionResultConverter.toDO(paperQuestionResult);
         if (Objects.isNull(paperQuestionResultDO.getUid())) {
-            paperQuestionResultDO.setUid(SnowFlake.ID.nextId());
             paperQuestionResultDao.insert(paperQuestionResultDO);
             return paperQuestionResultConverter.toEntity(paperQuestionResultDO);
         } else {

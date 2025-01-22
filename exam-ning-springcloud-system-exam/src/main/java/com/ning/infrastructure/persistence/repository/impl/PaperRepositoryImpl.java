@@ -12,7 +12,6 @@ import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.infrastructure.persistence.converter.PaperConverter;
 import com.ning.infrastructure.persistence.dao.PaperDao;
 import com.ning.infrastructure.persistence.model.PaperDO;
-import com.ning.infrastructure.utils.SnowFlake;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -93,7 +92,6 @@ public class PaperRepositoryImpl implements PaperRepository {
     public Paper save(Paper paper) {
         PaperDO paperDO = paperConverter.toDO(paper);
         if (Objects.isNull(paperDO.getUid())) {
-            paperDO.setUid(SnowFlake.ID.nextId());
             paperDao.insert(paperDO);
             return paperConverter.toEntity(paperDO);
         } else {
