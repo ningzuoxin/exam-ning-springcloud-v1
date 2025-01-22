@@ -1,8 +1,7 @@
-package com.ning.api.user;
+package com.ning.domain.service;
 
-import com.ning.constant.ServiceNameConstants;
-import com.ning.factory.user.RemoteUserFallbackFactory;
-import com.ning.infrastructure.common.model.CurrentUser;
+import com.ning.domain.service.impl.RemoteUserFallbackFactory;
+import com.ning.domain.entity.CurrentUser;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

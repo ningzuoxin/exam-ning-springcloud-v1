@@ -1,4 +1,4 @@
-package com.ning.infrastructure.common.model;
+package com.ning.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

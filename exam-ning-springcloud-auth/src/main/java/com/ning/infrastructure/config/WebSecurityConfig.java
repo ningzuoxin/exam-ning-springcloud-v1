@@ -1,4 +1,4 @@
-package com.ning.config;
+package com.ning.infrastructure.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

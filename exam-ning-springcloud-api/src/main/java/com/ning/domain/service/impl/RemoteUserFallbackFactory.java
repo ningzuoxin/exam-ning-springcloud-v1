@@ -1,8 +1,7 @@
-package com.ning.factory.user;
+package com.ning.domain.service.impl;
 
-import com.ning.api.user.RemoteUserService;
-import com.ning.infrastructure.common.model.CurrentUser;
-import com.ning.infrastructure.common.model.User;
+import com.ning.domain.service.RemoteUserService;
+import com.ning.domain.entity.CurrentUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 

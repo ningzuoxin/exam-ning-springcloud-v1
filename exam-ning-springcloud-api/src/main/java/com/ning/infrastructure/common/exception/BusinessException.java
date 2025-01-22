@@ -1,6 +1,6 @@
-package com.ning.exception;
+package com.ning.infrastructure.common.exception;
 
-import com.ning.constant.ErrorCodeEnum;
+import com.ning.infrastructure.common.constant.ErrorCodeEnum;
 import lombok.Getter;
 import lombok.Setter;
 

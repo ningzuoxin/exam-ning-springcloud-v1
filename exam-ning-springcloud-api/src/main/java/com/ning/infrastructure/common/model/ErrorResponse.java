@@ -1,6 +1,6 @@
 package com.ning.infrastructure.common.model;
 
-import com.ning.constant.ErrorCodeEnum;
+import com.ning.infrastructure.common.constant.ErrorCodeEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

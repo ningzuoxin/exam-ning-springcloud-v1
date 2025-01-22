@@ -2,7 +2,7 @@ package com.ning.application.assembler;
 
 import com.ning.application.dto.UserDTO;
 import com.ning.domain.entity.User;
-import com.ning.infrastructure.common.model.CurrentUser;
+import com.ning.domain.entity.CurrentUser;
 import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.interfaces.request.AddUserRequest;
 import com.ning.interfaces.request.UpdateUserRequest;

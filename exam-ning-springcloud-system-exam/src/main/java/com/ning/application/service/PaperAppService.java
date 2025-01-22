@@ -7,12 +7,12 @@ import com.ning.application.dto.PaperDTO;
 import com.ning.application.dto.PaperPreviewDTO;
 import com.ning.application.dto.PaperQuestionSubmitDTO;
 import com.ning.application.dto.PaperTypeDTO;
-import com.ning.constant.ErrorCodeEnum;
+import com.ning.infrastructure.common.constant.ErrorCodeEnum;
 import com.ning.domain.entity.*;
 import com.ning.domain.enums.PaperTypeEnum;
 import com.ning.domain.repository.*;
 import com.ning.domain.types.*;
-import com.ning.exception.BusinessException;
+import com.ning.infrastructure.common.exception.BusinessException;
 import com.ning.infrastructure.common.model.PageWrapper;
 import com.ning.infrastructure.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
@@ -180,7 +180,7 @@ public class PaperAppService {
         // 保存试卷结果
         PaperResultId paperResultId = new PaperResultId(null);
         PaperId paperId = new PaperId(paperUid);
-        Long userUid = SecurityUtils.getLoginUser().getUserId();
+        Long userUid = SecurityUtils.getCurrentUser().getUserId();
 
         PaperResult paperResult = new PaperResult(paperResultId, paperId, paper.getTitle(), userUid, timeUsed);
         paperResult = paperResultRepository.save(paperResult);

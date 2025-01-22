@@ -1,6 +1,6 @@
 package com.ning.application.service;
 
-import com.ning.infrastructure.common.model.CurrentUser;
+import com.ning.domain.entity.CurrentUser;
 import com.ning.infrastructure.utils.SecurityUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;

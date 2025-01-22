@@ -1,4 +1,4 @@
-package com.ning.security;
+package com.ning.infrastructure.security;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;

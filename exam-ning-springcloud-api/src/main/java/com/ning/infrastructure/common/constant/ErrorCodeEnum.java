@@ -1,4 +1,4 @@
-package com.ning.constant;
+package com.ning.infrastructure.common.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

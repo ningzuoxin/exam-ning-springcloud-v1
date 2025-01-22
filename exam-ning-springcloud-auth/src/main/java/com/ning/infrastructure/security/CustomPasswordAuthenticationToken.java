@@ -1,4 +1,4 @@
-package com.ning.security;
+package com.ning.infrastructure.security;
 
 import lombok.Getter;
 import org.springframework.security.core.Authentication;

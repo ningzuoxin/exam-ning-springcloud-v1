@@ -1,14 +1,14 @@
-package com.ning.config.redis;
+package com.ning.infrastructure.config.redis;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
-import com.ning.constant.CommonConstants;
-import com.ning.infrastructure.common.model.CurrentUser;
-import com.ning.security.CustomPasswordAuthenticationConverter;
-import com.ning.security.CustomPasswordAuthenticationProvider;
+import com.ning.infrastructure.common.constant.Constants;
+import com.ning.domain.entity.CurrentUser;
+import com.ning.infrastructure.security.CustomPasswordAuthenticationConverter;
+import com.ning.infrastructure.security.CustomPasswordAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -203,13 +203,13 @@ public class AuthorizationServerByRedisConfig {
             JwtClaimsSet.Builder claims = context.getClaims();
             if (context.getTokenType().equals(OAuth2TokenType.ACCESS_TOKEN)) {
                 CurrentUser currentUser = (CurrentUser) context.getPrincipal().getPrincipal();
-                claims.claim(CommonConstants.JWT_SUB, currentUser.getUsername());
-                claims.claim(CommonConstants.JWT_UID, currentUser.getUserId());
-                claims.claim(CommonConstants.JWT_PERMISSIONS, currentUser.getPermissions());
+                claims.claim(Constants.JWT_SUB, currentUser.getUsername());
+                claims.claim(Constants.JWT_UID, currentUser.getUserId());
+                claims.claim(Constants.JWT_PERMISSIONS, currentUser.getPermissions());
 
                 Instant now = Instant.now();
-                long expiry = now.plus(CommonConstants.JWT_EXP_TIME, ChronoUnit.SECONDS).toEpochMilli(); // one hour
-                claims.claim(CommonConstants.JWT_EXP, Date.from(Instant.ofEpochMilli(expiry)));
+                long expiry = now.plus(Constants.JWT_EXP_TIME, ChronoUnit.SECONDS).toEpochMilli(); // one hour
+                claims.claim(Constants.JWT_EXP, Date.from(Instant.ofEpochMilli(expiry)));
             }
         };
     }

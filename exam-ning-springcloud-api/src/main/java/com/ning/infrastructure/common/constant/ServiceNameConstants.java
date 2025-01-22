@@ -1,4 +1,4 @@
-package com.ning.constant;
+package com.ning.infrastructure.common.constant;
 
 /**
  * 服务名称

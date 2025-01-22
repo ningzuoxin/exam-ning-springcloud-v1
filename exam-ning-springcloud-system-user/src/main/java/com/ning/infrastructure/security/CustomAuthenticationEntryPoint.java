@@ -1,7 +1,7 @@
 package com.ning.infrastructure.security;
 
 import com.alibaba.fastjson.JSON;
-import com.ning.constant.ErrorCodeEnum;
+import com.ning.infrastructure.common.constant.ErrorCodeEnum;
 import com.ning.infrastructure.common.model.ErrorResponse;
 import com.ning.infrastructure.utils.ServletUtils;
 import jakarta.servlet.http.HttpServletRequest;

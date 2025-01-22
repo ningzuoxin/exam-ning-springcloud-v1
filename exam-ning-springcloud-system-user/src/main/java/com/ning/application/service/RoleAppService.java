@@ -2,11 +2,11 @@ package com.ning.application.service;
 
 import com.ning.application.assembler.RoleAssembler;
 import com.ning.application.dto.RoleDTO;
-import com.ning.constant.ErrorCodeEnum;
+import com.ning.infrastructure.common.constant.ErrorCodeEnum;
 import com.ning.domain.entity.Role;
 import com.ning.domain.repository.RoleRepository;
 import com.ning.domain.types.RoleId;
-import com.ning.exception.BusinessException;
+import com.ning.infrastructure.common.exception.BusinessException;
 import com.ning.infrastructure.common.model.PageWrapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

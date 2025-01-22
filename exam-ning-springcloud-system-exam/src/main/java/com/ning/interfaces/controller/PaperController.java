@@ -68,7 +68,7 @@ public class PaperController {
     public PageWrapper<PaperDTO> userPaperPage(@RequestParam(value = "type", required = false) @ApiParam(name = "type", example = "") Integer type,
                                                @RequestParam(value = "pageNum", defaultValue = "1") @ApiParam(name = "pageNum", example = "1") Integer pageNum,
                                                @RequestParam(value = "pageSize", defaultValue = "10") @ApiParam(name = "pageSize", example = "10") Integer pageSize) {
-        Long userUid = SecurityUtils.getLoginUser().getUserId();
+        Long userUid = SecurityUtils.getCurrentUser().getUserId();
         return paperAppService.findUserPaperByPage(type, pageNum, pageSize, userUid);
     }
 

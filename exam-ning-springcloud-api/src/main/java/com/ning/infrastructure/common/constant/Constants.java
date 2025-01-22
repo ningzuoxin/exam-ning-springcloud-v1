@@ -1,9 +1,6 @@
-package com.ning.constant;
+package com.ning.infrastructure.common.constant;
 
-/**
- * 公共常量
- */
-public class CommonConstants {
+public class Constants {
 
     // client_id
     public static final String CLIENT_ID = "ning666888";

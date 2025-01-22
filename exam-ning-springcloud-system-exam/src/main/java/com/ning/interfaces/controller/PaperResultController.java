@@ -32,7 +32,7 @@ public class PaperResultController {
     @ApiOperation(value = "查询用户的试卷结果列表")
     @GetMapping(value = "/by-paper")
     public List<PaperResultDTO> getUserPaperResult(@RequestParam(value = "id", defaultValue = "1") @ApiParam(name = "id", example = "1") Long id) {
-        Long userUid = SecurityUtils.getLoginUser().getUserId();
+        Long userUid = SecurityUtils.getCurrentUser().getUserId();
         return paperResultAppService.getUserPaperResult(userUid, id);
     }
 

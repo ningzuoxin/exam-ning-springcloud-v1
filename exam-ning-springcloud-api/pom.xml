@@ -11,11 +11,22 @@
 
     <artifactId>exam-ning-springcloud-api</artifactId>
 
+    <properties>
+        <mybatis.version>3.5.16</mybatis.version>
+        <perf4j.version>0.9.16</perf4j.version>
+    </properties>
+
     <dependencies>
         <!-- hutool -->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
+        </dependency>
+        <!-- web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <scope>compile</scope>
         </dependency>
         <!-- openfeign -->
         <dependency>
@@ -47,14 +58,14 @@
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-            <version>3.5.16</version>
+            <version>${mybatis.version}</version>
             <scope>compile</scope>
         </dependency>
         <!-- perf4j -->
         <dependency>
             <groupId>org.perf4j</groupId>
             <artifactId>perf4j</artifactId>
-            <version>0.9.16</version>
+            <version>${perf4j.version}</version>
         </dependency>
     </dependencies>
 

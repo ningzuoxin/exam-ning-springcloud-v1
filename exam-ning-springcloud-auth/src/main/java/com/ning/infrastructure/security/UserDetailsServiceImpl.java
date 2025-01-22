@@ -1,9 +1,9 @@
-package com.ning.service;
+package com.ning.infrastructure.security;
 
-import com.ning.api.user.RemoteUserService;
-import com.ning.constant.ErrorCodeEnum;
-import com.ning.exception.BusinessException;
-import com.ning.infrastructure.common.model.CurrentUser;
+import com.ning.domain.service.RemoteUserService;
+import com.ning.infrastructure.common.constant.ErrorCodeEnum;
+import com.ning.infrastructure.common.exception.BusinessException;
+import com.ning.domain.entity.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;

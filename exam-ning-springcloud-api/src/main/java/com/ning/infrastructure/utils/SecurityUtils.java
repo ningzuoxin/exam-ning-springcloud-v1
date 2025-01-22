@@ -1,6 +1,6 @@
 package com.ning.infrastructure.utils;
 
-import com.ning.infrastructure.common.model.CurrentUser;
+import com.ning.domain.entity.CurrentUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

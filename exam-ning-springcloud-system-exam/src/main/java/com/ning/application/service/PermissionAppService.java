@@ -1,6 +1,6 @@
 package com.ning.application.service;
 
-import com.ning.infrastructure.common.model.LoginUser;
+import com.ning.domain.entity.CurrentUser;
 import com.ning.infrastructure.utils.SecurityUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -9,12 +9,13 @@ import org.springframework.util.PatternMatchUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  * 自定义权限实现
  */
 @Service("ss")
-public class PermissionService {
+public class PermissionAppService {
 
     /**
      * 所有权限标识
@@ -40,11 +41,11 @@ public class PermissionService {
         if (StringUtils.isEmpty(permission)) {
             return false;
         }
-        LoginUser loginUser = SecurityUtils.getLoginUser();
-        if (StringUtils.isEmpty(loginUser) || CollectionUtils.isEmpty(loginUser.getAuthorities())) {
+        CurrentUser currentUser = SecurityUtils.getCurrentUser();
+        if (Objects.isNull(currentUser) || CollectionUtils.isEmpty(currentUser.getAuthorities())) {
             return false;
         }
-        return hasPermissions(loginUser.getAuthorities(), permission);
+        return hasPermissions(currentUser.getAuthorities(), permission);
     }
 
     /**
@@ -54,7 +55,7 @@ public class PermissionService {
      * @return 用户是否不具备某权限
      */
     public boolean lacksPermi(String permission) {
-        return hasPermi(permission) != true;
+        return !hasPermi(permission);
     }
 
     /**
@@ -67,11 +68,11 @@ public class PermissionService {
         if (StringUtils.isEmpty(permissions)) {
             return false;
         }
-        LoginUser loginUser = SecurityUtils.getLoginUser();
-        if (StringUtils.isEmpty(loginUser) || CollectionUtils.isEmpty(loginUser.getAuthorities())) {
+        CurrentUser currentUser = SecurityUtils.getCurrentUser();
+        if (Objects.isNull(currentUser) || CollectionUtils.isEmpty(currentUser.getAuthorities())) {
             return false;
         }
-        Collection<? extends GrantedAuthority> authorities = loginUser.getAuthorities();
+        Collection<? extends GrantedAuthority> authorities = currentUser.getAuthorities();
         for (String permission : permissions.split(PERMISSION_DELIMETER)) {
             if (permission != null && hasPermissions(authorities, permission)) {
                 return true;
@@ -90,11 +91,11 @@ public class PermissionService {
         if (StringUtils.isEmpty(role)) {
             return false;
         }
-        LoginUser loginUser = SecurityUtils.getLoginUser();
-        if (StringUtils.isEmpty(loginUser) || CollectionUtils.isEmpty(loginUser.getAuthorities())) {
+        CurrentUser currentUser = SecurityUtils.getCurrentUser();
+        if (Objects.isNull(currentUser) || CollectionUtils.isEmpty(currentUser.getAuthorities())) {
             return false;
         }
-        for (GrantedAuthority authorities : loginUser.getAuthorities()) {
+        for (GrantedAuthority authorities : currentUser.getAuthorities()) {
             String roleKey = authorities.getAuthority();
             if (SUPER_ADMIN.contains(roleKey) || roleKey.contains(role)) {
                 return true;
@@ -123,8 +124,8 @@ public class PermissionService {
         if (StringUtils.isEmpty(roles)) {
             return false;
         }
-        LoginUser loginUser = SecurityUtils.getLoginUser();
-        if (StringUtils.isEmpty(loginUser) || CollectionUtils.isEmpty(loginUser.getAuthorities())) {
+        CurrentUser currentUser = SecurityUtils.getCurrentUser();
+        if (Objects.isNull(currentUser) || CollectionUtils.isEmpty(currentUser.getAuthorities())) {
             return false;
         }
         for (String role : roles.split(ROLE_DELIMETER)) {
@@ -146,4 +147,5 @@ public class PermissionService {
         return authorities.stream().map(GrantedAuthority::getAuthority).filter(StringUtils::hasText)
                 .anyMatch(x -> ALL_PERMISSION.contains(x) || PatternMatchUtils.simpleMatch(permission, x));
     }
+
 }
