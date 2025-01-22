@@ -16,7 +16,6 @@ import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AccessTokenAuthenticationToken;
 import org.springframework.security.oauth2.server.authorization.authentication.OAuth2ClientAuthenticationToken;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.context.AuthorizationServerContextHolder;
 import org.springframework.security.oauth2.server.authorization.token.DefaultOAuth2TokenContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenContext;
@@ -31,8 +30,6 @@ public class CustomPasswordAuthenticationProvider implements AuthenticationProvi
 
     private final Logger logger = LoggerFactory.getLogger(CustomPasswordAuthenticationProvider.class);
 
-    private final RegisteredClientRepository registeredClientRepository;
-
     private final OAuth2AuthorizationService authorizationService;
 
     private final OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator;
@@ -42,15 +39,12 @@ public class CustomPasswordAuthenticationProvider implements AuthenticationProvi
     private final PasswordEncoder passwordEncoder;
 
     // https://juejin.cn/post/7345105899150802956
-    public CustomPasswordAuthenticationProvider(RegisteredClientRepository registeredClientRepository,
-                                                OAuth2AuthorizationService authorizationService,
+    public CustomPasswordAuthenticationProvider(OAuth2AuthorizationService authorizationService,
                                                 OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator,
                                                 UserDetailsService userDetailsService,
                                                 PasswordEncoder passwordEncoder) {
-        Assert.notNull(registeredClientRepository, "registeredClientRepository cannot be null");
         Assert.notNull(authorizationService, "authorizationService cannot be null");
         Assert.notNull(tokenGenerator, "tokenGenerator cannot be null");
-        this.registeredClientRepository = registeredClientRepository;
         this.authorizationService = authorizationService;
         this.tokenGenerator = tokenGenerator;
         this.userDetailsService = userDetailsService;
@@ -78,8 +72,6 @@ public class CustomPasswordAuthenticationProvider implements AuthenticationProvi
 
         String providedUsername = customPasswordAuthenticationToken.getUsername();
         String providedPassword = customPasswordAuthenticationToken.getPassword();
-        UsernamePasswordAuthenticationToken usernamePasswordToken = new UsernamePasswordAuthenticationToken(providedUsername, providedPassword);
-
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(providedUsername);
         if (userDetails == null || !this.passwordEncoder.matches(providedPassword, userDetails.getPassword())) {
             throw new OAuth2AuthenticationException("Invalid resource owner credentials");
@@ -89,9 +81,10 @@ public class CustomPasswordAuthenticationProvider implements AuthenticationProvi
             logger.debug("Generating access token");
         }
 
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
         DefaultOAuth2TokenContext.Builder tokenContextBuilder = DefaultOAuth2TokenContext.builder()
                 .registeredClient(registeredClient)
-                .principal(clientAuthenticationToken)
+                .principal(usernamePasswordAuthenticationToken)
                 .authorizationServerContext(AuthorizationServerContextHolder.getContext())
                 .tokenType(OAuth2TokenType.ACCESS_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.PASSWORD)
@@ -108,9 +101,9 @@ public class CustomPasswordAuthenticationProvider implements AuthenticationProvi
                 generatedAccessToken.getExpiresAt(), tokenContext.getAuthorizedScopes());
 
         OAuth2Authorization.Builder authorizationBuilder = OAuth2Authorization.withRegisteredClient(registeredClient)
-                .principalName(usernamePasswordToken.getName())
+                .principalName(usernamePasswordAuthenticationToken.getName())
                 .authorizationGrantType(AuthorizationGrantType.PASSWORD)
-                .attribute(Principal.class.getName(), usernamePasswordToken);
+                .attribute(Principal.class.getName(), usernamePasswordAuthenticationToken);
 
         if (generatedAccessToken instanceof ClaimAccessor) {
             authorizationBuilder.token(accessToken, (metadata) -> metadata.put(OAuth2Authorization.Token.CLAIMS_METADATA_NAME, ((ClaimAccessor) generatedAccessToken).getClaims()));

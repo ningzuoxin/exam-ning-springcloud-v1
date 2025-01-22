@@ -21,7 +21,7 @@ public class CustomPasswordAuthenticationConverter implements AuthenticationConv
 
     @Override
     public Authentication convert(HttpServletRequest request) {
-        MultiValueMap<String, String> parameters = this.getQueryParameters(request);
+        MultiValueMap<String, String> parameters = this.getFormParameters(request);
 
         String grantType = parameters.getFirst(OAuth2ParameterNames.GRANT_TYPE);
         if (!AuthorizationGrantType.PASSWORD.getValue().equals(grantType)) {
@@ -48,16 +48,17 @@ public class CustomPasswordAuthenticationConverter implements AuthenticationConv
         throw new OAuth2AuthenticationException(error);
     }
 
-    private MultiValueMap<String, String> getQueryParameters(HttpServletRequest request) {
+    private MultiValueMap<String, String> getFormParameters(HttpServletRequest request) {
         Map<String, String[]> parameterMap = request.getParameterMap();
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap();
         parameterMap.forEach((key, values) -> {
             String queryString = StringUtils.hasText(request.getQueryString()) ? request.getQueryString() : "";
-            if (queryString.contains(key) && values.length > 0) {
+            if (!queryString.contains(key) && values.length > 0) {
                 for (String value : values) {
                     parameters.add(key, value);
                 }
             }
+
         });
         return parameters;
     }

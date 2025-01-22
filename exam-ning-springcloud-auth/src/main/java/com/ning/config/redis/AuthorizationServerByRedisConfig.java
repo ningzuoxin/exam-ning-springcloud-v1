@@ -67,13 +67,12 @@ public class AuthorizationServerByRedisConfig {
 //    private final AuthenticationManager authenticationManager;
 //    private final RedisConnectionFactory redisConnectionFactory;
 
+    private final UserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
+
     @Bean
     @Order(1)
-    public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http,
-                                                                      OAuth2TokenGenerator<?> tokenGenerator,
-                                                                      RegisteredClientRepository registeredClientRepository,
-                                                                      UserDetailsService userDetailsService,
-                                                                      PasswordEncoder passwordEncoder) throws Exception {
+    public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
         OAuth2AuthorizationServerConfigurer authorizationServerConfigurer = OAuth2AuthorizationServerConfigurer.authorizationServer();
 
         http
@@ -98,7 +97,7 @@ public class AuthorizationServerByRedisConfig {
                 .tokenEndpoint(tokenEndpoint ->
                         tokenEndpoint
                                 .accessTokenRequestConverter(new CustomPasswordAuthenticationConverter())
-                                .authenticationProvider(new CustomPasswordAuthenticationProvider(registeredClientRepository, authorizationService(), tokenGenerator(), userDetailsService, passwordEncoder))
+                                .authenticationProvider(new CustomPasswordAuthenticationProvider(authorizationService(), tokenGenerator(), userDetailsService, passwordEncoder))
                 );
 
         return http.build();
@@ -157,10 +156,10 @@ public class AuthorizationServerByRedisConfig {
     public OAuth2TokenGenerator<?> tokenGenerator() {
         JwtEncoder jwtEncoder = new NimbusJwtEncoder(jwkSource());
         JwtGenerator jwtGenerator = new JwtGenerator(jwtEncoder);
+        jwtGenerator.setJwtCustomizer(jwtCustomizer());
         OAuth2AccessTokenGenerator accessTokenGenerator = new OAuth2AccessTokenGenerator();
         OAuth2RefreshTokenGenerator refreshTokenGenerator = new OAuth2RefreshTokenGenerator();
-        return new DelegatingOAuth2TokenGenerator(
-                jwtGenerator, accessTokenGenerator, refreshTokenGenerator);
+        return new DelegatingOAuth2TokenGenerator(jwtGenerator, accessTokenGenerator, refreshTokenGenerator);
     }
 
     @Bean
