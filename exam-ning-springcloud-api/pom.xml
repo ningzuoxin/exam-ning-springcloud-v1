@@ -11,11 +11,6 @@
 
     <artifactId>exam-ning-springcloud-api</artifactId>
 
-    <properties>
-        <mybatis.version>3.5.16</mybatis.version>
-        <perf4j.version>0.9.16</perf4j.version>
-    </properties>
-
     <dependencies>
         <!-- hutool -->
         <dependency>
@@ -54,17 +49,23 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
         </dependency>
+        <!-- mybatis -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <scope>compile</scope>
+        </dependency>
         <!-- mybatis plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <artifactId>mybatis-plus-core</artifactId>
+            <version>${mybatis.plus.version}</version>
             <scope>compile</scope>
         </dependency>
         <!-- perf4j -->
         <dependency>
             <groupId>org.perf4j</groupId>
             <artifactId>perf4j</artifactId>
-            <version>${perf4j.version}</version>
         </dependency>
     </dependencies>
 

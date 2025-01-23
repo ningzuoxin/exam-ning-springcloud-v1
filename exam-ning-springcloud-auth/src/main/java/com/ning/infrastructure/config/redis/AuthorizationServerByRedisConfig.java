@@ -5,8 +5,8 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
-import com.ning.infrastructure.common.constant.Constants;
 import com.ning.domain.entity.CurrentUser;
+import com.ning.infrastructure.common.constant.Constants;
 import com.ning.infrastructure.security.CustomPasswordAuthenticationConverter;
 import com.ning.infrastructure.security.CustomPasswordAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
@@ -63,10 +63,6 @@ import java.util.UUID;
 @EnableMethodSecurity(jsr250Enabled = true, securedEnabled = true)
 public class AuthorizationServerByRedisConfig {
 
-//    private final UserDetailsService userDetailsService;
-//    private final AuthenticationManager authenticationManager;
-//    private final RedisConnectionFactory redisConnectionFactory;
-
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
 
@@ -78,15 +74,12 @@ public class AuthorizationServerByRedisConfig {
         http
                 .securityMatcher(authorizationServerConfigurer.getEndpointsMatcher())
                 .with(authorizationServerConfigurer, (authorizationServer) ->
-                                authorizationServer
-//                                .tokenGenerator(new OAuth2AccessTokenGenerator())
-                                        .oidc(Customizer.withDefaults())    // Enable OpenID Connect 1.0
+                        authorizationServer
+                                .oidc(Customizer.withDefaults())
                 )
                 .authorizeHttpRequests((authorize) ->
                         authorize.anyRequest().authenticated()
                 )
-                // Redirect to the login page when not authenticated from the
-                // authorization endpoint
                 .exceptionHandling((exceptions) -> exceptions
                         .defaultAuthenticationEntryPointFor(
                                 new LoginUrlAuthenticationEntryPoint("/login"),
@@ -102,22 +95,6 @@ public class AuthorizationServerByRedisConfig {
 
         return http.build();
     }
-
-//    @Bean
-//    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-//        http.authorizeHttpRequests((authorize) -> authorize
-//                        // 放行静态资源
-//                        .requestMatchers("/assets/**", "/webjars/**", "/login").permitAll()
-//                        .anyRequest().authenticated()
-//                )
-//                // 指定登录页面
-//                .formLogin(Customizer.withDefaults());
-//        // 添加BearerTokenAuthenticationFilter，将认证服务当做一个资源服务，解析请求头中的token
-//        http.oauth2ResourceServer((resourceServer) -> resourceServer
-//                .jwt(Customizer.withDefaults()));
-//
-//        return http.build();
-//    }
 
     /**
      * 配置注册的客户端
@@ -141,7 +118,6 @@ public class AuthorizationServerByRedisConfig {
                 .scope("message.read")
                 .scope("message.write")
                 .scope("user.read")
-//                .tokenSettings(TokenSettings.builder().accessTokenFormat(OAuth2TokenFormat.REFERENCE).build())
                 .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
                 .build();
         return new InMemoryRegisteredClientRepository(messagingClient);
