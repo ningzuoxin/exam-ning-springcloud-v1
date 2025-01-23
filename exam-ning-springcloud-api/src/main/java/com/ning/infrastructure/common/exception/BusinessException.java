@@ -1,6 +1,6 @@
 package com.ning.infrastructure.common.exception;
 
-import com.ning.infrastructure.common.constant.ErrorCodeEnum;
+import com.ning.infrastructure.common.enums.ErrorCodeEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,23 +13,15 @@ public class BusinessException extends RuntimeException {
     @Serial
     private static final long serialVersionUID = -4585228147276606617L;
 
-    private String code;
-    private String message;
+    private ErrorCodeEnum errorCode;
 
     private BusinessException() {
         super();
     }
 
-    public BusinessException(String code, String message) {
+    public BusinessException(ErrorCodeEnum errorCode) {
         super();
-        this.code = code;
-        this.message = message;
-    }
-
-    public BusinessException(ErrorCodeEnum errorCodeEnum) {
-        super();
-        this.code = errorCodeEnum.getCode();
-        this.message = errorCodeEnum.getMessage();
+        this.errorCode = errorCode;
     }
 
 }

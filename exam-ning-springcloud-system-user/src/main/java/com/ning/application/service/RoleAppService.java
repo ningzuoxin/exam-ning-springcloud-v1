@@ -2,7 +2,7 @@ package com.ning.application.service;
 
 import com.ning.application.assembler.RoleAssembler;
 import com.ning.application.dto.RoleDTO;
-import com.ning.infrastructure.common.constant.ErrorCodeEnum;
+import com.ning.infrastructure.common.enums.ErrorCodeEnum;
 import com.ning.domain.entity.Role;
 import com.ning.domain.repository.RoleRepository;
 import com.ning.domain.types.RoleId;

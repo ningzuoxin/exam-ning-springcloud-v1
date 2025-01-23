@@ -4,7 +4,7 @@ import com.ning.application.assembler.PaperResultAssembler;
 import com.ning.application.dto.PaperQuestionResultGradingDTO;
 import com.ning.application.dto.PaperResultDTO;
 import com.ning.application.dto.PaperResultDetailDTO;
-import com.ning.infrastructure.common.constant.ErrorCodeEnum;
+import com.ning.infrastructure.common.enums.ErrorCodeEnum;
 import com.ning.domain.entity.PaperQuestion;
 import com.ning.domain.entity.PaperQuestionResult;
 import com.ning.domain.entity.PaperResult;

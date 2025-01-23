@@ -2,7 +2,7 @@ package com.ning.application.service;
 
 import com.ning.application.assembler.UserAssembler;
 import com.ning.application.dto.UserDTO;
-import com.ning.infrastructure.common.constant.ErrorCodeEnum;
+import com.ning.infrastructure.common.enums.ErrorCodeEnum;
 import com.ning.domain.entity.Role;
 import com.ning.domain.entity.User;
 import com.ning.domain.repository.MenuRepository;

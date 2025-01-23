@@ -3,7 +3,7 @@ package com.ning.application.service;
 import com.ning.application.assembler.QuestionAssembler;
 import com.ning.application.dto.QuestionDTO;
 import com.ning.application.dto.QuestionTypeDTO;
-import com.ning.infrastructure.common.constant.ErrorCodeEnum;
+import com.ning.infrastructure.common.enums.ErrorCodeEnum;
 import com.ning.domain.entity.Question;
 import com.ning.domain.enums.QuestionTypeEnum;
 import com.ning.domain.repository.QuestionRepository;

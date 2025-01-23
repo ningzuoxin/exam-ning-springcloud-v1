@@ -1,4 +1,4 @@
-package com.ning.infrastructure.common.constant;
+package com.ning.infrastructure.common.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

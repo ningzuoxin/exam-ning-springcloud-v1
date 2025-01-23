@@ -7,7 +7,7 @@ import com.ning.application.dto.PaperDTO;
 import com.ning.application.dto.PaperPreviewDTO;
 import com.ning.application.dto.PaperQuestionSubmitDTO;
 import com.ning.application.dto.PaperTypeDTO;
-import com.ning.infrastructure.common.constant.ErrorCodeEnum;
+import com.ning.infrastructure.common.enums.ErrorCodeEnum;
 import com.ning.domain.entity.*;
 import com.ning.domain.enums.PaperTypeEnum;
 import com.ning.domain.repository.*;

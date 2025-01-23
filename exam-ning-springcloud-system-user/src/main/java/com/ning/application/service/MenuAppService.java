@@ -6,7 +6,7 @@ import com.ning.application.dto.MenuDTO;
 import com.ning.application.dto.MetaDTO;
 import com.ning.application.dto.RouterDTO;
 import com.ning.application.dto.TreeSelectDTO;
-import com.ning.infrastructure.common.constant.ErrorCodeEnum;
+import com.ning.infrastructure.common.enums.ErrorCodeEnum;
 import com.ning.domain.entity.Menu;
 import com.ning.domain.enums.MenuStatusEnum;
 import com.ning.domain.enums.MenuTypeEnum;

@@ -1,94 +1,36 @@
 package com.ning.infrastructure.utils;
 
-import cn.hutool.core.convert.Convert;
-import jakarta.servlet.http.HttpServletRequest;
+import cn.hutool.core.exceptions.UtilException;
+import cn.hutool.core.io.IoUtil;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.io.IOException;
+import java.io.Writer;
 
-/**
- * 客户端工具类
- */
 @Slf4j
 public class ServletUtils {
 
-    /**
-     * 获取String参数
-     */
-    public static String getParameter(String name) {
-        return getRequest().getParameter(name);
-    }
+    private static final String DEFAULT_CHARSET = "UTF-8";
+    private static final String DEFAULT_CONTENT_TYPE = "application/json";
 
-    /**
-     * 获取String参数
-     */
-    public static String getParameter(String name, String defaultValue) {
-        return Convert.toStr(getRequest().getParameter(name), defaultValue);
-    }
+    public static void write(HttpServletResponse response, HttpStatus httpStatus, String text) {
+        response.setCharacterEncoding(DEFAULT_CHARSET);
+        response.setContentType(DEFAULT_CONTENT_TYPE);
+        Writer writer = null;
 
-    /**
-     * 获取Integer参数
-     */
-    public static Integer getParameterToInt(String name) {
-        return Convert.toInt(getRequest().getParameter(name));
-    }
-
-    /**
-     * 获取Integer参数
-     */
-    public static Integer getParameterToInt(String name, Integer defaultValue) {
-        return Convert.toInt(getRequest().getParameter(name), defaultValue);
-    }
-
-    /**
-     * 获取request
-     */
-    public static HttpServletRequest getRequest() {
-        return getRequestAttributes().getRequest();
-    }
-
-    /**
-     * 获取response
-     */
-    public static HttpServletResponse getResponse() {
-        return getRequestAttributes().getResponse();
-    }
-
-    /**
-     * 获取session
-     */
-    public static HttpSession getSession() {
-        return getRequest().getSession();
-    }
-
-    public static ServletRequestAttributes getRequestAttributes() {
-        RequestAttributes attributes = RequestContextHolder.getRequestAttributes();
-        return (ServletRequestAttributes) attributes;
-    }
-
-    /**
-     * 将字符串渲染到客户端
-     *
-     * @param response 渲染对象
-     * @param string   待渲染的字符串
-     * @return null
-     */
-    public static String renderString(HttpServletResponse response, HttpStatus httpStatus, String string) {
         try {
             response.setStatus(httpStatus.value());
-            response.setContentType("application/json");
-            response.setCharacterEncoding("utf-8");
-            response.getWriter().print(string);
+            writer = response.getWriter();
+            writer.write(text);
+            writer.flush();
         } catch (IOException e) {
-            log.error("render response error. str: {}.", string, e);
+            log.error("write response error, text: {}.", text, e);
+            throw new UtilException(e);
+        } finally {
+            IoUtil.close(writer);
         }
-        return null;
     }
 
 }

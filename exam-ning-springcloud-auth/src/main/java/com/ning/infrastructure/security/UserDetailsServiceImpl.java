@@ -1,7 +1,7 @@
 package com.ning.infrastructure.security;
 
 import com.ning.domain.service.RemoteUserService;
-import com.ning.infrastructure.common.constant.ErrorCodeEnum;
+import com.ning.infrastructure.common.enums.ErrorCodeEnum;
 import com.ning.infrastructure.common.exception.BusinessException;
 import com.ning.domain.entity.CurrentUser;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package com.ning.infrastructure.security;
 
-import com.alibaba.fastjson.JSON;
-import com.ning.infrastructure.common.constant.ErrorCodeEnum;
+import cn.hutool.json.JSONUtil;
+import com.ning.infrastructure.common.enums.ErrorCodeEnum;
 import com.ning.infrastructure.common.model.ErrorResponse;
 import com.ning.infrastructure.utils.ServletUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +18,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) {
         ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.FORBIDDEN);
-        ServletUtils.renderString(response, HttpStatus.FORBIDDEN, JSON.toJSONString(errorResponse));
+        ServletUtils.write(response, HttpStatus.FORBIDDEN, JSONUtil.toJsonStr(errorResponse));
     }
 
 }
