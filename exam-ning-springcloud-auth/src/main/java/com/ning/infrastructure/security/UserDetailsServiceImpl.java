@@ -1,6 +1,6 @@
 package com.ning.infrastructure.security;
 
-import com.ning.domain.service.RemoteUserService;
+import com.ning.domain.service.CurrentUserService;
 import com.ning.infrastructure.common.enums.ErrorCodeEnum;
 import com.ning.infrastructure.common.exception.BusinessException;
 import com.ning.domain.entity.CurrentUser;
@@ -17,11 +17,11 @@ import java.util.Objects;
 @Service(value = "userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final RemoteUserService remoteUserService;
+    private final CurrentUserService currentUserService;
 
     @Override
     public UserDetails loadUserByUsername(String s) {
-        CurrentUser currentUser = remoteUserService.currentUser(s);
+        CurrentUser currentUser = currentUserService.currentUser(s);
         if (Objects.isNull(currentUser)) {
             log.info("current login user not exist. username: {}.", s);
             throw new BusinessException(ErrorCodeEnum.USER_NOT_EXISTS);

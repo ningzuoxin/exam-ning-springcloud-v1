@@ -7,7 +7,7 @@ CREATE TABLE `leaf_alloc` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`biz_tag`)
 ) ENGINE=InnoDB;
-insert into leaf_alloc (`biz_tag`, `max_id`, `step`, `description`, `update_time`) values('ID', 999999, 1483, 'ID', now());
+insert into leaf_alloc (`biz_tag`, `max_id`, `step`, `description`, `update_time`) values('ID', 168168, 168, 'ID', now());
 
 -- 系统用户表
 CREATE TABLE IF NOT EXISTS `sys_user` (
