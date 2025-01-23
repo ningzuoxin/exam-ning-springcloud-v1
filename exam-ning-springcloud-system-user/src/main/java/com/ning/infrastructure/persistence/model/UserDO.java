@@ -1,14 +1,13 @@
 package com.ning.infrastructure.persistence.model;
 
-import com.baomidou.mybatisplus.annotation.*;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Set;
-
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
+import java.util.Set;
 
 /**
  * <p>
@@ -22,17 +21,9 @@ import lombok.Setter;
 @Setter
 @TableName("sys_user")
 @Schema(name = "UserDO", description = "系统用户表")
-public class UserDO implements Serializable {
+public class UserDO extends AbstractDO implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Schema(description = "主键自增ID")
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
-
-    @Schema(description = "业务ID")
-    @TableField(value = "uid", fill = FieldFill.INSERT)
-    private Long uid;
 
     @Schema(description = "用户名")
     @TableField("username")
@@ -69,18 +60,6 @@ public class UserDO implements Serializable {
     @Schema(description = "头像")
     @TableField("avatar")
     private String avatar;
-
-    @Schema(description = "是否删除，0：未删除；1：已删除；")
-    @TableField("is_deleted")
-    private Byte isDeleted;
-
-    @Schema(description = "创建时间")
-    @TableField("create_time")
-    private LocalDateTime createTime;
-
-    @Schema(description = "更新时间")
-    @TableField("update_time")
-    private LocalDateTime updateTime;
 
     // 角色id
     @TableField(exist = false)

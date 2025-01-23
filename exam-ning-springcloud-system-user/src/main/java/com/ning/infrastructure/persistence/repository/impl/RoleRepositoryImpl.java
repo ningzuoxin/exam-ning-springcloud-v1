@@ -57,7 +57,7 @@ public class RoleRepositoryImpl implements RoleRepository {
             return roleConverter.toEntity(roleDO);
         } else {
             Optional<RoleDO> roleDOOpt = this.findByUid(role.getId().getValue());
-            if (!roleDOOpt.isPresent()) {
+            if (roleDOOpt.isEmpty()) {
                 throw new IllegalArgumentException("Role not exits, id: " + role.getId().getValue());
             }
 
@@ -77,7 +77,7 @@ public class RoleRepositoryImpl implements RoleRepository {
     @Override
     public boolean remove(RoleId roleId) {
         Optional<RoleDO> roleDOOpt = this.findByUid(roleId.getValue());
-        if (!roleDOOpt.isPresent()) {
+        if (roleDOOpt.isEmpty()) {
             return true;
         }
 

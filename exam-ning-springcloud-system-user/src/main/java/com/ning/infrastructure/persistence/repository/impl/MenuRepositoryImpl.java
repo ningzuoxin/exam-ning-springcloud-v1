@@ -72,7 +72,7 @@ public class MenuRepositoryImpl implements MenuRepository {
             return menuConverter.toEntity(menuDO);
         } else {
             Optional<MenuDO> menuDOOpt = this.findByUid(menuDO.getUid());
-            if (!menuDOOpt.isPresent()) {
+            if (menuDOOpt.isEmpty()) {
                 throw new IllegalArgumentException("Menu not exits, id: " + menu.getId().getValue());
             }
 
@@ -92,7 +92,7 @@ public class MenuRepositoryImpl implements MenuRepository {
     @Override
     public boolean remove(MenuId menuId) {
         Optional<MenuDO> menuDOOpt = this.findByUid(menuId.getValue());
-        if (!menuDOOpt.isPresent()) {
+        if (menuDOOpt.isEmpty()) {
             return true;
         }
 

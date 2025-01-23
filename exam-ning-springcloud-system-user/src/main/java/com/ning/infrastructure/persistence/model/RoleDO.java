@@ -1,12 +1,12 @@
 package com.ning.infrastructure.persistence.model;
 
-import com.baomidou.mybatisplus.annotation.*;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -20,17 +20,9 @@ import lombok.Setter;
 @Setter
 @TableName("sys_role")
 @Schema(name = "RoleDO", description = "系统角色表")
-public class RoleDO implements Serializable {
+public class RoleDO extends AbstractDO implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Schema(description = "主键自增ID")
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
-
-    @Schema(description = "业务ID")
-    @TableField(value = "uid", fill = FieldFill.INSERT)
-    private Long uid;
 
     @Schema(description = "角色名称")
     @TableField("role_name")
@@ -48,15 +40,4 @@ public class RoleDO implements Serializable {
     @TableField("status")
     private Byte status;
 
-    @Schema(description = "是否删除，0：未删除；1：已删除；")
-    @TableField("is_deleted")
-    private Byte isDeleted;
-
-    @Schema(description = "创建时间")
-    @TableField("create_time")
-    private LocalDateTime createTime;
-
-    @Schema(description = "更新时间")
-    @TableField("update_time")
-    private LocalDateTime updateTime;
 }
