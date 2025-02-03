@@ -62,6 +62,32 @@
             <version>${mybatis.plus.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+            <version>${mybatis.plus.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-jsqlparser</artifactId>
+            <version>${mybatis.plus.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- mybatis spring -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>${mybatis.spring.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- jsqlparser -->
+        <dependency>
+            <groupId>com.github.jsqlparser</groupId>
+            <artifactId>jsqlparser</artifactId>
+            <version>${jsqlparser.version}</version>
+            <scope>compile</scope>
+        </dependency>
         <!-- perf4j -->
         <dependency>
             <groupId>org.perf4j</groupId>

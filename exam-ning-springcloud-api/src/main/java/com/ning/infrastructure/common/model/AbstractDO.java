@@ -1,4 +1,4 @@
-package com.ning.infrastructure.persistence.model;
+package com.ning.infrastructure.common.model;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
