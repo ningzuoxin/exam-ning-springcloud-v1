@@ -44,7 +44,7 @@ public class ResourceServerByJwtConfig {
                 .anonymous(AbstractHttpConfigurer::disable)
                 .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/ids/**", "/users/current-user").permitAll()
+                        .requestMatchers("/ids/**", "/users/current-user", "/menus/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer((oauth2) -> oauth2

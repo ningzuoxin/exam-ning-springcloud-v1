@@ -12,6 +12,7 @@ import com.ning.interfaces.request.UpdateMenuRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public class MenuController {
     //    @PreAuthorize("@ss.hasPermi('system:menu:add')")
     @Operation(summary = "添加菜单")
     @PostMapping(value = "")
-    public MenuDTO add(@RequestBody AddMenuRequest request) {
+    public MenuDTO add(@Validated @RequestBody AddMenuRequest request) {
         MenuDTO menuDTO = menuAssembler.toDTO(request);
         return menuAppService.add(menuDTO);
     }
