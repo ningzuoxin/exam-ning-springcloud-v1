@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.ning.infrastructure.common.interceptors.IsDeleteInterceptor;
 import com.ning.infrastructure.common.model.AbstractDO;
 import com.ning.infrastructure.utils.IDUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,11 @@ public class MyBatisPlusConfig implements MetaObjectHandler {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         return interceptor;
+    }
+
+    @Bean
+    public IsDeleteInterceptor isDeleteInterceptor() {
+        return new IsDeleteInterceptor();
     }
 
     @Override
