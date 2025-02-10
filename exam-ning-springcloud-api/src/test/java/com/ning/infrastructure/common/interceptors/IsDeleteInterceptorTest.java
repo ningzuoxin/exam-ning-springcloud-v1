@@ -16,8 +16,20 @@ class IsDeleteInterceptorTest {
     }
 
     public static void testSelect(IsDeleteInterceptor interceptor) throws JSQLParserException {
-        // 表名不在忽略列表中，且没有 WHERE 条件
-        String sql = "DELETE FROM test_table;";
+        // 表名不需要忽略
+        String sql = "SELECT * FROM users;";
+
+        // FROM 子句为子查询
+        sql = "SELECT * FROM (SELECT id, name FROM users) AS subquery;";
+
+        // JOIN 右表为 Table
+        sql = "SELECT * FROM users u JOIN orders o ON u.id = o.user_id;";
+
+        // JOIN 右表为子查询
+        sql = "SELECT * FROM users u JOIN (SELECT user_id FROM orders) AS o ON u.id = o.user_id;";
+
+        // 复杂查询
+        sql = "SELECT * FROM (SELECT u.id, u.name FROM users u JOIN orders o ON u.id = o.user_id) AS subquery;";
 
         interceptor.justForTest(sql);
     }

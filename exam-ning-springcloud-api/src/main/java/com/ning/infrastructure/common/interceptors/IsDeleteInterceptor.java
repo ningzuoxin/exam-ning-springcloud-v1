@@ -40,11 +40,10 @@ import java.util.Set;
 )})
 public class IsDeleteInterceptor implements Interceptor {
 
-    private static final Byte DELETED_VALUE = 1;
     private static final Byte NOT_DELETED_VALUE = 0;
     private static final String IS_DELETE_COLUMN_NAME = "is_deleted";
 
-    private static final Set<String> IGNORE_TABLE_NAMES = Set.of("ignored_table");
+    private static final Set<String> IGNORE_TABLE_NAMES = Set.of("");
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
