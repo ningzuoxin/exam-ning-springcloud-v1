@@ -29,7 +29,7 @@ public abstract class AbstractDO implements Serializable {
     private Long uid;
 
     // 0: not delete, 1: deleted
-    @TableField(value = "is_deleted", fill = FieldFill.INSERT)
+    @TableField(value = "is_deleted")
     private Byte isDeleted;
 
     @TableField(value = "create_time", fill = FieldFill.INSERT)

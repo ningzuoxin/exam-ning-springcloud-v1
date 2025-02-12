@@ -110,7 +110,6 @@ public class MenuRepositoryImpl implements MenuRepository {
     @Override
     public List<Menu> findAll() {
         QueryWrapper<MenuDO> wrapper = new QueryWrapper<>();
-        wrapper.eq("is_deleted", 0);
         List<MenuDO> menuDOList = menuDao.selectList(wrapper);
         return menuConverter.toEntityList(menuDOList);
     }
@@ -130,7 +129,6 @@ public class MenuRepositoryImpl implements MenuRepository {
 
         // 查询对象
         LambdaQueryWrapper<MenuDO> wrapper = new QueryWrapper<MenuDO>().lambda();
-        wrapper.eq(MenuDO::getIsDeleted, 0);
         if (StrUtil.isNotEmpty(keyword)) {
             wrapper.like(MenuDO::getMenuName, keyword);
         }
@@ -154,7 +152,6 @@ public class MenuRepositoryImpl implements MenuRepository {
     public List<Menu> findCatalogAndMenu() {
         // 查询对象
         LambdaQueryWrapper<MenuDO> wrapper = new QueryWrapper<MenuDO>().lambda();
-        wrapper.eq(MenuDO::getIsDeleted, 0);
         wrapper.eq(MenuDO::getStatus, MenuStatusEnum.NORMAL.getValue());
         wrapper.eq(MenuDO::getMenuType, MenuTypeEnum.Catalog.getValue()).or().eq(MenuDO::getMenuType, MenuTypeEnum.Menu.getValue());
         wrapper.orderByAsc(MenuDO::getParentUid, MenuDO::getSortNum, MenuDO::getUpdateTime);
@@ -185,14 +182,12 @@ public class MenuRepositoryImpl implements MenuRepository {
     private Optional<MenuDO> findByUid(Long uid) {
         QueryWrapper<MenuDO> wrapper = new QueryWrapper<>();
         wrapper.eq("uid", uid);
-        wrapper.eq("is_deleted", 0);
         return Optional.ofNullable(menuDao.selectOne(wrapper));
     }
 
     private List<MenuDO> findByParentUid(Long parentUid) {
         QueryWrapper<MenuDO> wrapper = new QueryWrapper<>();
         wrapper.eq("parent_uid", parentUid);
-        wrapper.eq("is_deleted", 0);
         return menuDao.selectList(wrapper);
     }
 

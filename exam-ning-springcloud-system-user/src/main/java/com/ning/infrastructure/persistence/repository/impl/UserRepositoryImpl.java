@@ -47,7 +47,6 @@ public class UserRepositoryImpl implements UserRepository {
     public User find(Username username) {
         QueryWrapper<UserDO> wrapper = new QueryWrapper<>();
         wrapper.eq("username", username.getValue());
-        wrapper.eq("is_deleted", 0);
         UserDO userDO = userDao.selectOne(wrapper);
 
         User user = userConverter.toEntity(userDO);
@@ -106,7 +105,6 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public List<User> findAll() {
         QueryWrapper<UserDO> wrapper = new QueryWrapper<>();
-        wrapper.eq("is_deleted", 0);
         List<UserDO> userDOList = userDao.selectList(wrapper);
         return userConverter.toEntityList(userDOList);
     }
@@ -126,7 +124,6 @@ public class UserRepositoryImpl implements UserRepository {
 
         // 查询对象
         LambdaQueryWrapper<UserDO> wrapper = new QueryWrapper<UserDO>().lambda();
-        wrapper.eq(UserDO::getIsDeleted, 0);
         if (StrUtil.isNotEmpty(keyword)) {
             wrapper.like(UserDO::getNickname, keyword).or()
                     .like(UserDO::getUsername, keyword).or()
@@ -158,7 +155,6 @@ public class UserRepositoryImpl implements UserRepository {
         }
 
         UserDO userDO = userDOOpt.get();
-        userDO.setIsDeleted((byte) 1);
         userDao.updateById(userDO);
         return true;
     }
@@ -192,21 +188,18 @@ public class UserRepositoryImpl implements UserRepository {
     public long count(Username username) {
         QueryWrapper<UserDO> wrapper = new QueryWrapper<>();
         wrapper.eq("username", username.getValue());
-        wrapper.eq("is_deleted", 0);
         return userDao.selectCount(wrapper);
     }
 
     private Optional<UserDO> findByUid(Long uid) {
         QueryWrapper<UserDO> wrapper = new QueryWrapper<>();
         wrapper.eq("uid", uid);
-        wrapper.eq("is_deleted", 0);
         return Optional.ofNullable(userDao.selectOne(wrapper));
     }
 
     private Optional<UserRoleDO> findByUserId(Long userId) {
         QueryWrapper<UserRoleDO> wrapper = new QueryWrapper<>();
         wrapper.eq("user_uid", userId);
-        wrapper.eq("is_deleted", 0);
         return Optional.ofNullable(userRoleDao.selectOne(wrapper));
     }
 

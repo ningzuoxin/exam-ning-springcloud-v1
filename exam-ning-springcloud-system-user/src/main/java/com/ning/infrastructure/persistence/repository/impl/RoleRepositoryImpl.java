@@ -82,7 +82,6 @@ public class RoleRepositoryImpl implements RoleRepository {
         }
 
         RoleDO roleDO = roleDOOpt.get();
-        roleDO.setIsDeleted((byte) 1);
         roleDao.updateById(roleDO);
         return true;
     }
@@ -95,7 +94,6 @@ public class RoleRepositoryImpl implements RoleRepository {
     @Override
     public List<Role> findAll() {
         QueryWrapper<RoleDO> wrapper = new QueryWrapper<>();
-        wrapper.eq("is_deleted", 0);
         List<RoleDO> roleDOList = roleDao.selectList(wrapper);
         return roleConverter.toEntityList(roleDOList);
     }
@@ -115,7 +113,6 @@ public class RoleRepositoryImpl implements RoleRepository {
 
         // 查询对象
         LambdaQueryWrapper<RoleDO> wrapper = new QueryWrapper<RoleDO>().lambda();
-        wrapper.eq(RoleDO::getIsDeleted, 0);
         if (StrUtil.isNotEmpty(keyword)) {
             wrapper.like(RoleDO::getRoleName, keyword);
         }
@@ -141,14 +138,12 @@ public class RoleRepositoryImpl implements RoleRepository {
     public long countByRoleKey(String roleKey) {
         QueryWrapper<RoleDO> wrapper = new QueryWrapper<>();
         wrapper.eq("role_key", roleKey);
-        wrapper.eq("is_deleted", 0);
         return roleDao.selectCount(wrapper);
     }
 
     private Optional<RoleDO> findByUid(Long uid) {
         QueryWrapper<RoleDO> wrapper = new QueryWrapper<>();
         wrapper.eq("uid", uid);
-        wrapper.eq("is_deleted", 0);
         return Optional.ofNullable(roleDao.selectOne(wrapper));
     }
 

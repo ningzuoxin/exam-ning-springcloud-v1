@@ -35,7 +35,6 @@ public class MyBatisPlusConfig implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         this.strictInsertFill(metaObject, AbstractDO.Fields.uid, Long.class, IDUtils.getId());
-        this.strictInsertFill(metaObject, AbstractDO.Fields.isDeleted, Byte.class, (byte) 0);
         this.strictInsertFill(metaObject, AbstractDO.Fields.createTime, LocalDateTime.class, LocalDateTime.now());
         this.strictInsertFill(metaObject, AbstractDO.Fields.updateTime, LocalDateTime.class, LocalDateTime.now());
     }
