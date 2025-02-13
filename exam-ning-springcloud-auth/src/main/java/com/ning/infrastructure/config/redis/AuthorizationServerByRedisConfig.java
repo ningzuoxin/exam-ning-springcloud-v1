@@ -7,12 +7,15 @@ import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import com.ning.domain.entity.CurrentUser;
 import com.ning.infrastructure.common.constant.Constants;
+import com.ning.infrastructure.security.CustomOAuth2AuthorizationService;
 import com.ning.infrastructure.security.CustomPasswordAuthenticationConverter;
 import com.ning.infrastructure.security.CustomPasswordAuthenticationProvider;
+import com.ning.infrastructure.security.CustomRegisteredClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -63,6 +66,7 @@ import java.util.UUID;
 @EnableMethodSecurity(jsr250Enabled = true, securedEnabled = true)
 public class AuthorizationServerByRedisConfig {
 
+    private final RedisTemplate<String, String> redisTemplate;
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
 
@@ -120,12 +124,16 @@ public class AuthorizationServerByRedisConfig {
                 .scope("user.read")
                 .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
                 .build();
-        return new InMemoryRegisteredClientRepository(messagingClient);
+        CustomRegisteredClientRepository clientRepository = new CustomRegisteredClientRepository(redisTemplate);
+        clientRepository.save(messagingClient);
+        return clientRepository;
+//        return new InMemoryRegisteredClientRepository(messagingClient);
     }
 
     @Bean
     public OAuth2AuthorizationService authorizationService() {
-        return new InMemoryOAuth2AuthorizationService();
+        return new CustomOAuth2AuthorizationService(redisTemplate);
+//        return new InMemoryOAuth2AuthorizationService();
     }
 
     @Bean
