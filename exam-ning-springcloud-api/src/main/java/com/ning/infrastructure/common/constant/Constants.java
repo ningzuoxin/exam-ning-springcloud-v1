@@ -3,16 +3,16 @@ package com.ning.infrastructure.common.constant;
 public class Constants {
 
     // client_id
-    public static final String CLIENT_ID = "ning666888";
+    public static final String CLIENT_ID = "ning168168";
 
     // client_secret
-    public static final String CLIENT_SECRET = "888666";
+    public static final String CLIENT_SECRET = "168668";
 
-    // scopes
-    public static final String SCOPES = "ningning";
+    // redirectUri
+    public static final String REDIRECT_URI = "http://127.0.0.1:8080";
 
-    // signing_key
-    public static final String SIGNING_KEY = "ningning";
+    // postLogoutRedirectUri
+    public static final String POST_LOGOUT_REDIRECT_URI = "http://127.0.0.1:8080/logout";
 
     // RedisTokenStore prefix
     public static final String REDIS_STORE_PREFIX = "oauth:access:";

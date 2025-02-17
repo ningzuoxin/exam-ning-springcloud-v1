@@ -1,15 +1,19 @@
 package com.ning.infrastructure.security;
 
+import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import lombok.Data;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
+import org.springframework.security.oauth2.server.authorization.settings.ConfigurationSettingNames;
+import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Map;
 import java.util.Set;
@@ -70,7 +74,25 @@ public class RegisteredClientWrapper implements Serializable {
         wrapper.getPostLogoutRedirectUris().forEach(builder::postLogoutRedirectUri);
         wrapper.getScopes().forEach(builder::scope);
         builder.clientSettings(ClientSettings.withSettings(wrapper.clientSettings).build());
-        builder.tokenSettings(TokenSettings.withSettings(wrapper.tokenSettings).build());
+
+        Map<String, Object> tokenSettingsMap = wrapper.getTokenSettings();
+        TokenSettings.Builder tokenSettingsBuilder = TokenSettings.withSettings(tokenSettingsMap);
+        if (tokenSettingsMap.containsKey(ConfigurationSettingNames.Token.ACCESS_TOKEN_FORMAT)) {
+            Object tokenFormat = tokenSettingsMap.get(ConfigurationSettingNames.Token.ACCESS_TOKEN_FORMAT);
+            if (tokenFormat instanceof JSONObject jsonObject) {
+                tokenSettingsBuilder.accessTokenFormat(new OAuth2TokenFormat(jsonObject.getStr("value")));
+            }
+        } else {
+            tokenSettingsBuilder.accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED);
+        }
+
+        tokenSettingsBuilder.accessTokenTimeToLive(Duration.parse(tokenSettingsMap.get(ConfigurationSettingNames.Token.ACCESS_TOKEN_TIME_TO_LIVE).toString()));
+        tokenSettingsBuilder.authorizationCodeTimeToLive(Duration.parse(tokenSettingsMap.get(ConfigurationSettingNames.Token.AUTHORIZATION_CODE_TIME_TO_LIVE).toString()));
+        tokenSettingsBuilder.deviceCodeTimeToLive(Duration.parse(tokenSettingsMap.get(ConfigurationSettingNames.Token.DEVICE_CODE_TIME_TO_LIVE).toString()));
+        tokenSettingsBuilder.refreshTokenTimeToLive(Duration.parse(tokenSettingsMap.get(ConfigurationSettingNames.Token.REFRESH_TOKEN_TIME_TO_LIVE).toString()));
+
+        builder.tokenSettings(tokenSettingsBuilder.build());
+
         return builder.build();
     }
 

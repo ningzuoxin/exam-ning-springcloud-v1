@@ -1,4 +1,4 @@
-package com.ning.infrastructure.config.redis;
+package com.ning.infrastructure.config.jwt;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -7,10 +7,8 @@ import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import com.ning.domain.entity.CurrentUser;
 import com.ning.infrastructure.common.constant.Constants;
-import com.ning.infrastructure.security.CustomOAuth2AuthorizationService;
 import com.ning.infrastructure.security.CustomPasswordAuthenticationConverter;
 import com.ning.infrastructure.security.CustomPasswordAuthenticationProvider;
-import com.ning.infrastructure.security.CustomRegisteredClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +19,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -55,7 +54,7 @@ import java.util.Date;
 import java.util.UUID;
 
 /**
- * 基于 Redis 的授权服务器配置
+ * 基于 Jwt 的授权服务器配置
  *
  * @author zuoxin.ning
  * @since 2025-01-04 11:00
@@ -64,7 +63,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @EnableWebSecurity
 @EnableMethodSecurity(jsr250Enabled = true, securedEnabled = true)
-public class AuthorizationServerByRedisConfig {
+public class AuthorizationServerByJwtConfig {
 
     private final RedisTemplate<String, String> redisTemplate;
     private final UserDetailsService userDetailsService;
@@ -90,6 +89,7 @@ public class AuthorizationServerByRedisConfig {
                                 new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
                         )
                 )
+                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .getConfigurer(OAuth2AuthorizationServerConfigurer.class)
                 .tokenEndpoint(tokenEndpoint ->
                         tokenEndpoint
@@ -107,33 +107,26 @@ public class AuthorizationServerByRedisConfig {
      */
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
-        RegisteredClient messagingClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("messaging-client")
-                .clientSecret(NoOpPasswordEncoder.getInstance().encode("123456"))
+        RegisteredClient client = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId(Constants.CLIENT_ID)
+                .clientSecret(NoOpPasswordEncoder.getInstance().encode(Constants.CLIENT_SECRET))
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.PASSWORD)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .redirectUri("https://www.baidu.com")
-                .postLogoutRedirectUri("http://127.0.0.1:9527/logged-out")
+                .redirectUri(Constants.REDIRECT_URI)
+                .postLogoutRedirectUri(Constants.POST_LOGOUT_REDIRECT_URI)
                 .scope(OidcScopes.OPENID)
                 .scope(OidcScopes.PROFILE)
-                .scope("message.read")
-                .scope("message.write")
-                .scope("user.read")
                 .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
                 .build();
-        CustomRegisteredClientRepository clientRepository = new CustomRegisteredClientRepository(redisTemplate);
-        clientRepository.save(messagingClient);
-        return clientRepository;
-//        return new InMemoryRegisteredClientRepository(messagingClient);
+        return new InMemoryRegisteredClientRepository(client);
     }
 
     @Bean
     public OAuth2AuthorizationService authorizationService() {
-        return new CustomOAuth2AuthorizationService(redisTemplate);
-//        return new InMemoryOAuth2AuthorizationService();
+        return new InMemoryOAuth2AuthorizationService();
     }
 
     @Bean
