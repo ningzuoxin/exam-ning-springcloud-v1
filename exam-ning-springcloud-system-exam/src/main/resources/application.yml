@@ -6,12 +6,14 @@ server:
 spring:
   application:
     name: exam-ning-system-exam
+  config:
+    import: optional:nacos:${spring.application.name}.yml
   cloud:
     nacos:
       config:
-        enabled: false
+        enabled: true
       discovery:
-        enabled: false
+        enabled: true
         server-addr: 127.0.0.1:8848 # 服务注册中心
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
@@ -65,3 +67,12 @@ swagger:
         description: 客户端授权范围
     token-url-list:
       - http://localhost:8080/auth/oauth/token
+
+logging:
+  config: classpath:log4j2-spring.xml
+  file:
+    path: ${LOG_FILE_PATH:E:\tmp\mnt\logs\exam\user}
+    max-size: 100 MB
+    max-history: 30
+#  level:
+#    root: ${LOG_LEVEL_ROOT:INFO}

@@ -1,4 +1,4 @@
-package com.ning.config;
+package com.ning.infrastructure.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.config.GatewayProperties;

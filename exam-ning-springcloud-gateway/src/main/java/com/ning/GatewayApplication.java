@@ -8,10 +8,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @Slf4j
 @EnableDiscoveryClient
 @SpringBootApplication
-public class ExamNingGatewayApplication {
+public class GatewayApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ExamNingGatewayApplication.class, args);
+        SpringApplication.run(GatewayApplication.class, args);
         log.info("gateway server run success !!!");
     }
 

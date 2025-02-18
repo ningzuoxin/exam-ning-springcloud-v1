@@ -5,15 +5,15 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ning.infrastructure.persistence.model.QuestionDO">
         <id column="id" property="id" />
-        <errorResponse column="uid" property="uid" />
-        <errorResponse column="type" property="type" />
-        <errorResponse column="content" property="content" />
-        <errorResponse column="correct_answer" property="correctAnswer" />
-        <errorResponse column="explanation" property="explanation" />
-        <errorResponse column="options" property="options" />
-        <errorResponse column="is_deleted" property="isDeleted" />
-        <errorResponse column="create_time" property="createTime" />
-        <errorResponse column="update_time" property="updateTime" />
+        <result column="uid" property="uid" />
+        <result column="type" property="type" />
+        <result column="content" property="content" />
+        <result column="correct_answer" property="correctAnswer" />
+        <result column="explanation" property="explanation" />
+        <result column="options" property="options" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->

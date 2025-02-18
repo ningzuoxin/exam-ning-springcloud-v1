@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: exam-ning-gateway
+  config:
+    import: optional:nacos:${spring.application.name}.yml
   cloud:
     nacos:
       discovery:
@@ -31,3 +33,12 @@ spring:
           uri: lb://exam-ning-system-user
           predicates:
             - Path=/system/**
+
+logging:
+  config: classpath:log4j2-spring.xml
+  file:
+    path: ${LOG_FILE_PATH:E:\tmp\mnt\logs\exam\gateway}
+    max-size: 100 MB
+    max-history: 30
+#  level:
+#    root: ${LOG_LEVEL_ROOT:INFO}

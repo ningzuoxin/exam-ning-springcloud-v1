@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <!-- Base configuration -->
+        <Property name="LOG_PATH">${spring:logging.file.path}</Property>
+        <Property name="MAX_SIZE">${spring:logging.file.max-size}</Property>
+        <Property name="MAX_HISTORY">${spring:logging.file.max-history}</Property>
+
+        <!-- Log pattern -->
+        <Property name="PATTERN_FORMAT">%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Property>
+
+        <!-- Dynamic date folder format -->
+        <Property name="DATE_PATTERN">${date:yyyyMMdd}</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Console output -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${PATTERN_FORMAT}"/>
+        </Console>
+
+        <!-- INFO level logs -->
+        <RollingFile name="InfoFile"
+                     fileName="${LOG_PATH}/${DATE_PATTERN}/info.log"
+                     filePattern="${LOG_PATH}/${DATE_PATTERN}/info.%i.log">
+            <PatternLayout pattern="${PATTERN_FORMAT}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="${MAX_SIZE}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${MAX_HISTORY}"/>
+            <!-- Only log INFO level -->
+            <Filters>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+
+        <!-- WARN level logs -->
+        <RollingFile name="WarnFile"
+                     fileName="${LOG_PATH}/${DATE_PATTERN}/warn.log"
+                     filePattern="${LOG_PATH}/${DATE_PATTERN}/warn.%i.log">
+            <PatternLayout pattern="${PATTERN_FORMAT}"/>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="${MAX_SIZE}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${MAX_HISTORY}"/>
+            <!-- Only log WARN level -->
+            <Filters>
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+
+        <!-- ERROR level logs -->
+        <RollingFile name="ErrorFile"
+                     fileName="${LOG_PATH}/${DATE_PATTERN}/error.log"
+                     filePattern="${LOG_PATH}/${DATE_PATTERN}/error.%i.log">
+            <PatternLayout pattern="${PATTERN_FORMAT}"/>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="${MAX_SIZE}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${MAX_HISTORY}"/>
+            <!-- Only log ERROR level -->
+            <Filters>
+                <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <!-- SQL logger -->
+        <Logger name="com.ning.infrastructure.persistence.dao" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <!-- Project logger -->
+        <Logger name="com.ning" level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="InfoFile"/>
+            <AppenderRef ref="WarnFile"/>
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+
+        <!-- Root Logger -->
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="InfoFile"/>
+            <AppenderRef ref="WarnFile"/>
+            <AppenderRef ref="ErrorFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

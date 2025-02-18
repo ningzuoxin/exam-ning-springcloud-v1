@@ -14,7 +14,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @Slf4j
 @EnableFeignClients
-//@EnableDiscoveryClient
+@EnableDiscoveryClient
 @SpringBootApplication
 public class AuthServiceApplication {
 

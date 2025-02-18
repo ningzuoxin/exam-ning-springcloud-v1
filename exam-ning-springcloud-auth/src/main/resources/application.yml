@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: exam-ning-auth
+  config:
+    import: optional:nacos:${spring.application.name}.yml
   cloud:
     nacos:
       discovery:
