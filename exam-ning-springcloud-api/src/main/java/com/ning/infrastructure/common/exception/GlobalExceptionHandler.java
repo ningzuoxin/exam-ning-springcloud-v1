@@ -10,11 +10,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @Slf4j
 @Order(-1)
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(value = NoResourceFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNoResourceFoundException(NoResourceFoundException e) {
+        ErrorResponse response = new ErrorResponse(ErrorCodeEnum.API_NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
 
     @ExceptionHandler(value = BusinessException.class)
     public ResponseEntity<ErrorResponse> handleBusinessException(BusinessException e) {

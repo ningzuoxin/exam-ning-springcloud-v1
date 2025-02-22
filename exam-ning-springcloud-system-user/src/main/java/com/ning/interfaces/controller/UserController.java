@@ -5,6 +5,7 @@ import com.ning.application.dto.UserDTO;
 import com.ning.application.service.UserAppService;
 import com.ning.domain.entity.CurrentUser;
 import com.ning.infrastructure.common.model.PageWrapper;
+import com.ning.infrastructure.utils.SecurityUtils;
 import com.ning.interfaces.request.AddUserRequest;
 import com.ning.interfaces.request.UpdateUserRequest;
 import io.swagger.v3.oas.annotations.Operation;
@@ -79,6 +80,12 @@ public class UserController {
     @GetMapping(value = "/{id}")
     public UserDTO get(@PathVariable(value = "id") @Parameter(name = "id", example = "1") Long id) {
         return userAppService.get(id);
+    }
+
+    @Operation(summary = "获取当前登录的用户信息")
+    @GetMapping(value = "/current-user-info")
+    public UserDTO get() {
+        return userAppService.get(SecurityUtils.userId());
     }
 
 }

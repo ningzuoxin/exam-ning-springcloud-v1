@@ -2,6 +2,7 @@ package com.ning.application.service;
 
 import com.ning.application.assembler.UserAssembler;
 import com.ning.application.dto.UserDTO;
+import com.ning.domain.entity.Menu;
 import com.ning.infrastructure.common.enums.ErrorCodeEnum;
 import com.ning.domain.entity.Role;
 import com.ning.domain.entity.User;
@@ -18,8 +19,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 用户应用服务
@@ -145,7 +148,17 @@ public class UserAppService {
      */
     public UserDTO get(Long id) {
         UserId userId = new UserId(id);
-        return userRepository.find(userId).map(userAssembler::toDTO)
+        return userRepository.find(userId).map(u -> {
+                    UserDTO user = userAssembler.toDTO(u);
+                    if (Objects.nonNull(user.getRoles()) && user.getRoles().contains("admin")) {
+                        user.setPermissions(Set.copyOf(menuRepository.findAllPermissions()));
+                    } else {
+                        List<Menu> menus = menuRepository.findByUserId(u.getId());
+                        Set<String> permissions = menus.stream().map(Menu::getPerms).collect(Collectors.toSet());
+                        user.setPermissions(permissions);
+                    }
+                    return user;
+                })
                 .orElseThrow(() -> new BusinessException(ErrorCodeEnum.USER_NOT_EXISTS));
     }
 

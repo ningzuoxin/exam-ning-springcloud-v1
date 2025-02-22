@@ -21,6 +21,7 @@ public enum ErrorCodeEnum {
     VALIDATE_FAILED("400", "Parameter validation failed"),
     UNAUTHORIZED("401", "Not logged in or token has expired"),
     FORBIDDEN("403", "No relevant permissions"),
+    API_NOT_FOUND("404", "API not found"),
     PARAMETER_BLANK("410", "Parameter is blank"),
 
     /**

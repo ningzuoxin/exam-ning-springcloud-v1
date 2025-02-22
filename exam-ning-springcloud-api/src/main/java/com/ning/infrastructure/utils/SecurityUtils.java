@@ -33,6 +33,14 @@ public class SecurityUtils {
         return getCurrentUser(authentication);
     }
 
+    public static Long userId() {
+        CurrentUser currentUser = getCurrentUser();
+        if (Objects.isNull(currentUser)) {
+            return 0L;
+        }
+        return currentUser.getUserId();
+    }
+
     public static String encryptPassword(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.encode(password);
