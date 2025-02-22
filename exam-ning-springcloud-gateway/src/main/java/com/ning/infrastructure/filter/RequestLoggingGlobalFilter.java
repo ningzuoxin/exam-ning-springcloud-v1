@@ -108,7 +108,11 @@ public class RequestLoggingGlobalFilter implements GlobalFilter, Ordered {
 
                     ServerWebExchange mutatedExchange = exchange.mutate().request(wrappedRequest).build();
                     return chain.filter(mutatedExchange);
-                });
+                })
+                .switchIfEmpty(Mono.defer(() -> {
+                    // 如果请求体为空，直接继续过滤器链
+                    return chain.filter(exchange);
+                }));
     }
 
     // 格式化日志输出

@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 错误码枚举
+ * Error code enumeration
  *
  * @author zuoxin.ning
  * @since 2024-10-25 14:00
@@ -14,48 +14,50 @@ import lombok.Getter;
 public enum ErrorCodeEnum {
 
     /**
-     * 通用模块
+     * General module
      */
-    SUCCESS("0", "操作成功"),
-    FAILED("-1", "操作失败"),
-    VALIDATE_FAILED("400", "参数检验失败"),
-    UNAUTHORIZED("401", "暂未登录或token已经过期"),
-    FORBIDDEN("403", "没有相关权限"),
-    PARAMETER_BLANK("410", "参数为空"),
+    SUCCESS("0", "Operation succeeded"),
+    FAILED("-1", "Operation failed"),
+    VALIDATE_FAILED("400", "Parameter validation failed"),
+    UNAUTHORIZED("401", "Not logged in or token has expired"),
+    FORBIDDEN("403", "No relevant permissions"),
+    PARAMETER_BLANK("410", "Parameter is blank"),
 
     /**
-     * 用户模块
+     * User module
      */
-    USER_NOT_EXISTS("1001", "用户不存在"),
-    USER_USERNAME_EXISTS("1002", "用户名已经存在"),
+    USER_NOT_EXISTS("1001", "User does not exist"),
+    USER_USERNAME_EXISTS("1002", "Username already exists"),
 
     /**
-     * 角色模块
+     * Role module
      */
-    ROLE_NOT_EXISTS("2001", "角色不存在"),
-    ROLE_KEY_EXISTS("2002", "角色代码已经存在"),
+    ROLE_NOT_EXISTS("2001", "Role does not exist"),
+    ROLE_KEY_EXISTS("2002", "Role code already exists"),
 
     /**
-     * 菜单模块
+     * Menu module
      */
-    MENU_NOT_EXISTS("3001", "菜单不存在"),
+    MENU_NOT_EXISTS("3001", "Menu does not exist"),
 
     /**
-     * 试题模块
+     * Question module
      */
-    QUESTION_NOT_EXISTS("4001", "试题不存在"),
+    QUESTION_NOT_EXISTS("4001", "Question does not exist"),
 
     /**
-     * 试卷模块
+     * Paper module
      */
-    PAPER_NOT_EXISTS("5001", "试卷不存在"),
+    PAPER_NOT_EXISTS("5001", "Paper does not exist"),
 
     /**
-     * 试卷结果模块
+     * Paper result module
      */
-    PAPER_RESULT_NOT_EXISTS("6001", "试卷结果不存在"),
+    PAPER_RESULT_NOT_EXISTS("6001", "Result does not exist"),
+
     ;
 
     private final String code;
     private final String message;
+
 }

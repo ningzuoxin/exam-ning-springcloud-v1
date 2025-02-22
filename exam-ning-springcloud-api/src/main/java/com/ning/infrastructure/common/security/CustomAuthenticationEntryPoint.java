@@ -1,4 +1,4 @@
-package com.ning.infrastructure.security;
+package com.ning.infrastructure.common.security;
 
 import cn.hutool.json.JSONUtil;
 import com.ning.infrastructure.common.enums.ErrorCodeEnum;
@@ -10,6 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
+/**
+ * Custom AuthenticationEntryPoint
+ *
+ * @author zuoxin.ning
+ * @since 2024-10-25 14:00
+ */
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override

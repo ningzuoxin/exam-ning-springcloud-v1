@@ -1,5 +1,7 @@
 package com.ning.infrastructure.config;
 
+import com.ning.infrastructure.common.security.CustomAccessDeniedHandler;
+import com.ning.infrastructure.common.security.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,10 +36,15 @@ public class WebSecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .anonymous(AbstractHttpConfigurer::disable)
-                .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationManager(authenticationManager())
+                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
-                .authenticationManager(authenticationManager());
+                .exceptionHandling((exceptions) -> exceptions
+                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+                        .accessDeniedHandler(new CustomAccessDeniedHandler())
+                );
         return http.build();
+
     }
 
     @Bean

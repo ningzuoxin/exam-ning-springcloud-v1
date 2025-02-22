@@ -1,8 +1,8 @@
 //package com.ning.infrastructure.config.redis;
 //
 //import com.ning.infrastructure.security.CommonUserConverter;
-//import com.ning.infrastructure.security.CustomAccessDeniedHandler;
-//import com.ning.infrastructure.security.CustomAuthenticationEntryPoint;
+//import com.ning.infrastructure.common.security.CustomAccessDeniedHandler;
+//import com.ning.infrastructure.common.security.CustomAuthenticationEntryPoint;
 //import com.ning.infrastructure.security.CustomRestTemplateResponseErrorHandler;
 //import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.cloud.client.loadbalancer.LoadBalanced;

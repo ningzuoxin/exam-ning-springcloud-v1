@@ -1,4 +1,4 @@
-package com.ning.infrastructure.security;
+package com.ning.infrastructure.common.security;
 
 import cn.hutool.json.JSONUtil;
 import com.ning.infrastructure.common.enums.ErrorCodeEnum;
@@ -11,7 +11,10 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
 /**
- * 自定义访问异常处理器
+ * Custom AccessDeniedHandler
+ *
+ * @author zuoxin.ning
+ * @since 2024-10-25 14:00
  */
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 

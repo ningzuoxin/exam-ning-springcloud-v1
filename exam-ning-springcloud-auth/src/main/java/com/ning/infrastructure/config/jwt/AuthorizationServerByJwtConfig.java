@@ -72,29 +72,22 @@ public class AuthorizationServerByJwtConfig {
     @Bean
     @Order(1)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
-        OAuth2AuthorizationServerConfigurer authorizationServerConfigurer = OAuth2AuthorizationServerConfigurer.authorizationServer();
-
+        OAuth2AuthorizationServerConfigurer authorizationServerConfig = OAuth2AuthorizationServerConfigurer.authorizationServer();
         http
-                .securityMatcher(authorizationServerConfigurer.getEndpointsMatcher())
-                .with(authorizationServerConfigurer, (authorizationServer) ->
-                        authorizationServer
-                                .oidc(Customizer.withDefaults())
-                )
-                .authorizeHttpRequests((authorize) ->
-                        authorize.anyRequest().authenticated()
-                )
+                .securityMatcher(authorizationServerConfig.getEndpointsMatcher())
+                .with(authorizationServerConfig, (authorizationServer) -> authorizationServer.oidc(Customizer.withDefaults()))
+                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
                 .exceptionHandling((exceptions) -> exceptions
                         .defaultAuthenticationEntryPointFor(
                                 new LoginUrlAuthenticationEntryPoint("/login"),
                                 new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
                         )
                 )
-                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .getConfigurer(OAuth2AuthorizationServerConfigurer.class)
-                .tokenEndpoint(tokenEndpoint ->
-                        tokenEndpoint
-                                .accessTokenRequestConverter(new CustomPasswordAuthenticationConverter())
-                                .authenticationProvider(new CustomPasswordAuthenticationProvider(authorizationService(), tokenGenerator(), userDetailsService, passwordEncoder))
+                .tokenEndpoint(tokenEndpoint -> tokenEndpoint
+                        .accessTokenRequestConverter(new CustomPasswordAuthenticationConverter())
+                        .authenticationProvider(new CustomPasswordAuthenticationProvider(authorizationService(), tokenGenerator(), userDetailsService, passwordEncoder))
                 );
 
         return http.build();

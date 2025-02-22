@@ -98,7 +98,7 @@ public class PaperAppService {
      */
     public PaperDTO publish(Long paperUid) {
         Optional<Paper> paperOpt = paperRepository.find(new PaperId(paperUid));
-        if (!paperOpt.isPresent()) {
+        if (paperOpt.isEmpty()) {
             throw new BusinessException(ErrorCodeEnum.PAPER_NOT_EXISTS);
         }
 

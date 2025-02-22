@@ -1,7 +1,7 @@
 //package com.ning.infrastructure.config.jwt;
 //
-//import com.ning.infrastructure.security.CustomAccessDeniedHandler;
-//import com.ning.infrastructure.security.CustomAuthenticationEntryPoint;
+//import com.ning.infrastructure.common.security.CustomAccessDeniedHandler;
+//import com.ning.infrastructure.common.security.CustomAuthenticationEntryPoint;
 //import org.springframework.beans.factory.annotation.Qualifier;
 //import org.springframework.context.annotation.Configuration;
 //import org.springframework.core.annotation.Order;

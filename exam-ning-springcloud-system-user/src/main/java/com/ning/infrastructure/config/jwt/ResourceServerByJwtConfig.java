@@ -1,7 +1,7 @@
 package com.ning.infrastructure.config.jwt;
 
-import com.ning.infrastructure.security.CustomAccessDeniedHandler;
-import com.ning.infrastructure.security.CustomAuthenticationEntryPoint;
+import com.ning.infrastructure.common.security.CustomAccessDeniedHandler;
+import com.ning.infrastructure.common.security.CustomAuthenticationEntryPoint;
 import com.ning.infrastructure.security.CustomJwtAuthenticationConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -13,9 +13,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
 
 /**
  * 基于 JWT 的资源服务器配置
@@ -33,27 +31,23 @@ public class ResourceServerByJwtConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        AuthenticationEntryPoint authenticationEntryPoint = new CustomAuthenticationEntryPoint();
-        AccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
-        CustomJwtAuthenticationConverter jwtAuthenticationConverter = new CustomJwtAuthenticationConverter();
-
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .anonymous(AbstractHttpConfigurer::disable)
-                .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/ids/**", "/users/current-user", "/menus/**").permitAll()
+                        .requestMatchers("/ids/**", "/users/current-user").permitAll()
                         .anyRequest().authenticated()
                 )
-                .oauth2ResourceServer((oauth2) -> oauth2
-                        .jwt((jwt) -> jwt.decoder(jwtDecoder()).jwtAuthenticationConverter(jwtAuthenticationConverter))
-                        .authenticationEntryPoint(authenticationEntryPoint)
+                .oauth2ResourceServer((resourceServer) -> resourceServer
+                        .jwt((jwt) -> jwt.decoder(jwtDecoder()).jwtAuthenticationConverter(new CustomJwtAuthenticationConverter()))
+                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 )
-                .exceptionHandling(e -> e
-                        .authenticationEntryPoint(authenticationEntryPoint)
-                        .accessDeniedHandler(accessDeniedHandler)
+                .exceptionHandling(exceptions -> exceptions
+                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+                        .accessDeniedHandler(new CustomAccessDeniedHandler())
                 );
         return http.build();
     }
