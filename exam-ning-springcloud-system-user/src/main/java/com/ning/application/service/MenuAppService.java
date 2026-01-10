@@ -101,6 +101,7 @@ public class MenuAppService {
      */
     public List<RouterDTO> routers(Long userId) {
         List<Menu> menuList = menuRepository.findByUserId(new UserId(userId));
+        menuList = menuRepository.findAll(); // todo 待移除，仅测试用，查询全部菜单
         List<Menu> treeMenuList = Menu.tree(menuList);
         return this.buildRouterList(treeMenuList);
     }

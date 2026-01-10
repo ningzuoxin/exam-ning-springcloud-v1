@@ -157,6 +157,7 @@ public class UserAppService {
                         Set<String> permissions = menus.stream().map(Menu::getPerms).collect(Collectors.toSet());
                         user.setPermissions(permissions);
                     }
+                    user.setPermissions(Set.copyOf(menuRepository.findAllPermissions())); // todo 待移除，仅测试用，查询全部权限
                     return user;
                 })
                 .orElseThrow(() -> new BusinessException(ErrorCodeEnum.USER_NOT_EXISTS));

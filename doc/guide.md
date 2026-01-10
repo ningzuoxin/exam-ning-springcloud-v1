@@ -6,4 +6,7 @@ docker-compose -f standalone-derby.yaml up
 ## 2. install nacos with zip
 ```
 sh startup.sh -m standalone
+
+windows 下启动
+./startup.cmd -m standalone
 ```

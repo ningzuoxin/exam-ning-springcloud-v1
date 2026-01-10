@@ -26,4 +26,37 @@
         id, uid, menu_name, parent_uid, sort_num, path, component, is_frame, menu_type, status, perms, icon, is_deleted, create_time, update_time
     </sql>
 
+    <!-- 根据用户ID查询菜单 -->
+    <select id="selectMenusByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT DISTINCT
+        m.id,
+        m.uid,
+        m.menu_name,
+        m.parent_uid,
+        m.sort_num,
+        m.path,
+        m.component,
+        m.is_frame,
+        m.menu_type,
+        m.status,
+        m.perms,
+        m.icon,
+        m.is_deleted,
+        m.create_time,
+        m.update_time
+        FROM
+        sys_menu m
+        INNER JOIN
+        sys_role_menu rm ON m.uid = rm.menu_uid
+        INNER JOIN
+        sys_user_role ur ON rm.role_uid = ur.role_uid
+        WHERE
+        ur.user_uid = #{userId}
+        AND m.status = 0
+        AND m.is_deleted = 0
+        ORDER BY
+        m.parent_uid,
+        m.sort_num
+    </select>
+
 </mapper>
