@@ -155,6 +155,7 @@ public class UserRepositoryImpl implements UserRepository {
         }
 
         UserDO userDO = userDOOpt.get();
+        userDO.setIsDeleted((byte) 1);
         userDao.updateById(userDO);
         return true;
     }
