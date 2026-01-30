@@ -27,6 +27,10 @@ public interface MenuAssembler {
 
     List<MenuDTO> toDTOList(List<Menu> entityList);
 
+    @Mapping(target = "data", expression = "java(toDTOList(pageEntityList.getData()))")
+    @Mapping(target = "total", source = "total")
+    @Mapping(target = "pageNum", source = "pageNum")
+    @Mapping(target = "pageSize", source = "pageSize")
     PageWrapper<MenuDTO> toDTOPageList(PageWrapper<Menu> pageEntityList);
 
     MenuDTO toDTO(AddMenuRequest request);
